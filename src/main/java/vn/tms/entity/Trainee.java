@@ -11,13 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(name = "Account")
 public class Trainee extends Account implements Serializable {
 	/**
 	 * 
@@ -44,16 +47,16 @@ public class Trainee extends Account implements Serializable {
 	@Column(name = "address")
 	private String address;
 
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "trainee_courses", catalog = "tms", joinColumns = {
-			@JoinColumn(name = "id", nullable = false, updatable = false) },
-			inverseJoinColumns = { @JoinColumn(name = "id",
-					nullable = false, updatable = false) })
+			@JoinColumn(name = "courses_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "trainee_id", nullable = false, updatable = false) })
 	private Set<Courses> listCourses = new HashSet<>();
-	
-//	@OneToMany(mappedBy="trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<ReviewTopic> listReviewTopic = new HashSet<>();
-	
-//	@OneToMany(mappedBy="trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<ReviewCourses> listReviewCourses = new HashSet<>();
 
 	public Trainee(String name, String password, int role, int age, Date birthday, String education,
@@ -65,6 +68,15 @@ public class Trainee extends Account implements Serializable {
 		this.programmingLanguage = programmingLanguage;
 		this.toeicScore = toeicScore;
 		this.address = address;
+	}
+
+	public Trainee() {
+
+	}
+	
+
+	public Trainee(String name, String password) {
+		super(name, password);
 	}
 
 	public int getAge() {

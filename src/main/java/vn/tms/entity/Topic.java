@@ -14,45 +14,43 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
-
 @Entity
-public class Topic implements Serializable{
+public class Topic implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "createdAt")
 	private Date createdAt;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Courses courses;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private TrainingStaff trainingStaff;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Trainer trainer;
-	
-//	@OneToMany(mappedBy="topic", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<ReviewTopic> listReviewTopic;
-	
+
 	public Topic() {
-		super();
 	}
+
 	public Topic(String name, String description, Date createdAt, Courses courses, TrainingStaff trainingStaff,
 			Trainer trainer, Set<ReviewTopic> listReviewTopic) {
 		super();
@@ -64,58 +62,69 @@ public class Topic implements Serializable{
 		this.trainer = trainer;
 		this.listReviewTopic = listReviewTopic;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
 	public Courses getCourses() {
 		return courses;
 	}
+
 	public void setCourses(Courses courses) {
 		this.courses = courses;
 	}
+
 	public TrainingStaff getTrainingStaff() {
 		return trainingStaff;
 	}
+
 	public void setTrainingStaff(TrainingStaff trainingStaff) {
 		this.trainingStaff = trainingStaff;
 	}
+
 	public Trainer getTrainer() {
 		return trainer;
 	}
+
 	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
+
 	public Set<ReviewTopic> getListReviewTopic() {
 		return listReviewTopic;
 	}
+
 	public void setListReviewTopic(Set<ReviewTopic> listReviewTopic) {
 		this.listReviewTopic = listReviewTopic;
 	}
-	
-	
-	
-	
-	
-	
+
 }

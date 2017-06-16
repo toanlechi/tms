@@ -9,8 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Account")
 public class Trainer extends Account implements Serializable {
 	/**
 	 * 
@@ -29,7 +31,7 @@ public class Trainer extends Account implements Serializable {
 	@Column(name = "phone")
 	private int phone;
 
-//	@OneToMany(mappedBy="trainer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Topic> listTopic = new HashSet<>();
 
 	public Trainer(String name, String password, int role, int type, String education, String workingPlace, int phone) {
@@ -38,6 +40,10 @@ public class Trainer extends Account implements Serializable {
 		this.education = education;
 		this.workingPlace = workingPlace;
 		this.phone = phone;
+	}
+
+	public Trainer() {
+
 	}
 
 	public int getType() {

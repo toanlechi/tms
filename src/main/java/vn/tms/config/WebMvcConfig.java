@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan({ "vn.tms" })
+@EnableJpaRepositories
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -30,16 +34,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 		registry.addResourceHandler("/styles/**").addResourceLocations("/WEB-INF/resources/").setCachePeriod(31556926);
 
-		
-
-		 registry.addResourceHandler("/static/**")
-         .addResourceLocations("/resources/", "/webjars/")
-         .setCacheControl(
-                 CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic())
-         .resourceChain(true)
-         .addResolver(new WebJarsResourceResolver());
-		   
-
+		registry.addResourceHandler("/static/**").addResourceLocations("/resources/", "/webjars/")
+				.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic()).resourceChain(true)
+				.addResolver(new WebJarsResourceResolver());
 	}
 
 	@Override
@@ -55,5 +52,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		converters.add(stringConverter);
 
 		// Add other converters ...
+	}
+
+	@Bean
+	public ResourceBundleMessageSource messageSource() {
+		ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
+		rb.setBasenames(new String[] { "messages/messages", "messages/validation" });
+		return rb;
 	}
 }

@@ -15,41 +15,37 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
-
 @Entity
-public class Category implements Serializable{
+public class Category implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "createdAt")
 	private Date createdAt;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private TrainingStaff trainingStaff;
 
-//	@OneToMany(mappedBy="category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Courses> listCourses = new HashSet<>();
-	
-	
+
 	public Category() {
 		super();
 	}
-
 
 	public Category(String name, String description, Date createdAt, TrainingStaff trainingStaff,
 			Set<Courses> listCourses) {
@@ -61,77 +57,56 @@ public class Category implements Serializable{
 		this.listCourses = listCourses;
 	}
 
-
-
-
-
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
-
 	public TrainingStaff getTrainingStaff() {
 		return trainingStaff;
 	}
-
 
 	public void setTrainingStaff(TrainingStaff trainingStaff) {
 		this.trainingStaff = trainingStaff;
 	}
 
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 
 	public Set<Courses> getListCourses() {
 		return listCourses;
 	}
 
-
 	public void setListCourses(Set<Courses> listCourses) {
 		this.listCourses = listCourses;
 	}
 
-
-	
-	
-	
-	
 }

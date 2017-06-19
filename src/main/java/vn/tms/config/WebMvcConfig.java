@@ -3,22 +3,22 @@ package vn.tms.config;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.resource.WebJarsResourceResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -27,16 +27,9 @@ import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 
-	// Cấu hình để sử dụng các file nguồn tĩnh (html, image, ..)
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
-
-		registry.addResourceHandler("/styles/**").addResourceLocations("/WEB-INF/resources/").setCachePeriod(31556926);
-
-		registry.addResourceHandler("/static/**").addResourceLocations("/resources/", "/webjars/")
-				.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic()).resourceChain(true)
-				.addResolver(new WebJarsResourceResolver());
+		registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
 	}
 
 	@Override
@@ -59,5 +52,22 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
 		rb.setBasenames(new String[] { "messages/messages", "messages/validation" });
 		return rb;
+	}
+	
+	/**
+	 * Configure TilesConfigurer.
+	 */
+	@Bean
+	public TilesConfigurer tilesConfigurer() {
+		TilesConfigurer tilesConfigurer = new TilesConfigurer();
+		tilesConfigurer.setDefinitions(new String[] { "/WEB-INF/tiles/tiles.xml" });
+		tilesConfigurer.setCheckRefresh(true);
+		return tilesConfigurer;
+	}
+	
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		TilesViewResolver viewResolver = new TilesViewResolver();
+        registry.viewResolver(viewResolver);
 	}
 }

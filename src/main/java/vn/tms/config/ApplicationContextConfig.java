@@ -17,8 +17,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -52,6 +50,7 @@ public class ApplicationContextConfig {
 		return dataSource;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -78,15 +77,6 @@ public class ApplicationContextConfig {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
-	}
-
-	@Bean
-	public UrlBasedViewResolver setupViewResolver() {
-		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-		resolver.setPrefix("/WEB-INF/pages/");
-		resolver.setSuffix(".jsp");
-		resolver.setViewClass(JstlView.class);
-		return resolver;
 	}
 
 }

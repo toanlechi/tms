@@ -6,8 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import vn.tms.entity.Category;
 
-public interface CategoryDAO extends CrudRepository<Category, Integer>{
-	
+public interface CategoryDAO extends CrudRepository<Category, Integer> {
 	List<Category> findAll();
-
 }

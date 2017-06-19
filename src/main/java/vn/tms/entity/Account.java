@@ -50,8 +50,6 @@ public abstract class Account implements Serializable {
 		this.password = password;
 	}
 
-
-
 	public Account() {
 
 	}

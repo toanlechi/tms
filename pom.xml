@@ -207,7 +207,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>tms2</finalName>
+		<finalName>tms</finalName>
 		<plugins>
 
 

@@ -1,5 +1,12 @@
 package vn.tms.services;
 
-public interface TrainingStaffServices {
+import java.util.List;
 
+import vn.tms.entity.TrainingStaff;
+
+public interface TrainingStaffServices {
+	TrainingStaff findByEmail(String email);
+	void save(TrainingStaff trainingStaff);
+	
+	List<TrainingStaff> findAll();
 }

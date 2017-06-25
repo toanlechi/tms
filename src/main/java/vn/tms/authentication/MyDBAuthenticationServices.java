@@ -25,6 +25,8 @@ public class MyDBAuthenticationServices implements UserDetailsService {
 		if (account == null) {
 			throw new UsernameNotFoundException("User " + email + " was not found in the database");
 		}
+		
+		System.out.println(account.getEmail() + " -  " + account.getPassword());
 
 		String role = String.valueOf(account.getRole());
 

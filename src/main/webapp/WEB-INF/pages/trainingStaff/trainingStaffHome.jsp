@@ -1,4 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <section class="content-header">
 	<h1>
@@ -31,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="categoryItem" items="${listCategory }"
+							<c:forEach var="categoryItem" items="${listCategory}"
 								varStatus="stt">
 								<tr>
 									<td>${stt.index +1 }</td>
@@ -49,7 +52,6 @@
 												<li><a href="#">Delete</a></li>
 											</ul>
 										</div>
-
 									</td>
 								</tr>
 

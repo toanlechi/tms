@@ -1,8 +1,10 @@
 package vn.tms.services;
 
-import org.springframework.security.core.userdetails.User;
+import java.util.List;
+
+import vn.tms.entity.Trainer;
 
 public interface TrainerServices{
 	
-	User findByEmail(String email);
+	List<Trainer> findAll();
 }

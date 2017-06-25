@@ -9,5 +9,7 @@ import vn.tms.entity.Category;
 public interface CategoryDAO extends CrudRepository<Category, Integer>{
 	
 	List<Category> findAll();
+	
+	Category findOne(int id);
 
 }

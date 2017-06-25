@@ -36,16 +36,16 @@ public class Topic implements Serializable {
 	@Column(name = "createdAt")
 	private Date createdAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Courses courses;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TrainingStaff trainingStaff;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Trainer trainer;
 
-	@OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ReviewTopic> listReviewTopic;
 
 	public Topic() {
@@ -61,6 +61,15 @@ public class Topic implements Serializable {
 		this.trainingStaff = trainingStaff;
 		this.trainer = trainer;
 		this.listReviewTopic = listReviewTopic;
+	}
+
+	public Topic(String name, String description, Date createdAt, Courses courses, TrainingStaff trainingStaff) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.courses = courses;
+		this.trainingStaff = trainingStaff;
 	}
 
 	public int getId() {

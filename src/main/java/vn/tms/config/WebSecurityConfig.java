@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("abc@abc").password("123123").roles("1");
+
 		auth.userDetailsService(myDBAuthenticationServices);
 		auth.authenticationProvider(authenticationProvider());
 
@@ -44,21 +46,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 
-		// Trang không yêu cầu login
-		http.authorizeRequests().antMatchers("/", "/home", "/login", "/register", "/logout").permitAll();
+		// Trang khÃ´ng yÃªu cáº§u login
+		http.authorizeRequests().antMatchers("/", "/login", "/register", "/logout").permitAll();
 
-		// Trang user-info, chuyển về login nếu chưa đăng nhập
-		http.authorizeRequests().antMatchers("/user-info").access("hasAnyRole('ROLE_2', 'ROLE_0')");
+		// Trang user-info, chuyá»ƒn vá»� login náº¿u chÆ°a Ä‘Äƒng nháº­p
+		http.authorizeRequests().antMatchers("/category", "/courses", "/topic").access("hasAnyRole('ROLE_1')");
 
-		// Trang dành cho admin
+		// Trang dÃ nh cho admin
 		http.authorizeRequests().antMatchers("/admin", "/admin/flight", "/admin/journey", "/admin/airline")
 				.access("hasAnyRole('ROLE_0')");
 
-		// Ngoại lệ khi truy cập sai permision
+		// Ngoáº¡i lá»‡ khi truy cáº­p sai permision
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
 		http.authorizeRequests().and().formLogin().loginProcessingUrl("/j_spring_security_check").loginPage("/login")
-				.defaultSuccessUrl("/user-info").failureUrl("/login?error=true").usernameParameter("email")
+				.defaultSuccessUrl("/category").failureUrl("/login?error=true").usernameParameter("email")
 				.passwordParameter("password").and().logout().logoutUrl("/logout").logoutSuccessUrl("/home");
 	}
 

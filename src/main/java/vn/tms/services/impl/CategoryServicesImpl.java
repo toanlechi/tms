@@ -20,4 +20,20 @@ public class CategoryServicesImpl implements CategoryServices {
 		return categoryDAO.findAll();
 	}
 
+	@Override
+	public Category findOne(int id) {
+		return categoryDAO.findOne(id);
+	}
+
+	@Override
+	public void save(Category category) {
+		categoryDAO.save(category);
+		
+	}
+
+	@Override
+	public void delete(int id) {
+		categoryDAO.delete(id);
+	}
+
 }

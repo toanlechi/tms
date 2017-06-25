@@ -47,16 +47,16 @@ public class Trainee extends Account implements Serializable {
 	@Column(name = "address")
 	private String address;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "trainee_courses", catalog = "tms", joinColumns = {
-			@JoinColumn(name = "courses_id", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "trainee_id", nullable = false, updatable = false) })
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "trainee_courses", joinColumns = 
+			@JoinColumn(name = "courses_id", referencedColumnName="id") , inverseJoinColumns = 
+					@JoinColumn(name = "trainee_id",referencedColumnName="id") )
 	private Set<Courses> listCourses = new HashSet<>();
 
-	@OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "trainee", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ReviewTopic> listReviewTopic = new HashSet<>();
 
-	@OneToMany(mappedBy = "trainee", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "trainee", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ReviewCourses> listReviewCourses = new HashSet<>();
 
 	public Trainee(String name, String password, int role, int age, Date birthday, String education,
@@ -77,6 +77,10 @@ public class Trainee extends Account implements Serializable {
 
 	public Trainee(String name, String password) {
 		super(name, password);
+	}
+	
+	public Trainee(String name, String password, int role) {
+		super(name, password, role);
 	}
 
 	public int getAge() {

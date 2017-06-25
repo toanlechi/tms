@@ -31,6 +31,12 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="${css}"/>">
 </c:forEach>
 
+<!-- scripts -->
+	<c:forEach var="script" items="${javascripts}">
+		<script src="<c:url value="${script}"/>"></script>
+	</c:forEach>
+	<!-- end scripts -->
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,11 +65,7 @@
 		</footer>
 	</div>
 
-	<!-- scripts -->
-	<c:forEach var="script" items="${javascripts}">
-		<script src="<c:url value="${script}"/>"></script>
-	</c:forEach>
-	<!-- end scripts -->
+	
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);

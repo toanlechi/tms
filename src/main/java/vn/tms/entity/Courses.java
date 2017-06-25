@@ -37,32 +37,28 @@ public class Courses implements Serializable {
 	@Column(name = "createdAt")
 	private Date createdAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TrainingStaff trainingStaff;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "listCourses")
+	@ManyToMany(mappedBy = "listCourses")
 	private Set<Trainee> listTrainee;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ReviewCourses> listReviewCourses;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Topic> listTopic;
 
-	public Courses(String name, String description, Date createdAt, Category category, TrainingStaff trainingStaff,
-			Set<Trainee> listTrainee, Set<ReviewCourses> listReviewCourses, Set<Topic> listTopic) {
+	public Courses(String name, String description, Date createdAt, Category category, TrainingStaff trainingStaff) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
 		this.category = category;
 		this.trainingStaff = trainingStaff;
-		this.listTrainee = listTrainee;
-		this.listReviewCourses = listReviewCourses;
-		this.listTopic = listTopic;
 	}
 
 	public Courses() {

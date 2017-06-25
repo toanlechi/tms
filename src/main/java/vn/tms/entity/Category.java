@@ -37,10 +37,10 @@ public class Category implements Serializable {
 	@Column(name = "createdAt")
 	private Date createdAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TrainingStaff trainingStaff;
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Courses> listCourses = new HashSet<>();
 
 	public Category() {
@@ -55,6 +55,22 @@ public class Category implements Serializable {
 		this.createdAt = createdAt;
 		this.trainingStaff = trainingStaff;
 		this.listCourses = listCourses;
+	}
+	
+	public Category(String name, String description, Date createdAt, TrainingStaff trainingStaff) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.trainingStaff = trainingStaff;
+	}
+	
+	
+
+	public Category(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
 	}
 
 	public int getId() {

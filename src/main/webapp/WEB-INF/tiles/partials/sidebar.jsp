@@ -26,6 +26,21 @@
 				<i class="fa fa-dashboard"></i><span>Dashboard</span>
 			</a>
 		</li>
+		<li class="treeview">
+			<a href="<c:url value="/category" />"> 
+				<i class="fa fa-cube"></i><span>Category</span>
+			</a>
+		</li>
+		<li class="treeview">
+			<a href="<c:url value="/courses" />"> 
+				<i class="fa fa-book"></i><span>Courses</span>
+			</a>
+		</li>
+		<li class="treeview">
+			<a href="<c:url value="/topic" />"> 
+				<i class="fa fa-file-o"></i><span>Topic</span>
+			</a>
+		</li>
 	</ul>
 </section>
 <!-- /.sidebar -->

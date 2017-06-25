@@ -6,37 +6,132 @@
 	<definition name="app-definition" template="/WEB-INF/tiles/layouts/app.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/tiles/partials/header.jsp" />
-		<put-attribute name="sidebar" value="/WEB-INF/tiles/partials/sidebar.jsp" />
+		<put-attribute name="sidebar"
+			value="/WEB-INF/tiles/partials/sidebar.jsp" />
 		<put-attribute name="main" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/partials/footer.jsp" />
-		
+
 		<put-list-attribute name="javascripts">
 			<add-attribute value="/static/vendor/jQuery/jquery-2.2.3.min.js" />
 			<add-attribute value="/static/vendor/jQueryUI/jquery-ui.min.js" />
 			<add-attribute value="/static/vendor/bootstrap/js/bootstrap.min.js" />
 			<add-attribute value="/static/vendor/datatables/jquery.dataTables.min.js" />
-			<add-attribute value="/static/vendor/datatables/dataTables.bootstrap.min.js" />
+			<add-attribute
+				value="/static/vendor/datatables/dataTables.bootstrap.min.js" />
 			<add-attribute value="/static/vendor/sparkline/jquery.sparkline.min.js" />
 			<add-attribute value="/static/vendor/slimScroll/jquery.slimscroll.min.js" />
 			<add-attribute value="/static/vendor/fastclick/fastclick.js" />
 			<add-attribute value="/static/js/app.min.js" />
 			<add-attribute value="/static/js/custom.js" />
 		</put-list-attribute>
-		
+
 		<put-list-attribute name="stylesheets">
 			<add-attribute value="/static/vendor/bootstrap/css/bootstrap.min.css" />
 			<add-attribute value="/static/vendor/font-awesome/css/font-awesome.min.css" />
-			<add-attribute value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+			<add-attribute
+				value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 			<add-attribute value="/static/css/AdminLTE.min.css" />
+			<add-attribute value="/static/css/style.css" />
 			<add-attribute value="/static/css/skins/_all-skins.min.css" />
 			<add-attribute value="/static/vendor/datatables/dataTables.bootstrap.css" />
 		</put-list-attribute>
 	</definition>
-	
+
+	<!-- Security Definition -->
+	<definition name="security-definition" template="/WEB-INF/tiles/layouts/security.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="main" value="" />
+		<put-list-attribute name="stylesheets">
+			<add-attribute value="/static/vendor/bootstrap/css/bootstrap.min.css" />
+			<add-attribute value="/static/vendor/font-awesome/css/font-awesome.min.css" />
+			<add-attribute
+				value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+			<add-attribute value="/static/css/AdminLTE.min.css" />
+			<add-attribute value="/static/css/skins/_all-skins.min.css" />
+		</put-list-attribute>
+
+		<put-list-attribute name="javascripts">
+			<add-attribute value="/static/vendor/jQuery/jquery-2.2.3.min.js" />
+			<add-attribute value="/static/vendor/bootstrap/js/bootstrap.min.js" />
+			<add-attribute value="/static/vendor/iCheck/icheck.min.js" />
+			<add-attribute value="/static/js/custom.js" />
+		</put-list-attribute>
+	</definition>
+
+
 	<!-- =================================Admin Pages================================== -->
 	<!-- Demo Page -->
 	<definition name="demo" extends="app-definition">
 		<put-attribute name="title" value="Demo" />
 		<put-attribute name="main" value="/WEB-INF/pages/admin/demo.jsp" />
 	</definition>
+
+	<!-- Login -->
+	<definition name="login" extends="security-definition">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/login.jsp" />
+	</definition>
+
+	<!-- Category home -->
+	<definition name="category" extends="app-definition">
+		<put-attribute name="title" value="Category" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/category/category.jsp" />
+	</definition>
+
+	<!-- Category detail -->
+	<definition name="category_detail" extends="app-definition">
+		<put-attribute name="title" value="Category" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/category/detail_category.jsp" />
+	</definition>
+
+
+	<!-- Category add -->
+	<definition name="category_add" extends="app-definition">
+		<put-attribute name="title" value="Add category" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/category/add_category.jsp" />
+	</definition>
+
+
+	<!-- Courses home -->
+	<definition name="courses" extends="app-definition">
+		<put-attribute name="title" value="Courses" />
+		<put-attribute name="main" value="/WEB-INF/pages/courses/courses.jsp" />
+	</definition>
+
+	<!-- Courses detail -->
+	<definition name="courses_detail" extends="app-definition">
+		<put-attribute name="title" value="Courses" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/courses/detail_courses.jsp" />
+	</definition>
+
+	<!-- Courses add -->
+	<definition name="courses_add" extends="app-definition">
+		<put-attribute name="title" value="Add Courses" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/courses/add_courses.jsp" />
+	</definition>
+
+
+	<!-- Topic home -->
+	<definition name="topic" extends="app-definition">
+		<put-attribute name="title" value="Topic" />
+		<put-attribute name="main" value="/WEB-INF/pages/topic/topic.jsp" />
+	</definition>
+	
+	<!-- Topic detail -->
+	<definition name="topic_detail" extends="app-definition">
+		<put-attribute name="title" value="Topic" />
+		<put-attribute name="main" value="/WEB-INF/pages/topic/detail_topic.jsp" />
+	</definition>
+	
+	<!-- Topic add -->
+	<definition name="topic_add" extends="app-definition">
+		<put-attribute name="title" value="Add Topic" />
+		<put-attribute name="main" value="/WEB-INF/pages/topic/add_topic.jsp" />
+	</definition>
+
 </tiles-definitions>

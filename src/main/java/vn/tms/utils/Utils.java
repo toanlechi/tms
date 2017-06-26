@@ -55,19 +55,42 @@ public class Utils {
 		}
 
 		Collections.reverse(result);
-		System.out.println(result);
 		return result;
 	}
 
 	public static int convertToDec(List<String> list) {
 		char[] charArr = new char[8];
+		for (String str : list) {
+			if (str.equals("CN")) {
+				charArr[7] = '1';
+			} else if (str.equals("7")) {
+				charArr[6] = '1';
+			} else if (str.equals("6")) {
+				charArr[5] = '1';
+			} else if (str.equals("5")) {
+				charArr[4] = '1';
+			} else if (str.equals("4")) {
+				charArr[3] = '1';
+			} else if (str.equals("3")) {
+				charArr[2] = '1';
+			} else if (str.equals("2")) {
+				charArr[1] = '1';
+			}
+		}
+		StringBuffer stringBuffer = new StringBuffer();
+		for (int i = 0; i < charArr.length; i++) {
+			if (charArr[i] == '1') {
+				stringBuffer.append(charArr[i]);
+			} else {
+				stringBuffer.append(0);
+			}
+		}
+		int result = Integer.parseInt(stringBuffer.toString(), 2);
 
-		return 0;
+		return result;
 	}
 
 	public static void main(String[] args) {
-
-		getDayOfWeek(13);
 
 	}
 }

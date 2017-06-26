@@ -10,7 +10,7 @@
 		<p class="login-box-msg">Sign in to start your session</p>
 		
 		<c:if test="${param.error == 'true'}">
-						<div class="alert alert-info" id="view-error">
+						<div class="alert alert-error" id="view-error">
 							<strong>Login Failed!!!</strong> ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 						</div>
 					</c:if>

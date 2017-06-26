@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.tms.entity.TrainingStaff;
 import vn.tms.services.TrainingStaffServices;
-import vn.tms.utils.Constant;
 import vn.tms.validator.TrainingStaffValidator;
 
 @Controller
@@ -28,7 +27,7 @@ public class TrainingStaffController {
 
 	@GetMapping(value = "/admin/trainingStaffManager")
 	public String index(Model model) {
-		model.addAttribute("listTrainingStaff", trainingStaffServices.findAll(Constant.ROLE.TRAININGSTAFF));
+		model.addAttribute("listTrainingStaff", trainingStaffServices.findAll());
 
 		return "trainingStaffList";
 	}

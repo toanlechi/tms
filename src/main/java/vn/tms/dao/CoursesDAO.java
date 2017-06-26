@@ -13,5 +13,6 @@ public interface CoursesDAO extends CrudRepository<Courses, Integer>{
 	
 	List<Courses> findByCategory(Category category);
 	
+	List<Courses> findByName(String name);
 	
 }

@@ -29,8 +29,9 @@
 						<!-- text input -->
 						<div class="form-group">
 							<label>Name</label> <input type="text" class="form-control"
-								name="name" placeholder="Category name ..."
+								name="name" id="name" placeholder="Category name ..."
 								value="${category.name }">
+							<p hidden id="view-err-name"></p>
 						</div>
 
 						<!-- textarea -->
@@ -41,7 +42,7 @@
 						</div>
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary">Save</button>
+							<button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
 
 						</div>
 
@@ -60,5 +61,36 @@
 	$(function() {
 		$("#category-table").DataTable();
 
+	});
+
+	$("#name").change(function(event) {
+		var data = {}
+		data["name"] = $("#name").val();
+		$.ajax({
+			type : "POST",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			url : "/tms/ajax/check_category_name",
+			data : data,
+			dataType : 'text',
+			timeout : 600000,
+			success : function(data) {
+				console.log(data);
+				var label = $("#view-err-name");
+				var btn_submit = $("#btn-submit");
+				label.show();
+				if (data == "false") {
+					label.text("Category name isxists!");
+					label.css("color", "red");
+					btn_submit.prop('disabled', true);
+				} else {
+					label.hide();
+					btn_submit.prop('disabled', false);
+				}
+
+			},
+			error : function(e) {
+
+			}
+		});
 	});
 </script>

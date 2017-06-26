@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Topic implements Serializable {
@@ -32,6 +34,17 @@ public class Topic implements Serializable {
 
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name="timeStart")
+	@Temporal(TemporalType.TIME)
+	private Date timeStart;
+	
+	@Column(name= "timeEnd")
+	@Temporal(TemporalType.TIME)
+	private Date timeEnd;
+	
+	@Column(name="day")
+	private int day;
 
 	@Column(name = "createdAt")
 	private Date createdAt;

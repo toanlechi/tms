@@ -10,15 +10,15 @@ import vn.tms.entity.Trainee;
 import vn.tms.services.TraineeServices;
 
 @Service
-public class TraineeServicesImpl implements TraineeServices{
-	
+public class TraineeServicesImpl implements TraineeServices {
+
 	@Autowired
 	private TraineeDAO traineeDAO;
 
 	@Override
 	public void save(Trainee trainee) {
 		traineeDAO.save(trainee);
-		
+
 	}
 
 	@Override
@@ -29,6 +29,11 @@ public class TraineeServicesImpl implements TraineeServices{
 	@Override
 	public List<Trainee> findAll() {
 		return traineeDAO.findAll();
+	}
+
+	@Override
+	public Trainee findByEmail(String email) {
+		return traineeDAO.findByEmail(email);
 	}
 
 }

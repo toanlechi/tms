@@ -5,7 +5,7 @@ import java.util.List;
 import vn.tms.entity.Trainer;
 
 public interface TrainerServices {
-	List<Trainer> findAll(int role);
+	List<Trainer> findAll();
 
 	Trainer findByEmail(String email);
 

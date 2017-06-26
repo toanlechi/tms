@@ -40,7 +40,38 @@
 								</c:forEach>
 							</select>
 						</div>
-						
+
+
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Time start: </label> <input type="time"
+										class="form-control" name="timeStart">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Time end: </label> <input type="time"
+										class="form-control" name="timeEnd">
+								</div>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<p>
+								<label>Weekdays: </label>
+							</p>
+							M <input type="checkbox"> T<input type="checkbox"> W<input
+								type="checkbox"> Th<input type="checkbox"> W<input
+								type="checkbox"> Sa<input type="checkbox"> S<input
+								type="checkbox">
+						</div>
+
+
 						<div class="form-group">
 							<label>Trainer</label> <select class="form-control"
 								name="coursesId">
@@ -53,7 +84,7 @@
 								</c:forEach>
 							</select>
 						</div>
-						
+
 
 						<!-- text input -->
 						<div class="form-group">

@@ -15,5 +15,7 @@ public interface CoursesServices {
 	void save(Courses courses);
 	
 	void delete(int id);
+	
+	List<Courses> findByName(String name);
 
 }

@@ -11,17 +11,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import vn.tms.entity.Account;
-import vn.tms.services.AccountServices;
+import vn.tms.entity.Trainee;
+import vn.tms.services.TraineeServices;
 
 @Service
 public class MyDBAuthenticationServices implements UserDetailsService {
 
 	@Autowired
-	private AccountServices accountServices;
+	private TraineeServices traineeServices;
 
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Account account = accountServices.findByEmail(email);
+		Trainee account = traineeServices.findByEmail(email);
 		if (account == null) {
 			throw new UsernameNotFoundException("User " + email + " was not found in the database");
 		}

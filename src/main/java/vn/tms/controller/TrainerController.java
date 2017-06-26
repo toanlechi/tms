@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.tms.entity.Trainer;
 import vn.tms.services.TrainerServices;
-import vn.tms.utils.Constant;
 import vn.tms.validator.TrainerEditValidator;
 import vn.tms.validator.TrainerValidator;
 
@@ -32,7 +31,7 @@ public class TrainerController {
 
 	@GetMapping(value = "/admin/trainerManager")
 	public String index(Model model) {
-		model.addAttribute("listTrainer", trainerService.findAll(Constant.ROLE.TRAINER));
+		model.addAttribute("listTrainer", trainerService.findAll());
 
 		return "trainerList";
 	}

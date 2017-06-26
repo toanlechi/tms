@@ -22,8 +22,8 @@ public class TrainingStaffServicesImpl implements TrainingStaffServices{
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public List<TrainingStaff> findAll(int role) {
-		return trainingStaffDAO.findByRole(role);
+	public List<TrainingStaff> findAll() {
+		return trainingStaffDAO.findByRole(Constant.ROLE.TRAININGSTAFF);
 	}
 
 	@Override
@@ -71,6 +71,12 @@ public class TrainingStaffServicesImpl implements TrainingStaffServices{
 		}
 		
 		trainingStaffDAO.save(trainingStaff);
+	}
+
+	@Override
+	public void save(TrainingStaff trainingStaff) {
+		trainingStaffDAO.save(trainingStaff);
+		
 	}
 
 }

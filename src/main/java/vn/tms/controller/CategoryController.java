@@ -40,13 +40,10 @@ public class CategoryController {
 
 	@GetMapping("/category")
 	public ModelAndView category() {
+		
 		ModelAndView mv = new ModelAndView("category");
-
 		List<Category> categorys = categoryServices.findAll();
 		mv.addObject("categorys", categorys);
-
-		System.out.println(categorys.size());
-
 		return mv;
 	}
 

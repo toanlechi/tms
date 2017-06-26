@@ -42,4 +42,9 @@ public class CoursesServicesImpl implements CoursesServices{
 		coursesDAO.delete(id);
 	}
 
+	@Override
+	public List<Courses> findByName(String name) {
+		return coursesDAO.findByName(name);
+	}
+
 }

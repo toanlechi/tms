@@ -21,8 +21,8 @@ public class TrainerServicesImpl implements TrainerServices{
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public List<Trainer> findAll(int role) {
-		return trainerDAO.findByRole(role);
+	public List<Trainer> findAll() {
+		return trainerDAO.findByRole(Constant.ROLE.TRAINER);
 	}
 
 	@Override

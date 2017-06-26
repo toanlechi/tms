@@ -13,5 +13,7 @@ public interface CategoryServices {
 	void save(Category category);
 	
 	void delete(int id);
+	
+	List<Category> findByName(String name);
 
 }

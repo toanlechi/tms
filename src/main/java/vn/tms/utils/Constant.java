@@ -7,4 +7,9 @@ public interface Constant {
 		int TRAINER = 3;
 		int TRAINEE = 4;
 	}
+	
+	interface EMAIL{
+		String MY_EMAIL = "galuc2015xxx@gmail.com";
+		String MY_PASSWORD = "Ba47232015";
+	}
 }

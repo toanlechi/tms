@@ -5,8 +5,17 @@ import java.util.List;
 import vn.tms.entity.TrainingStaff;
 
 public interface TrainingStaffServices {
+	List<TrainingStaff> findAll(int role);
+
 	TrainingStaff findByEmail(String email);
-	void save(TrainingStaff trainingStaff);
+
+	TrainingStaff findOne(Integer id);
+
+	void create(TrainingStaff trainingStaff);
+
+	void update(TrainingStaff trainingStaff);
 	
-	List<TrainingStaff> findAll();
+	void update(TrainingStaff trainingStaff, String status);
+
+	void delete(TrainingStaff trainingStaff);
 }

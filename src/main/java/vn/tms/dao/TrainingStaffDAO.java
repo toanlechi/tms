@@ -6,9 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import vn.tms.entity.TrainingStaff;
 
-public interface TrainingStaffDAO extends CrudRepository<TrainingStaff, Integer>{
+public interface TrainingStaffDAO extends CrudRepository<TrainingStaff, Integer> {
+
+	List<TrainingStaff> findByRole(int role);
 
 	TrainingStaff findByEmail(String email);
-	
-	List<TrainingStaff> findAll();
 }

@@ -54,10 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().antMatchers("/admin/trainerManager").access("hasAnyRole('ROLE_1')");
 
-		// Trang dÃ nh cho admin
-		http.authorizeRequests().antMatchers("/admin", "/admin/flight", "/admin/journey", "/admin/airline")
-				.access("hasAnyRole('ROLE_0')");
-
 		// Ngoáº¡i lá»‡ khi truy cáº­p sai permision
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 

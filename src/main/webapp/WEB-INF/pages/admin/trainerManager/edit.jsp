@@ -108,7 +108,7 @@
 			var name = $("#name").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/name",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					name : name,
@@ -132,7 +132,7 @@
 			var email = $("#email").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/email",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					email : email,

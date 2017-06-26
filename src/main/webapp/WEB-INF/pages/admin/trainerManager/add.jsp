@@ -114,15 +114,14 @@
 <script>
 	function sendTrainerRequest(fieldValue) {
 		if (fieldValue == 'fName') {
-			var name = $("#name").val();
+			var data = {}
+			data["name"] = $("#name").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/name",
 				type : 'POST',
-				contentType : "application/json",
-				data : {
-					name : name,
-				},
-				dataType : 'json',
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : data,
+				dataType : 'text',
 				success : function(data) {
 				},
 				complete : function(r) {
@@ -141,7 +140,7 @@
 			var email = $("#email").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/email",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					email : email,
@@ -165,7 +164,7 @@
 			var password = $("#password").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/password",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					password : password,
@@ -190,7 +189,7 @@
 			var confirmPassword = $("#confirmPassword").val();
 			$.ajax({
 				url : "/tms/ajax/trainer/confirmPassword",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					password : password,
@@ -213,4 +212,3 @@
 		}
 	}
 </script>
-Contact GitHub 

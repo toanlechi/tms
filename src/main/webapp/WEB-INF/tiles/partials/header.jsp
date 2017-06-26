@@ -27,6 +27,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="<c:url value="/home" />"><i
 							class="fa fa-globe fa-fw"></i> Back website</a></li>
+							
 					<li><a href="<c:url value="/logout" />"><i
 							class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 				</ul>

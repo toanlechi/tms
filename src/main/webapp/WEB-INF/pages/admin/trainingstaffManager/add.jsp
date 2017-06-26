@@ -117,7 +117,7 @@
 			var name = $("#name").val();
 			$.ajax({
 				url : "/tms/ajax/trainingStaff/name",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					name : name,
@@ -141,7 +141,7 @@
 			var email = $("#email").val();
 			$.ajax({
 				url : "/tms/ajax/trainingStaff/email",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					email : email,
@@ -165,7 +165,7 @@
 			var password = $("#password").val();
 			$.ajax({
 				url : "/tms/ajax/trainingStaff/password",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					password : password,
@@ -190,7 +190,7 @@
 			var confirmPassword = $("#confirmPassword").val();
 			$.ajax({
 				url : "/tms/ajax/trainingStaff/confirmPassword",
-				type : 'POST',
+				type : 'GET',
 				contentType : "application/json",
 				data : {
 					password : password,

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +65,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainer/email")
+	@GetMapping(value = "/trainer/email")
 	public @ResponseBody String checkTrainerEmail(@RequestParam("email") String email) {
 		Trainer dbTrainer = trainerServices.findByEmail(email);
 
@@ -78,7 +79,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainer/password")
+	@GetMapping(value = "/trainer/password")
 	public @ResponseBody String checkTrainerPassword(@RequestParam("password") String password) {
 		if ("".equals(password)) {
 			return "Password is required";
@@ -88,7 +89,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainer/confirmPassword")
+	@GetMapping(value = "/trainer/confirmPassword")
 	public @ResponseBody String checkTrainerConfirmPassword(@RequestParam("password") String password,
 			@RequestParam("confirmPassword") String confirmPassword) {
 		if ("".equals(confirmPassword)) {
@@ -103,7 +104,7 @@ public class AjaxController {
 	 * Training Staff Ajax
 	 * */
 	
-	@PostMapping(value = "/trainingStaff/name")
+	@GetMapping(value = "/trainingStaff/name")
 	public @ResponseBody String checkTrainingStaffName(@RequestParam("name") String name) {
 		if ("".equals(name)) {
 			return "Name is required";
@@ -113,7 +114,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainingStaff/email")
+	@GetMapping(value = "/trainingStaff/email")
 	public @ResponseBody String checkTrainingStaffEmail(@RequestParam("email") String email) {
 		Trainer dbTrainer = trainerServices.findByEmail(email);
 
@@ -127,7 +128,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainingStaff/password")
+	@GetMapping(value = "/trainingStaff/password")
 	public @ResponseBody String checkTrainingStaffPassword(@RequestParam("password") String password) {
 		if ("".equals(password)) {
 			return "Password is required";
@@ -137,7 +138,7 @@ public class AjaxController {
 			return "";
 	}
 
-	@PostMapping(value = "/trainingStaff/confirmPassword")
+	@GetMapping(value = "/trainingStaff/confirmPassword")
 	public @ResponseBody String checkTrainingStaffConfirmPassword(@RequestParam("password") String password,
 			@RequestParam("confirmPassword") String confirmPassword) {
 		if ("".equals(confirmPassword)) {

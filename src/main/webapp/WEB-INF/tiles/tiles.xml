@@ -60,6 +60,39 @@
 
 
 	<!-- =================================Admin Pages================================== -->
+	
+	<!-- List Trainer -->
+	<definition name="trainerList" extends="app-definition">
+		<put-attribute name="title" value="Admin-Trainer Manager | List" />
+		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/list.jsp" />
+	</definition>
+	
+	<!-- Add Trainer -->
+	<definition name="trainerAdd" extends="app-definition">
+		<put-attribute name="title" value="Admin-Trainer Manager | Add" />
+		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/add.jsp" />
+	</definition>
+	
+	<!-- Edit Trainer -->
+	<definition name="trainerEdit" extends="app-definition">
+		<put-attribute name="title" value="Admin-Trainer Manager | Add" />
+		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/edit.jsp" />
+	</definition>
+	
+	<!-- List Training Staff -->
+	<definition name="trainingStaffList" extends="app-definition">
+		<put-attribute name="title" value="Admin-Training Staff Manager | List" />
+		<put-attribute name="main" value="/WEB-INF/pages/admin/trainingstaffManager/list.jsp" />
+	</definition>
+	
+	<!-- Add Training Staff -->
+	<definition name="trainingStaffAdd" extends="app-definition">
+		<put-attribute name="title" value="Admin-Training Staff Manager | Add" />
+		<put-attribute name="main" value="/WEB-INF/pages/admin/trainingstaffManager/add.jsp" />
+	</definition>
+	
+	<!-- =================================End Admin Pages================================== -->
+	
 	<!-- Demo Page -->
 	<definition name="demo" extends="app-definition">
 		<put-attribute name="title" value="Demo" />

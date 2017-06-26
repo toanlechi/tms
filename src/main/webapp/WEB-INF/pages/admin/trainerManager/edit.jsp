@@ -46,10 +46,13 @@
 									<form:errors path="name" />
 								</c:set>
 								<div
-									class="form-group ${not empty nameHasBindError ? 'has-error' :''}">
+									class="form-group ${not empty nameHasBindError ? 'has-error' :''}"
+									id="formName">
 									<label>Name</label>
 									<form:input path="name" type="text" class="form-control"
-										placeholder="Enter name" />
+										placeholder="Enter name" id="name"
+										onblur="sendTrainerRequest('fName');" />
+									<span class="control-label" id="nameResponse"></span>
 									<form:errors path="name" class="control-label" />
 								</div>
 							</div>
@@ -58,10 +61,13 @@
 									<form:errors path="email" />
 								</c:set>
 								<div
-									class="form-group ${not empty emailHasBindError ? 'has-error' :''}" >
+									class="form-group ${not empty emailHasBindError ? 'has-error' :''}"
+									id="formEmail">
 									<label>Email address</label>
 									<form:input path="email" class="form-control"
-										placeholder="Enter email"/>
+										placeholder="Enter email" id="email"
+										onblur="sendTrainerRequest('fEmail');" />
+									<span class="control-label" id="emailResponse"></span>
 									<form:errors path="email" class="control-label" />
 								</div>
 							</div>
@@ -69,11 +75,12 @@
 						<div class="row">
 							<div class="col-xs-6">
 								<div class="form-group">
-									<label>Edit Status</label> 
-									<select name="st"
+									<label>Edit Status</label> <select name="st"
 										class="form-control">
-										<option value="active" ${trainer.status eq true ? 'selected' : ''}>Active</option>
-										<option value="block" ${trainer.status eq false ? 'selected' : ''}>Block</option>
+										<option value="active"
+											${trainer.status eq true ? 'selected' : ''}>Active</option>
+										<option value="block"
+											${trainer.status eq false ? 'selected' : ''}>Block</option>
 									</select>
 								</div>
 							</div>
@@ -94,3 +101,59 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
+
+<script>
+	function sendTrainerRequest(fieldValue) {
+		if (fieldValue == 'fName') {
+			var name = $("#name").val();
+
+			$.ajax({
+				url : "/tms/ajax/trainer/name",
+				type : 'POST',
+				contentType : "application/json",
+				data : {
+					name : name,
+				},
+				dataType : 'json',
+				success : function(data) {
+				},
+				complete : function(r) {
+					$('#formName').addClass('has-error')
+					$('#nameResponse').html(r.responseText);
+					if (r.responseText == '') {
+						$('#formName').removeClass('has-error');
+						$('#formName').addClass('has-success');
+					}
+				},
+				error : function(e) {
+				}
+			});
+		}
+
+		if (fieldValue == 'fEmail') {
+			var email = $("#email").val();
+
+			$.ajax({
+				url : "/tms/ajax/trainer/email",
+				type : 'POST',
+				contentType : "application/json",
+				data : {
+					email : email,
+				},
+				dataType : 'json',
+				success : function(data) {
+				},
+				complete : function(r) {
+					$('#formEmail').addClass('has-error');
+					$('#emailResponse').html(r.responseText);
+					if (r.responseText == '') {
+						$('#formEmail').removeClass('has-error');
+						$('#formEmail').addClass('has-success');
+					}
+				},
+				error : function(e) {
+				}
+			});
+		}
+	}
+</script>

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
+import vn.tms.entity.Trainer;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
+import vn.tms.services.TrainerServices;
+import vn.tms.utils.ValidDataPattern;
 
 @Controller
 @RequestMapping("/ajax")
@@ -23,6 +26,9 @@ public class AjaxController {
 
 	@Autowired
 	private CoursesServices coursesServices;
+	
+	@Autowired
+	TrainerServices trainerServices;
 
 	@PostMapping("/check_category_name")
 	@ResponseBody
@@ -42,5 +48,103 @@ public class AjaxController {
 			return "false";
 		}
 		return "true";
+	}
+	
+	/*
+	 * Trainer Ajax
+	 * */
+	
+	@PostMapping(value = "/trainer/name")
+	public @ResponseBody String checkTrainerName(@RequestParam("name") String name) {
+		if ("".equals(name)) {
+			return "Name is required";
+		} else if (name.length() < 3) {
+			return "Name length must be greater than 3 characters";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainer/email")
+	public @ResponseBody String checkTrainerEmail(@RequestParam("email") String email) {
+		Trainer dbTrainer = trainerServices.findByEmail(email);
+
+		if ("".equals(email)) {
+			return "Email is required";
+		} else if (!ValidDataPattern.validateEmail(email)) {
+			return "Email is not valid type";
+		} else if (dbTrainer != null) {
+			return "This email already exists";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainer/password")
+	public @ResponseBody String checkTrainerPassword(@RequestParam("password") String password) {
+		if ("".equals(password)) {
+			return "Password is required";
+		} else if (password.length() < 8) {
+			return "Password length must be greater than 8 characters";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainer/confirmPassword")
+	public @ResponseBody String checkTrainerConfirmPassword(@RequestParam("password") String password,
+			@RequestParam("confirmPassword") String confirmPassword) {
+		if ("".equals(confirmPassword)) {
+			return "Confirm password is required";
+		} else if (!password.equals(confirmPassword)) {
+			return "Confirm password not matching";
+		} else
+			return "";
+	}
+	
+	/*
+	 * Training Staff Ajax
+	 * */
+	
+	@PostMapping(value = "/trainingStaff/name")
+	public @ResponseBody String checkTrainingStaffName(@RequestParam("name") String name) {
+		if ("".equals(name)) {
+			return "Name is required";
+		} else if (name.length() < 3) {
+			return "Name length must be greater than 3 characters";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainingStaff/email")
+	public @ResponseBody String checkTrainingStaffEmail(@RequestParam("email") String email) {
+		Trainer dbTrainer = trainerServices.findByEmail(email);
+
+		if ("".equals(email)) {
+			return "Email is required";
+		} else if (!ValidDataPattern.validateEmail(email)) {
+			return "Email is not valid type";
+		} else if (dbTrainer != null) {
+			return "This email already exists";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainingStaff/password")
+	public @ResponseBody String checkTrainingStaffPassword(@RequestParam("password") String password) {
+		if ("".equals(password)) {
+			return "Password is required";
+		} else if (password.length() < 8) {
+			return "Password length must be greater than 8 characters";
+		} else
+			return "";
+	}
+
+	@PostMapping(value = "/trainingStaff/confirmPassword")
+	public @ResponseBody String checkTrainingStaffConfirmPassword(@RequestParam("password") String password,
+			@RequestParam("confirmPassword") String confirmPassword) {
+		if ("".equals(confirmPassword)) {
+			return "Confirm password is required";
+		} else if (!password.equals(confirmPassword)) {
+			return "Confirm password not matching";
+		} else
+			return "";
 	}
 }

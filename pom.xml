@@ -49,7 +49,11 @@
 			<version>4.3.1.RELEASE</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.6.RELEASE</version>
+		</dependency>
 
 		<!-- http://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
@@ -71,9 +75,6 @@
 			<artifactId>spring-orm</artifactId>
 			<version>4.1.4.RELEASE</version>
 		</dependency>
-
-
-		<!-- Spring Security Artifacts - START -->
 		<!-- Spring Security Artifacts - START -->
 		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
@@ -141,37 +142,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.34</version>
 		</dependency>
-
-
-		<!-- CSS/JavaScript/Bootstrap/Font-Awesome -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>3.3.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>2.2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>font-awesome</artifactId>
-			<version>4.6.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>webjars-locator</artifactId>
-			<version>0.31</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars.bower/datatables -->
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>datatables</artifactId>
-			<version>1.10.13</version>
-		</dependency>
-
-
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -211,14 +182,25 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.8.8</version>
+		</dependency>
 
-
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.8</version>
+		</dependency>
 
 	</dependencies>
 	<build>

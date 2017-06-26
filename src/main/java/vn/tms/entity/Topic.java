@@ -64,17 +64,23 @@ public class Topic implements Serializable {
 	public Topic() {
 	}
 
-	public Topic(String name, String description, Date createdAt, Courses courses, TrainingStaff trainingStaff,
-			Trainer trainer, Set<ReviewTopic> listReviewTopic) {
+	
+
+	public Topic(String name, String description, Date timeStart, Date timeEnd, int day, Date createdAt,
+			Courses courses, TrainingStaff trainingStaff, Trainer trainer) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.timeStart = timeStart;
+		this.timeEnd = timeEnd;
+		this.day = day;
 		this.createdAt = createdAt;
 		this.courses = courses;
 		this.trainingStaff = trainingStaff;
 		this.trainer = trainer;
-		this.listReviewTopic = listReviewTopic;
 	}
+
+
 
 	public Topic(String name, String description, Date createdAt, Courses courses, TrainingStaff trainingStaff) {
 		super();
@@ -148,5 +154,30 @@ public class Topic implements Serializable {
 	public void setListReviewTopic(Set<ReviewTopic> listReviewTopic) {
 		this.listReviewTopic = listReviewTopic;
 	}
+
+	public Date getTimeStart() {
+		return timeStart;
+	}
+
+	public void setTimeStart(Date timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public Date getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Date timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
 
 }

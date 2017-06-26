@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import vn.tms.dao.TraineeDAO;
 import vn.tms.entity.Trainee;
 import vn.tms.services.TraineeServices;
+import vn.tms.utils.Constant;
 
 @Service
 public class TraineeServicesImpl implements TraineeServices {
@@ -34,6 +35,11 @@ public class TraineeServicesImpl implements TraineeServices {
 	@Override
 	public Trainee findByEmail(String email) {
 		return traineeDAO.findByEmail(email);
+	}
+
+	@Override
+	public List<Trainee> findAllByRole() {
+		return traineeDAO.findByRole(Constant.ROLE.TRAINEE);
 	}
 
 }

@@ -50,7 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/", "/login", "/register", "/logout").permitAll();
 
 		// Trang user-info, chuyá»ƒn vá»� login náº¿u chÆ°a Ä‘Äƒng nháº­p
-		http.authorizeRequests().antMatchers("/category", "/courses", "/topic").access("hasAnyRole('ROLE_1')");
+		http.authorizeRequests().antMatchers("/category", "/courses", "/topic").access("hasAnyRole('ROLE_2')");
+		
+		http.authorizeRequests().antMatchers("/admin/trainerManager").access("hasAnyRole('ROLE_1')");
 
 		// Trang dÃ nh cho admin
 		http.authorizeRequests().antMatchers("/admin", "/admin/flight", "/admin/journey", "/admin/airline")
@@ -60,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
 		http.authorizeRequests().and().formLogin().loginProcessingUrl("/j_spring_security_check").loginPage("/login")
-				.defaultSuccessUrl("/category").failureUrl("/login?error=true").usernameParameter("email")
+				.defaultSuccessUrl("/loginSuccess").failureUrl("/login?error=true").usernameParameter("email")
 				.passwordParameter("password").and().logout().logoutUrl("/logout").logoutSuccessUrl("/home");
 	}
 

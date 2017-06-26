@@ -13,5 +13,8 @@ public interface TraineeServices {
 	List<Trainee> findAll();
 	
 	Trainee findByEmail(String email);
+	
+	List<Trainee> findAllByRole();
+	
 
 }

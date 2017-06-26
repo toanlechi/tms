@@ -16,11 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
-import vn.tms.entity.Trainee;
 import vn.tms.entity.TrainingStaff;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
-import vn.tms.services.TraineeServices;
 import vn.tms.services.TrainingStaffServices;
 
 @Controller
@@ -34,9 +32,6 @@ public class CategoryController {
 
 	@Autowired
 	private CoursesServices coursesService;
-
-	@Autowired
-	private TraineeServices traineeServices;
 
 	@GetMapping("/category")
 	public ModelAndView category() {
@@ -92,35 +87,6 @@ public class CategoryController {
 		categoryServices.delete(categoryId);
 
 		return "success";
-	}
-
-	@GetMapping("/demo2")
-	@ResponseBody
-	public String demo() {
-
-		TrainingStaff trainingStaff = new TrainingStaff("T", "123123", 1);
-		trainingStaffService.save(trainingStaff);
-
-		Trainee trainee1 = new Trainee("T1", "123123", 2);
-		Trainee trainee2 = new Trainee("T2", "123123", 2);
-
-		traineeServices.save(trainee1);
-		traineeServices.save(trainee2);
-
-		return "abc";
-	}
-
-	@GetMapping("/demo3")
-	@ResponseBody
-	public String demo3() {
-
-		List<Trainee> trainees = traineeServices.findAll();
-		System.out.println(trainees.size());
-
-		List<TrainingStaff> trainingStaffs = trainingStaffService.findAll();
-		System.out.println(trainingStaffs.size());
-
-		return "abc";
 	}
 
 }

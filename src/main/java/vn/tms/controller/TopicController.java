@@ -67,6 +67,10 @@ public class TopicController {
 	@PostMapping("/topic/add")
 	public String topicAddPost(@RequestParam(value = "topicId", defaultValue = "0") int topicId,
 			@RequestParam("coursesId") int coursesId, @RequestParam("name") String name,
+			@RequestParam("timeStart") String timeStart, @RequestParam("timeEnd") String timeEnd,
+			@RequestParam(value="mo", defaultValue="off") String mo, @RequestParam(value="tu", defaultValue="off") String tu,@RequestParam(value="we", defaultValue="off") String we,
+			@RequestParam(value="th", defaultValue="off") String th, @RequestParam(value="fr", defaultValue="off") String fr,@RequestParam(value="sa", defaultValue="off") String sa,
+			@RequestParam(value="su", defaultValue="off") String su,
 			@RequestParam("description") String description, Principal principal) {
 		String email = principal.getName();
 		TrainingStaff trainingStaff = trainingStaffService.findByEmail(email);
@@ -76,7 +80,12 @@ public class TopicController {
 		if (topicId != 0) {
 			topic.setId(topicId);
 		}
-		topicServices.save(topic);
+		  
+		System.out.println("------------");
+		System.out.println(mo);
+		System.out.println(tu);
+		System.out.println(timeStart);
+//		topicServices.save(topic);
 
 		return "redirect:/topic";
 	}

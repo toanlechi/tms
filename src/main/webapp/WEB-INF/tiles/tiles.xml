@@ -23,15 +23,19 @@
 			<add-attribute value="/static/vendor/fastclick/fastclick.js" />
 			<add-attribute value="/static/js/app.min.js" />
 			<add-attribute value="/static/js/custom.js" />
+			<add-attribute value="/static/vendor/iCheck/icheck.min.js" />
+			<add-attribute value="/static/vendor/timepicker.min.js" />
 		</put-list-attribute>
 
 		<put-list-attribute name="stylesheets">
 			<add-attribute value="/static/vendor/bootstrap/css/bootstrap.min.css" />
 			<add-attribute value="/static/vendor/font-awesome/css/font-awesome.min.css" />
+			<add-attribute value="/static/vendor/iCheck/square/blue.css" />
 			<add-attribute
 				value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 			<add-attribute value="/static/css/AdminLTE.min.css" />
 			<add-attribute value="/static/css/style.css" />
+			<add-attribute value="/static/css/timepicker.min.css" />
 			<add-attribute value="/static/css/skins/_all-skins.min.css" />
 			<add-attribute value="/static/vendor/datatables/dataTables.bootstrap.css" />
 		</put-list-attribute>
@@ -42,6 +46,7 @@
 		<put-attribute name="title" value="" />
 		<put-attribute name="main" value="" />
 		<put-list-attribute name="stylesheets">
+			<add-attribute value="/static/vendor/iCheck/square/blue.css" />
 			<add-attribute value="/static/vendor/bootstrap/css/bootstrap.min.css" />
 			<add-attribute value="/static/vendor/font-awesome/css/font-awesome.min.css" />
 			<add-attribute

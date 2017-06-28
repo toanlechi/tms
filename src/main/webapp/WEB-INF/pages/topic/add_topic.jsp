@@ -41,36 +41,63 @@
 							</select>
 						</div>
 
-
-
-
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Time start: </label> <input type="time"
-										class="form-control" name="timeStart">
+										class="form-control" name="timeStart" id="time">
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Time end: </label> <input type="time"
-										class="form-control" name="timeEnd">
+										class="form-control" name="timeEnd" id="time">
 								</div>
 							</div>
-
 						</div>
 
 						<div class="form-group">
 							<p>
 								<label>Weekdays: </label>
 							</p>
-							M <input type="checkbox"> T<input type="checkbox"> W<input
-								type="checkbox"> Th<input type="checkbox"> W<input
-								type="checkbox"> Sa<input type="checkbox"> S<input
-								type="checkbox">
+							<div class="row text-center">
+								<div class="checkbox icheck inline">
+									<label> <input type="checkbox" name="mo"> Mo
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 20px;">
+									<label> <input type="checkbox" name="tu"> Tu
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 20px;">
+									<label> <input type="checkbox"  name="we"> We
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 20px;">
+									<label> <input type="checkbox" name="th"> Th
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 20px;">
+									<label> <input type="checkbox" name="fr"> Fr
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 20px;">
+									<label> <input type="checkbox" name="sa"> Sa
+									</label>
+								</div>
+								<div class="checkbox icheck inline" style="margin-left: 30px;">
+									<label> <input type="checkbox" name="su"> Su
+									</label>
+								</div>
+							</div>
 						</div>
 
+						<!-- text input -->
+						<div class="form-group">
+							<label>Name</label> <input type="text" class="form-control"
+								placeholder="Name" name="name" value="${topic.name }">
+						</div>
 
 						<div class="form-group">
 							<label>Trainer</label> <select class="form-control"
@@ -86,11 +113,6 @@
 						</div>
 
 
-						<!-- text input -->
-						<div class="form-group">
-							<label>Name</label> <input type="text" class="form-control"
-								placeholder="Name" name="name" value="${topic.name }">
-						</div>
 
 						<!-- textarea -->
 						<div class="form-group">
@@ -121,4 +143,27 @@
 		$("#category-table").DataTable();
 
 	});
+
+	$(function() {
+		$('input').iCheck({
+			checkboxClass : 'icheckbox_square-blue',
+			radioClass : 'iradio_square-blue',
+			increaseArea : '20%' // optional
+		});
+	});
+	
+	var timepicker = new TimePicker(['time', 'link'], {
+        theme: 'dark', // 'blue-grey'
+        lang: 'en'
+      });
+
+      timepicker.on('change', function(evt) {
+        var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+        
+        if (evt.element.id == 'link') {
+          time2.value = value;
+        } else {
+          evt.element.value = value;
+        }
+      });
 </script>

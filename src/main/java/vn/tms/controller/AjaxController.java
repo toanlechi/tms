@@ -1,6 +1,9 @@
 package vn.tms.controller;
 
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
+import vn.tms.entity.MailContent;
 import vn.tms.entity.Trainer;
+import vn.tms.entity.TrainingStaff;
+import vn.tms.entity.User;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
 import vn.tms.services.TrainerServices;
+import vn.tms.services.TrainingStaffServices;
+import vn.tms.services.UserServices;
+import vn.tms.utils.Utils;
 import vn.tms.utils.ValidDataPattern;
 
 @Controller
@@ -30,6 +39,12 @@ public class AjaxController {
 	
 	@Autowired
 	TrainerServices trainerServices;
+	
+	@Autowired
+	TrainingStaffServices trainingStaffServices;
+	
+	@Autowired
+	UserServices userServices;
 
 	@PostMapping("/check_category_name")
 	@ResponseBody
@@ -75,15 +90,39 @@ public class AjaxController {
 
 	@GetMapping(value = "/trainingStaff/email")
 	public @ResponseBody String checkTrainingStaffEmail(@RequestParam("email") String email) {
-		Trainer dbTrainer = trainerServices.findByEmail(email);
+		TrainingStaff dbTrainingStaff = trainingStaffServices.findByEmail(email);
 
 		if ("".equals(email)) {
 			return "Email is required";
 		} else if (!ValidDataPattern.validateEmail(email)) {
 			return "Email is not valid type";
-		} else if (dbTrainer != null) {
+		} else if (dbTrainingStaff != null) {
 			return "This email already exists";
 		} else
 			return "";
+	}
+	
+	/*
+	 * forgot Password
+	 */
+	@PostMapping(value = "/resetPassword")
+	public @ResponseBody String resetPassword(HttpServletRequest request, @RequestParam("email") String email) {
+		User user = userServices.findByEmail(email);
+
+		if (user == null) {
+			return "false";
+		} else {
+			String token = System.currentTimeMillis() + UUID.randomUUID().toString();
+			user.setToken(token);
+			userServices.update(user);
+
+			String link = Utils.getBaseUrl(request) 
+					+ "/user/changePassword?id="
+					+ user.getId() + "&token=" + token;
+			String body = Utils.contentEmail(Utils.contentSendMailForgotPass(user.getName(), link));
+			Utils.sendMail1(new MailContent("asd@gmail.com", email, "Reset password", body));
+
+			return "true";
+		}
 	}
 }

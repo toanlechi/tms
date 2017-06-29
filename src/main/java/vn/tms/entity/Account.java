@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
-@Table(name="Account")
+@Table(name = "Account")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Account implements Serializable {
 	/**
@@ -33,7 +33,7 @@ public abstract class Account implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	protected int id;
-	
+
 	@NotEmpty
 	@Length(min = 3)
 	@Column(name = "name")
@@ -43,21 +43,24 @@ public abstract class Account implements Serializable {
 	@Email
 	@Column(name = "email")
 	protected String email;
-	
+
 	@NotEmpty
 	@Length(min = 8)
 	@Column(name = "password")
 	protected String password;
-	
+
 	@Transient
 	protected String confirmPassword;
 
 	@Column(name = "role")
 	protected int role;
-	
-	@Column(name = "status", nullable = false, columnDefinition="boolean default true")
+
+	@Column(name = "status", nullable = false, columnDefinition = "boolean default true")
 	protected boolean status;
-	
+
+	@Column(name = "token")
+	protected String token;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	@Column(name = "created_at")
@@ -74,7 +77,7 @@ public abstract class Account implements Serializable {
 		this.password = password;
 		this.role = role;
 	}
-	
+
 	public Account(String email, String password) {
 		super();
 		this.email = email;
@@ -156,5 +159,13 @@ public abstract class Account implements Serializable {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 }

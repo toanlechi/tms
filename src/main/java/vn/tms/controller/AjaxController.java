@@ -53,17 +53,7 @@ public class AjaxController {
 	
 	/*
 	 * Trainer Ajax
-	 * */
-	
-	@PostMapping(value = "/trainer/name")
-	public @ResponseBody String checkTrainerName(@RequestParam("name") String name) {
-		if ("".equals(name)) {
-			return "Name is required";
-		} else if (name.length() < 3) {
-			return "Name length must be greater than 3 characters";
-		} else
-			return "";
-	}
+	 */
 
 	@GetMapping(value = "/trainer/email")
 	public @ResponseBody String checkTrainerEmail(@RequestParam("email") String email) {
@@ -79,40 +69,9 @@ public class AjaxController {
 			return "";
 	}
 
-	@GetMapping(value = "/trainer/password")
-	public @ResponseBody String checkTrainerPassword(@RequestParam("password") String password) {
-		if ("".equals(password)) {
-			return "Password is required";
-		} else if (password.length() < 8) {
-			return "Password length must be greater than 8 characters";
-		} else
-			return "";
-	}
-
-	@GetMapping(value = "/trainer/confirmPassword")
-	public @ResponseBody String checkTrainerConfirmPassword(@RequestParam("password") String password,
-			@RequestParam("confirmPassword") String confirmPassword) {
-		if ("".equals(confirmPassword)) {
-			return "Confirm password is required";
-		} else if (!password.equals(confirmPassword)) {
-			return "Confirm password not matching";
-		} else
-			return "";
-	}
-	
 	/*
 	 * Training Staff Ajax
-	 * */
-	
-	@GetMapping(value = "/trainingStaff/name")
-	public @ResponseBody String checkTrainingStaffName(@RequestParam("name") String name) {
-		if ("".equals(name)) {
-			return "Name is required";
-		} else if (name.length() < 3) {
-			return "Name length must be greater than 3 characters";
-		} else
-			return "";
-	}
+	 */
 
 	@GetMapping(value = "/trainingStaff/email")
 	public @ResponseBody String checkTrainingStaffEmail(@RequestParam("email") String email) {
@@ -124,27 +83,6 @@ public class AjaxController {
 			return "Email is not valid type";
 		} else if (dbTrainer != null) {
 			return "This email already exists";
-		} else
-			return "";
-	}
-
-	@GetMapping(value = "/trainingStaff/password")
-	public @ResponseBody String checkTrainingStaffPassword(@RequestParam("password") String password) {
-		if ("".equals(password)) {
-			return "Password is required";
-		} else if (password.length() < 8) {
-			return "Password length must be greater than 8 characters";
-		} else
-			return "";
-	}
-
-	@GetMapping(value = "/trainingStaff/confirmPassword")
-	public @ResponseBody String checkTrainingStaffConfirmPassword(@RequestParam("password") String password,
-			@RequestParam("confirmPassword") String confirmPassword) {
-		if ("".equals(confirmPassword)) {
-			return "Confirm password is required";
-		} else if (!password.equals(confirmPassword)) {
-			return "Confirm password not matching";
 		} else
 			return "";
 	}

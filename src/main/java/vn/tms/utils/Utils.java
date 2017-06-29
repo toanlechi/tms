@@ -7,8 +7,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
 
 import vn.tms.entity.MailContent;
@@ -30,6 +33,61 @@ public class Utils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void sendMail1(MailContent mailContent) {
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setHostName("smtp.googlemail.com");
+			email.setSmtpPort(465);
+			email.setAuthenticator(new DefaultAuthenticator(Constant.EMAIL.MY_EMAIL, Constant.EMAIL.MY_PASSWORD));
+
+			email.setSSLOnConnect(true);
+			email.setFrom(mailContent.getFrom());
+			email.setSubject(mailContent.getSubject());
+			email.setHtmlMsg(mailContent.getBody());
+			email.addTo(mailContent.getTo());
+			email.send();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String getBaseUrl(HttpServletRequest request) {
+		return String.format("%s://%s:%d%s",
+				request.getScheme(),
+				request.getServerName(),
+				request.getServerPort(),
+				request.getContextPath());
+	}
+
+	public static String contentEmail(String content) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html>");
+		sb.append("<body>");
+		sb.append(content);
+		sb.append("</body>");
+		sb.append("</html>");
+
+		return sb.toString();
+	}
+	
+	public static String contentSendMailForgotPass(String name, String link){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<h2>");
+		sb.append("Hi, ");
+		sb.append(name);
+		sb.append("</h2>");
+		sb.append("\n\n");
+		sb.append("Use the link below to reset your password. This link will expire in 24 hours. Thank you!");
+		sb.append("\n");
+		sb.append("<a href=\"");
+		sb.append(link);
+		sb.append("\">");
+		sb.append("Reset password");
+		sb.append("</a>");
+		
+		return sb.toString();
 	}
 
 	public static List<String> getDayOfWeek(int dec) {

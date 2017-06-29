@@ -102,28 +102,20 @@
 	function sendTrainingStaffRequest(fieldValue) {
 		if (fieldValue == 'fName') {
 			var name = $("#name").val();
-			$.ajax({
-				url : "/tms/ajax/trainingStaff/name",
-				type : 'GET',
-				contentType : "application/json",
-				data : {
-					name : name,
-				},
-				dataType : 'json',
-				success : function(data) {
-				},
-				complete : function(r) {
-					$('#formName').addClass('has-error')
-					$('#nameResponse').html(r.responseText);
-					if (r.responseText == '') {
-						$('#formName').removeClass('has-error');
-						$('#formName').addClass('has-success');
-					}
-				},
-				error : function(e) {
-				}
-			});
+			if (name == '') {
+				$('#formName').addClass('has-error')
+				$('#nameResponse').html("Name is required");
+			} else if (name.length < 3) {
+				$('#formName').addClass('has-error')
+				$('#nameResponse').html(
+						"Name length must be greater than 3 characters");
+			} else {
+				$('#nameResponse').remove();
+				$('#formName').removeClass('has-error');
+				$('#formName').addClass('has-success');
+			}
 		}
+
 		if (fieldValue == 'fEmail') {
 			var email = $("#email").val();
 			$.ajax({

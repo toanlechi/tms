@@ -109,6 +109,18 @@
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="main" value="/WEB-INF/pages/main/login.jsp" />
 	</definition>
+	
+	<!-- Forgot Pass -->
+	<definition name="forgotPass" extends="security-definition">
+		<put-attribute name="title" value="Forgot Password" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/forgotPassword.jsp" />
+	</definition>
+	
+	<!-- Reset Pass -->
+	<definition name="resetPass" extends="security-definition">
+		<put-attribute name="title" value="Forgot Password" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/resetPassword.jsp" />
+	</definition>
 
 	<!-- Category home -->
 	<definition name="category" extends="app-definition">

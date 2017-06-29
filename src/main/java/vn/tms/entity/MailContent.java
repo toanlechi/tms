@@ -9,6 +9,14 @@ public class MailContent {
 	public MailContent() {
 
 	}
+	
+	public MailContent(String from, String to, String subject, String body) {
+		super();
+		this.from = from;
+		this.to = to;
+		this.subject = subject;
+		this.body = body;
+	}
 
 	
 	public MailContent(String to, String subject, String body) {

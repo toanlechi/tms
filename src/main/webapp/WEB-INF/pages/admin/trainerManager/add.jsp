@@ -114,27 +114,19 @@
 <script>
 	function sendTrainerRequest(fieldValue) {
 		if (fieldValue == 'fName') {
-			var data = {}
-			data["name"] = $("#name").val();
-			$.ajax({
-				url : "/tms/ajax/trainer/name",
-				type : 'POST',
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : data,
-				dataType : 'text',
-				success : function(data) {
-				},
-				complete : function(r) {
-					$('#formName').addClass('has-error')
-					$('#nameResponse').html(r.responseText);
-					if (r.responseText == '') {
-						$('#formName').removeClass('has-error');
-						$('#formName').addClass('has-success');
-					}
-				},
-				error : function(e) {
-				}
-			});
+			var name = $("#name").val();
+			if (name == '') {
+				$('#formName').addClass('has-error')
+				$('#nameResponse').html("Name is required");
+			} else if (name.length < 3) {
+				$('#formName').addClass('has-error')
+				$('#nameResponse').html(
+						"Name length must be greater than 3 characters");
+			} else {
+				$('#nameResponse').remove();
+				$('#formName').removeClass('has-error');
+				$('#formName').addClass('has-success');
+			}
 		}
 		if (fieldValue == 'fEmail') {
 			var email = $("#email").val();
@@ -162,53 +154,37 @@
 		}
 		if (fieldValue == 'fPassword') {
 			var password = $("#password").val();
-			$.ajax({
-				url : "/tms/ajax/trainer/password",
-				type : 'GET',
-				contentType : "application/json",
-				data : {
-					password : password,
-				},
-				dataType : 'json',
-				success : function(data) {
-				},
-				complete : function(r) {
-					$('#formPassword').addClass('has-error');
-					$('#passwordResponse').html(r.responseText);
-					if (r.responseText == '') {
-						$('#formPassword').removeClass('has-error');
-						$('#formPassword').addClass('has-success');
-					}
-				},
-				error : function(e) {
-				}
-			});
+
+			if (password == '') {
+				$('#formPassword').addClass('has-error');
+				$('#passwordResponse').html("Password is required");
+			} else if (password.length < 8) {
+				$('#formPassword').addClass('has-error');
+				$('#passwordResponse').html(
+						"Password length must be greater than 8 characters");
+			} else {
+				$('#passwordResponse').remove();
+				$('#formPassword').removeClass('has-error');
+				$('#formPassword').addClass('has-success');
+			}
 		}
 		if (fieldValue == 'fConfirmPassword') {
 			var password = $("#password").val();
 			var confirmPassword = $("#confirmPassword").val();
-			$.ajax({
-				url : "/tms/ajax/trainer/confirmPassword",
-				type : 'GET',
-				contentType : "application/json",
-				data : {
-					password : password,
-					confirmPassword : confirmPassword,
-				},
-				dataType : 'json',
-				success : function(data) {
-				},
-				complete : function(r) {
-					$('#formConfirmPassword').addClass('has-error');
-					$('#confirmPasswordResponse').html(r.responseText);
-					if (r.responseText == '') {
-						$('#formConfirmPassword').removeClass('has-error');
-						$('#formConfirmPassword').addClass('has-success');
-					}
-				},
-				error : function(e) {
-				}
-			});
+
+			if (confirmPassword == '') {
+				$('#formConfirmPassword').addClass('has-error');
+				$('#confirmPasswordResponse').html(
+						"Confirm password is required");
+			} else if (confirmPassword != password) {
+				$('#formConfirmPassword').addClass('has-error');
+				$('#confirmPasswordResponse').html(
+						"Confirm password not matching");
+			} else {
+				$('#confirmPasswordResponse').remove();
+				$('#formConfirmPassword').removeClass('has-error');
+				$('#formConfirmPassword').addClass('has-success');
+			}
 		}
 	}
 </script>

@@ -44,15 +44,17 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Time start: </label> <input type="time"
-										class="form-control" name="timeStart" id="time">
+									<label>Time start: </label> <input type="text"
+										class="form-control" name="timeStart" id="time"> <a
+										id="link" class="icon hidden">Click to choose</a>
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Time end: </label> <input type="time"
-										class="form-control" name="timeEnd" id="time">
+									<label>Time end: </label> <input type="text"
+										class="form-control" name="timeEnd" id="time2"> <a
+										id="link2" class="icon hidden">Click to choose</a>
 								</div>
 							</div>
 						</div>
@@ -63,31 +65,32 @@
 							</p>
 							<div class="row text-center">
 								<div class="checkbox icheck inline">
-									<label> <input type="checkbox" name="mo"> Mo
+									
+									<label> <input type="checkbox" name="mo" ${day2 }> Mo
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="tu"> Tu
+									<label> <input type="checkbox" name="tu" ${day3 }> Tu
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox"  name="we"> We
+									<label> <input type="checkbox" name="we" ${day4 }> We
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="th"> Th
+									<label> <input type="checkbox" name="th" ${day5 }> Th
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="fr"> Fr
+									<label> <input type="checkbox" name="fr" ${day6 }> Fr
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="sa"> Sa
+									<label> <input type="checkbox" name="sa" ${day7 }> Sa
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 30px;">
-									<label> <input type="checkbox" name="su"> Su
+									<label> <input type="checkbox" name="su" ${dayCN }> Su
 									</label>
 								</div>
 							</div>
@@ -101,7 +104,7 @@
 
 						<div class="form-group">
 							<label>Trainer</label> <select class="form-control"
-								name="coursesId">
+								name="trainerId">
 								<c:if test="${topic.id != null}">
 									<option value="${topic.trainer.id }">${topic.trainer.name }</option>
 								</c:if>
@@ -151,19 +154,19 @@
 			increaseArea : '20%' // optional
 		});
 	});
-	
-	var timepicker = new TimePicker(['time', 'link'], {
-        theme: 'dark', // 'blue-grey'
-        lang: 'en'
-      });
 
-      timepicker.on('change', function(evt) {
-        var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-        
-        if (evt.element.id == 'link') {
-          time2.value = value;
-        } else {
-          evt.element.value = value;
-        }
-      });
+	var timepicker = new TimePicker([ 'time', 'time2' ], {
+		theme : 'dark', // 'blue-grey'
+		lang : 'en'
+	});
+
+	timepicker.on('change', function(evt) {
+		var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+
+		if (evt.element.id == 'time2') {
+			time2.value = value;
+		} else {
+			evt.element.value = value;
+		}
+	});
 </script>

@@ -175,70 +175,9 @@
 						<div class="box-body">
 
 							<button style="margin-bottom: 10px" type="button"
-								class="btn btn-default" id="btn-addtrainee" data-toggle="modal"
-								data-target="#dialog-trainee">Add Trainee</button>
-							<div class="modal fade bs-example-modal-lg" tabindex="-1"
-								id="dialog-trainee" role="dialog"
-								aria-labelledby="myLargeModalLabel2" aria-hidden="true">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-content">
-										<button type="button" class="close">
-											<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-										</button>
+								class="btn btn-default" data-toggle="modal"
+								data-target="#dialog-import">Add Trainee</button>
 
-										<table id="example3" class="table table-bordered table-hover">
-											<thead>
-												<tr>
-													<th style="width: 3%">STT</th>
-													<th style="width: 10%">Name</th>
-													<th style="width: 10%">Age</th>
-													<th style="width: 15%">Birth Day</th>
-													<th style="width: 15%">Education</th>
-													<th style="width: 15%">TOEIC score</th>
-													<th style="width: 22%">Address</th>
-													<th style="width: 10%">###</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach var="trainee" items="${listTrainee}"
-													varStatus="stt">
-													<tr>
-														<td>${stt.index+1 }</td>
-														<td>${trainee.name}</td>
-														<td>${trainee.age}</td>
-														<td>${trainee.birthday}</td>
-														<td>${trainee.education}</td>
-														<td>${trainee.toeicScore}</td>
-														<td>${trainee.address}</td>
-														<td>
-															<div class="checkbox">
-																<label> <input type="checkbox"></label>
-															</div>
-														</td>
-													</tr>
-												</c:forEach>
-											</tbody>
-											<tfoot>
-												<tr>
-													<th style="width: 3%">STT</th>
-													<th style="width: 10%">Name</th>
-													<th style="width: 10%">Age</th>
-													<th style="width: 15%">Birth Day</th>
-													<th style="width: 15%">Education</th>
-													<th style="width: 15%">TOEIC score</th>
-													<th style="width: 22%">Address</th>
-													<th style="width: 10%">###</th>
-												</tr>
-											</tfoot>
-										</table>
-										<div style="text-align: center;">
-											<button type="submit" class="btn btn-primary">Save</button>
-											<button id="" type="submit" class="btn btn-default">Cancel
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 									<tr>
@@ -303,4 +242,69 @@
 	</div>
 	<!-- /.row -->
 </section>
+
+
+
+<div class="modal modal-info" id="dialog-import" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Import Trainee</h4>
+			</div>
+			<div class="modal-body">
+				<p>Select file format: *.xlsx</p>
+				<div class="form-group">
+					<label for="exampleInputFile">File input</label> <input type="file"
+						id="fileLoader" name="file">
+
+					<p class="help-block">Example block-level help text here.</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline pull-left"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-outline" id="fileSubmit">OK</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- /.example-modal -->
+
+<script>
+	var files = [];
+	$(document).on("change", "#fileLoader", function(event) {
+		files = event.target.files;
+	})
+
+	$(document).on("click", "#fileSubmit", function() {
+		processUpload();
+	})
+
+	function processUpload() {
+		var oMyForm = new FormData();
+		oMyForm.append("file", files[0]);
+		$.ajax({
+			dataType : 'json',
+			url : "/tms/uploadExcel",
+			data : oMyForm,
+			type : "POST",
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				//...;
+			},
+			error : function(result) {
+				//...;
+			}
+		});
+	}
+</script>
 

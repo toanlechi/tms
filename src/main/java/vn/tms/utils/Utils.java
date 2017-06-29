@@ -1,7 +1,10 @@
 package vn.tms.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -59,6 +62,8 @@ public class Utils {
 	}
 
 	public static int convertToDec(List<String> list) {
+		
+		
 		char[] charArr = new char[8];
 		for (String str : list) {
 			if (str.equals("CN")) {
@@ -89,8 +94,49 @@ public class Utils {
 
 		return result;
 	}
+	
+	
+	public static List<String> format(String mo, String tu, String we, String th, String fr,String sa, String su){
+		List<String> result = new ArrayList<>();
+		if (mo.equals("on")){
+			result.add("2");
+		}
+		if (tu.equals("on")){
+			result.add("3");
+		}
+		if (we.equals("on")){
+			result.add("4");
+		}
+		if (th.equals("on")){
+			result.add("5");
+		}
+		if (fr.equals("on")){
+			result.add("6");
+		}
+		if (sa.equals("on")){
+			result.add("7");
+		}
+		if (su.equals("on")){
+			result.add("CN");
+		}
+		
+		
+		
+		return result;
+	}
+	
+	public static Date getDateByTime(String time){
+		Date date = new Date();
+		try {
+			date = new SimpleDateFormat("HH:mm:ss").parse(time+":00");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+		
+	}
 
 	public static void main(String[] args) {
-
+		System.out.println(getDateByTime("12:00"));
 	}
 }

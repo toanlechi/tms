@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.tms.entity.Courses;
+import vn.tms.entity.MailContent;
 import vn.tms.entity.Topic;
 import vn.tms.entity.Trainer;
 import vn.tms.entity.TrainingStaff;
@@ -22,6 +23,7 @@ import vn.tms.services.CoursesServices;
 import vn.tms.services.TopicServices;
 import vn.tms.services.TrainerServices;
 import vn.tms.services.TrainingStaffServices;
+import vn.tms.utils.Utils;
 
 @Controller
 public class TopicController {
@@ -71,21 +73,24 @@ public class TopicController {
 			@RequestParam(value="mo", defaultValue="off") String mo, @RequestParam(value="tu", defaultValue="off") String tu,@RequestParam(value="we", defaultValue="off") String we,
 			@RequestParam(value="th", defaultValue="off") String th, @RequestParam(value="fr", defaultValue="off") String fr,@RequestParam(value="sa", defaultValue="off") String sa,
 			@RequestParam(value="su", defaultValue="off") String su,
+			@RequestParam("trainerId") int trainerId,
 			@RequestParam("description") String description, Principal principal) {
 		String email = principal.getName();
 		TrainingStaff trainingStaff = trainingStaffService.findByEmail(email);
+		Trainer trainer = trainerServices.findOne(trainerId);
 		Courses courses = coursesServices.findOne(coursesId);
+		int dayOfWeek = Utils.convertToDec(Utils.format(mo, tu, we, th, fr, sa, su));
 
-		Topic topic = new Topic(name, description, new Date(), courses, trainingStaff);
+		Topic topic = new Topic(name, description, Utils.getDateByTime(timeStart), Utils.getDateByTime(timeEnd), dayOfWeek, new Date(), courses, trainingStaff, trainer);
 		if (topicId != 0) {
 			topic.setId(topicId);
 		}
 		  
-		System.out.println("------------");
-		System.out.println(mo);
-		System.out.println(tu);
-		System.out.println(timeStart);
-//		topicServices.save(topic);
+		topicServices.save(topic);
+		
+		//send email notify assigned trainer into topic
+		MailContent mailContent = new MailContent(trainer.getEmail(), "Assigned", "");
+		Utils.sendMail(mailContent);
 
 		return "redirect:/topic";
 	}
@@ -96,6 +101,11 @@ public class TopicController {
 		Topic topic = topicServices.findOne(topicId);
 		List<Courses> listCourses = coursesServices.findAll();
 		List<Trainer> listTrainer = trainerServices.findAll();
+		
+		for (String tr : Utils.getDayOfWeek(topic.getDay())){
+			System.out.println(tr);
+			mv.addObject("day"+tr, "checked");
+		}
 
 		mv.addObject("topic", topic);
 		mv.addObject("listCourses", listCourses);

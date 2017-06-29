@@ -82,14 +82,6 @@ public class Topic implements Serializable {
 
 
 
-	public Topic(String name, String description, Date createdAt, Courses courses, TrainingStaff trainingStaff) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.createdAt = createdAt;
-		this.courses = courses;
-		this.trainingStaff = trainingStaff;
-	}
 
 	public int getId() {
 		return id;

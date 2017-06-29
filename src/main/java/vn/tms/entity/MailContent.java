@@ -10,6 +10,15 @@ public class MailContent {
 
 	}
 
+	
+	public MailContent(String to, String subject, String body) {
+		super();
+		this.to = to;
+		this.subject = subject;
+		this.body = body;
+	}
+
+
 	public String getFrom() {
 		return from;
 	}

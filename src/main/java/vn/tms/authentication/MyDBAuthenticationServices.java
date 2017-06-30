@@ -11,24 +11,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import vn.tms.entity.Trainee;
-import vn.tms.services.TraineeServices;
+import vn.tms.entity.User;
+import vn.tms.services.UserServices;
 
 @Service
 public class MyDBAuthenticationServices implements UserDetailsService {
 
 	@Autowired
-	private TraineeServices traineeServices;
+	private UserServices userServices;
 
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Trainee account = traineeServices.findByEmail(email);
-		if (account == null) {
+		User user = userServices.findByEmail(email);
+		if (user == null) {
 			throw new UsernameNotFoundException("User " + email + " was not found in the database");
 		}
 		
-		System.out.println(account.getEmail() + " -  " + account.getPassword());
+		System.out.println(user.getEmail() + " -  " + user.getPassword());
 
-		String role = String.valueOf(account.getRole());
+		String role = String.valueOf(user.getRole());
 
 		List<GrantedAuthority> grantList = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class MyDBAuthenticationServices implements UserDetailsService {
 			grantList.add(authority);
 		}
 		UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
-				account.getEmail(), account.getPassword(), grantList);
+				user.getEmail(), user.getPassword(), grantList);
 
 		return userDetails;
 

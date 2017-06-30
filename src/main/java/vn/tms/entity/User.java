@@ -17,5 +17,11 @@ public class User extends Account implements Serializable {
 	public User() {
 		super();
 	}
+	
+	public User(String email, String password){
+		super(email, password);
+	}
+
+	
 
 }

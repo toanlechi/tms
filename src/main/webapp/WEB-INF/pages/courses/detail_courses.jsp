@@ -115,12 +115,12 @@
 							<table id="example2" class="table table-bordered table-hover">
 								<thead>
 									<tr>
-										<th style="width: 3%">STT</th>
-										<th style="width: 15%">Name</th>
-										<th style="width: 37%">Description</th>
-										<th style="width: 20%">Create by</th>
-										<th style="width: 15%">Create At</th>
-										<th style="width: 10%">###</th>
+										<th style="width: 15px;">STT</th>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Create by</th>
+										<th>Create At</th>
+										<th style="width: 20px">###</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -128,34 +128,25 @@
 									<c:forEach var="topic" items="${listTopic}" varStatus="stt">
 										<tr>
 											<td>${stt.index+1}</td>
-											<td>${topic.name}</td>
+											<td><a href='<c:url value="/topic/${topic.id }" />'>${topic.name}</a></td>
 											<td>${topic.description}</td>
 											<td>${topic.trainingStaff.name}</td>
 											<td>${topic.createdAt}</td>
-											<td>
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														<span class="caret"></span>
-													</button>
-													<ul style="width: 20px" class="dropdown-menu" role="menu">
-														<li><a href="#">Edit</a></li>
-														<li><a href="#">Delete</a></li>
-													</ul>
-												</div>
-											</td>
+											<td><a data-toggle="modal"
+												data-target="#dialog-question"
+												onclick="set_id_topic(${topic.id }, '${topic.name }')"
+												style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 								<tfoot>
 									<tr>
-										<th style="width: 3%">STT</th>
-										<th style="width: 15%">Name</th>
-										<th style="width: 37%">Description</th>
-										<th style="width: 20%">Create by</th>
-										<th style="width: 15%">Create At</th>
-										<th style="width: 10%">###</th>
+										<th style="width: 15px;">STT</th>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Create by</th>
+										<th>Create At</th>
+										<th style="width: 20px">###</th>
 									</tr>
 								</tfoot>
 							</table>
@@ -166,74 +157,58 @@
 
 				</div>
 				<div class="tab-pane fade" id="list-trainee">
-					<div class="box">
+					<div class="box box-danger">
 						<div class="box-header">
 							<h3 class="box-title">List trainee of Courses</h3>
-
 						</div>
-						<!-- /.box-header -->
 						<div class="box-body">
-
 							<button style="margin-bottom: 10px" type="button"
 								class="btn btn-default" data-toggle="modal"
 								data-target="#dialog-import">Add Trainee</button>
 
-							<table id="example1" class="table table-bordered table-striped">
-								<thead>
-									<tr>
-										<th style="width: 3%">STT</th>
-										<th style="width: 10%">Name</th>
-										<th style="width: 10%">Age</th>
-										<th style="width: 15%">Birth Day</th>
-										<th style="width: 15%">Education</th>
-										<th style="width: 15%">TOEIC score</th>
-										<th style="width: 22%">Address</th>
-										<th style="width: 10%">###</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="trainee" items="${list}" varStatus="stt">
+							<div id="table-trainee">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
 										<tr>
-											<td>${stt.index+1 }</td>
-											<td>${trainee.name}</td>
-											<td>${trainee.age}</td>
-											<td>${trainee.birthday}</td>
-											<td>${trainee.education}</td>
-											<td>${trainee.toeicScore}</td>
-											<td>${trainee.address}</td>
-											<td>
-												<div class="btn-group">
-													<button type="button"
-														class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														<span class="caret"></span>
-													</button>
-													<ul style="width: 20px" class="dropdown-menu" role="menu">
-														<li><a href="#">Edit</a></li>
-														<li><a href="#">Delete</a></li>
-													</ul>
-												</div>
-											</td>
+											<th style="width: 15px;">STT</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th style="width: 20px;">###</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th style="width: 3%">STT</th>
-										<th style="width: 10%">Name</th>
-										<th style="width: 10%">Age</th>
-										<th style="width: 15%">Birth Day</th>
-										<th style="width: 15%">Education</th>
-										<th style="width: 15%">TOEIC score</th>
-										<th style="width: 22%">Address</th>
-										<th style="width: 10%">###</th>
-									</tr>
-								</tfoot>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach var="trainee" items="${listTrainee}"
+											varStatus="stt">
+											<tr>
+												<td>${stt.index+1 }</td>
+												<td>${trainee.name}</td>
+												<td>${trainee.email}</td>
+												<td style="text-align: center;"><a
+													style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th style="width: 10px;">STT</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th style="width: 20px;">###</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
 						</div>
 						<!-- /.box-body -->
+						<!-- Loading (remove the following to stop the loading)-->
+						<div class="overlay hidden" id="loading">
+							<i class="fa fa-refresh fa-spin"></i>
+						</div>
+						<!-- end loading -->
 					</div>
-					<!-- /.box -->
+
+
+
 
 				</div>
 			</div>
@@ -244,8 +219,8 @@
 </section>
 
 
-
-<div class="modal modal-info" id="dialog-import" aria-hidden="true">
+<!-- Modal show import Excel file -->
+<div class="modal modal-default" id="dialog-import" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -255,7 +230,7 @@
 				</button>
 				<h4 class="modal-title">Import Trainee</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="content-excel">
 				<p>Select file format: *.xlsx</p>
 				<div class="form-group">
 					<label for="exampleInputFile">File input</label> <input type="file"
@@ -263,11 +238,14 @@
 
 					<p class="help-block">Example block-level help text here.</p>
 				</div>
+
+				<a href="#">Template excel file</a>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline pull-left"
+				<button type="button" class="btn btn-default pull-left"
 					data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-outline" id="fileSubmit">OK</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					id="fileSubmit">OK</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -275,7 +253,36 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!-- /.example-modal -->
+
+
+<!-- Modal view question delete topic -->
+<div class="modal" id="dialog-question" aria-hidden="true">
+	<input class="hidden" type="text" id="id-topic">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Delete</h4>
+			</div>
+			<div class="modal-body" id="message">
+				<p>One fine body&hellip;</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="remove_topic()" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
 
 <script>
 	var files = [];
@@ -288,23 +295,49 @@
 	})
 
 	function processUpload() {
+		var load = $("#loading");
+		load.removeClass("hidden");
 		var oMyForm = new FormData();
 		oMyForm.append("file", files[0]);
+		oMyForm.append("coursesId", $("#courses-id").val());
 		$.ajax({
-			dataType : 'json',
-			url : "/tms/uploadExcel",
+			dataType : 'text',
+			url : "/tms/ajax/uploadExcel",
 			data : oMyForm,
 			type : "POST",
 			enctype : 'multipart/form-data',
 			processData : false,
 			contentType : false,
 			success : function(result) {
+				console.log(result);
+				$("#table-trainee").empty();
+				$("#table-trainee").append(result);
+				load.addClass("hidden");
 				//...;
 			},
 			error : function(result) {
+				console.log(result);
 				//...;
 			}
 		});
+	}
+	
+	function set_id_topic(id, name) {
+		$("#id-topic").val(id);
+		$("#message").empty();
+		$("#message").append("<p>Do you want delete topic <strong>" + name+ "</strong> ?</p>");
+	}
+	
+	function remove_topic() {
+		var id = $("#id-topic").val();
+		$.ajax({
+			url : "/tms/topic/"+id+"/remove",
+			type : 'GET',
+			success : function(res) {
+				$("#tr"+id).remove();
+			}
+		});
+
 	}
 </script>
 

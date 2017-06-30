@@ -12,4 +12,5 @@ public interface Constant {
 		String MY_EMAIL = "galuc2015xxx@gmail.com";
 		String MY_PASSWORD = "Ba47232015";
 	}
+	
 }

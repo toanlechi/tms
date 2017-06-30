@@ -9,8 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -47,11 +45,8 @@ public class Trainee extends Account implements Serializable {
 	@Column(name = "address")
 	private String address;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "trainee_courses", joinColumns = 
-			@JoinColumn(name = "courses_id", referencedColumnName="id") , inverseJoinColumns = 
-					@JoinColumn(name = "trainee_id",referencedColumnName="id") )
-	private Set<Courses> listCourses = new HashSet<>();
+	@ManyToMany(mappedBy = "listTrainee")
+	private Set<Courses> listCourses;
 
 	@OneToMany(mappedBy = "trainee", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ReviewTopic> listReviewTopic = new HashSet<>();
@@ -69,19 +64,34 @@ public class Trainee extends Account implements Serializable {
 		this.toeicScore = toeicScore;
 		this.address = address;
 	}
+	
+	
+
+	public Trainee(String name, String password, int role, int age, Date birthday, String education,
+			String programmingLanguage, int toeicScore, String address, Set<Courses> listCourses,
+			Set<ReviewTopic> listReviewTopic, Set<ReviewCourses> listReviewCourses) {
+		super(name, password, role);
+		this.age = age;
+		this.birthday = birthday;
+		this.education = education;
+		this.programmingLanguage = programmingLanguage;
+		this.toeicScore = toeicScore;
+		this.address = address;
+		this.listCourses = listCourses;
+		this.listReviewTopic = listReviewTopic;
+		this.listReviewCourses = listReviewCourses;
+	}
+
+
 
 	public Trainee() {
 
 	}
-	
 
-	public Trainee(String name, String password) {
-		super(name, password);
+	public Trainee(String name, String password, String email) {
+		super(name, password, email);
 	}
-	
-	public Trainee(String name, String password, int role) {
-		super(name, password, role);
-	}
+
 
 	public int getAge() {
 		return age;

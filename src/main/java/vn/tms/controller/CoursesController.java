@@ -83,7 +83,10 @@ public class CoursesController {
 
 		Courses courses = coursesServices.findOne(coursesId);
 		List<Topic> topics = topicServices.findByCourses(courses);
+
+		System.out.println("-------------");
 		List<Trainee> trainees = traineeServices.findByCoursesId(coursesId);
+		System.out.println("-------------: " + trainees.size());
 
 		mv.addObject("courses", courses);
 		mv.addObject("listTopic", topics);

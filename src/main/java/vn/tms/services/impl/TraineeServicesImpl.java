@@ -42,4 +42,10 @@ public class TraineeServicesImpl implements TraineeServices {
 		return traineeDAO.findByRole(Constant.ROLE.TRAINEE);
 	}
 
+	@Override
+	public Trainee findOne(int id) {
+		traineeDAO.findOne(id);
+		return null;
+	}
+
 }

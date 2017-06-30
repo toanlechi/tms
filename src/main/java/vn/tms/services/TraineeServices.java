@@ -16,5 +16,7 @@ public interface TraineeServices {
 	
 	List<Trainee> findAllByRole();
 	
+	Trainee findOne(int id);
+	
 
 }

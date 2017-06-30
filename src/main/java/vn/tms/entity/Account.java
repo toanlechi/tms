@@ -83,6 +83,15 @@ public abstract class Account implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
+	
+	
+
+	public Account(String name, String email, String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 
 	public Account() {
 

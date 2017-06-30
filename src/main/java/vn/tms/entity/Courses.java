@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -43,7 +45,11 @@ public class Courses implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private TrainingStaff trainingStaff;
 
-	@ManyToMany(mappedBy = "listCourses")
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "trainee_courses", joinColumns = 
+			@JoinColumn(name = "courses_id", referencedColumnName="id") , inverseJoinColumns = 
+					@JoinColumn(name = "trainee_id",referencedColumnName="id") )
 	private Set<Trainee> listTrainee;
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -60,6 +66,21 @@ public class Courses implements Serializable {
 		this.category = category;
 		this.trainingStaff = trainingStaff;
 	}
+	
+	
+
+	public Courses(String name, String description, Date createdAt, Category category, TrainingStaff trainingStaff,
+			Set<Trainee> listTrainee) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.category = category;
+		this.trainingStaff = trainingStaff;
+		this.listTrainee = listTrainee;
+	}
+
+
 
 	public Courses() {
 		super();

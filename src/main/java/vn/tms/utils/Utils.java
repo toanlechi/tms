@@ -196,5 +196,8 @@ public class Utils {
 
 	public static void main(String[] args) {
 		System.out.println(getDateByTime("12:00"));
+		
+		String name = "abc.mp43";
+		System.out.println(name.substring(name.lastIndexOf("."), name.length()));
 	}
 }

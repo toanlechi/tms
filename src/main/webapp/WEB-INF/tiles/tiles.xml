@@ -183,5 +183,8 @@
 		<put-attribute name="title" value="Add Topic" />
 		<put-attribute name="main" value="/WEB-INF/pages/topic/add_topic.jsp" />
 	</definition>
+	
+	<!-- Table excel trainee -->
+	<definition name="table_excel" template="/WEB-INF/pages/plus/tableExcel.jsp"></definition>
 
 </tiles-definitions>

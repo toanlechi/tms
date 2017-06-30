@@ -98,12 +98,6 @@
 	
 	<!-- =================================End Admin Pages================================== -->
 	
-	<!-- Demo Page -->
-	<definition name="demo" extends="app-definition">
-		<put-attribute name="title" value="Demo" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/demo.jsp" />
-	</definition>
-
 	<!-- Login -->
 	<definition name="login" extends="security-definition">
 		<put-attribute name="title" value="Login" />

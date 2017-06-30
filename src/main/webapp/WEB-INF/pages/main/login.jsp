@@ -40,7 +40,7 @@
 				<!-- /.col -->
 			</div>
 		</form>
-		<a href="#">I forgot my password</a>
+		<a href="<c:url value="/forgotPassword"/>">I forgot my password</a>
 	</div>
 	<!-- /.login-box-body -->
 </div>

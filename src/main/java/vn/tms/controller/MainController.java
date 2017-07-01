@@ -2,14 +2,11 @@ package vn.tms.controller;
 
 import java.security.Principal;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,13 +22,12 @@ public class MainController {
 
 	@Autowired
 	private TraineeServices traineeServices;
-	
+
 	@Autowired
 	UserServices userServices;
 
 	@GetMapping("/login")
 	public String login() {
-		System.out.println("-----------");
 		return "login";
 	}
 
@@ -48,8 +44,8 @@ public class MainController {
 
 		return "";
 	}
-	
-	@GetMapping(value = "/forgotPassword")
+
+	@GetMapping(value = "/user/forgotPassword")
 	public String forgotPassword() {
 		return "forgotPass";
 	}
@@ -57,38 +53,33 @@ public class MainController {
 	@GetMapping(value = "/user/changePassword")
 	public String resetPassword(Model model, @RequestParam("id") int id, @RequestParam("token") String token,
 			RedirectAttributes redirect) {
-
-		if (!validatePasswordResetToken(id, token)) {
-			redirect.addFlashAttribute("error", "Khong the reset password!");
+		String result = userServices.validatePasswordResetToken(id, token);
+		if (result != null) {
+			redirect.addFlashAttribute("error", "Can not reset password!");
 			return "redirect:/login";
 		} else {
-			User user = userServices.findOne(id);
-			model.addAttribute("user", user);
-			return "resetPass";
+			return "redirect:/user/resetPassword";
 		}
 	}
 
-	@PostMapping(value = "/user/savePassword")
-	public String savePassWord(@ModelAttribute("user") @Valid User user,
-			BindingResult result, @RequestParam(name = "password", required = false) String password,
-			Model model,RedirectAttributes redirect) {
-		
-		userServices.update(user,password);
-		redirect.addFlashAttribute("success", "reset password!");
-		return "redirect:/login";
+	@GetMapping(value = "/user/resetPassword")
+	public String resetPassword() {
+		return "resetPass";
 	}
 
-	private boolean validatePasswordResetToken(int id, String token) {
-		User user = userServices.findByToken(token);
-		long timeStart = Long.parseLong(token.substring(0, 13));
-		long timeEnd = System.currentTimeMillis();
-
-		if (user == null || user.getId() != id) {
-			return false;
-		} else if (timeEnd - timeStart > 86400000) {
-			return false;
-		} else
-			return true;
+	@PostMapping(value = "/user/savePassword")
+	public String savePassWord(@RequestParam(name = "password", required = false) String password,
+			RedirectAttributes redirect) {
+		User user = (User) SecurityContextHolder
+				.getContext()
+				.getAuthentication()
+				.getPrincipal();
+		System.out.println(user.getEmail());
+		System.out.println(password);
+		
+		userServices.update(user, password);
+		redirect.addFlashAttribute("success", "Reset password success!");
+		return "redirect:/login";
 	}
 
 }

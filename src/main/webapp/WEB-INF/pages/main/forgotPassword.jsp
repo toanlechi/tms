@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="login-box">
 	<div class="login-logo">
-		<a href="../../index2.html"><b>Admin</b>LTE</a>
+		<b>TMS Forgot Password</b>
 	</div>
 	<!-- /.login-logo -->
 	
@@ -16,7 +16,7 @@
 	<div id="error" class="alert alert-danger alert-dismissible" style="display:none;">
 		<button type="button" class="close" data-dismiss="alert"
 			aria-hidden="true">×</button>
-		<i class="icon fa fa-exclamation-triangle"></i> Email not exits!
+		<i class="icon fa fa-exclamation-triangle"></i> Sorry! Email not exits.
 	</div>
 	
 	<div class="login-box-body">
@@ -31,9 +31,10 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<button type="submit" onclick="sendEmail()"
-					class="btn btn-primary btn-block btn-flat">Send instruction</button>
+					class="btn btn-primary btn-block btn-flat">
+					<i class="fa fa-spin fa-refresh" id="ajax-loading"></i>&nbsp;Send instruction
+				</button>
 			</div>
-			<!-- /.col -->
 		</div>
 	</div>
 	<!-- /.login-box-body -->
@@ -41,6 +42,8 @@
 <!-- /.login-box -->
 
 <script>
+	$('#ajax-loading').hide();
+
 	function sendEmail() {
 		var data = {}
 		var email = $("#email").val();
@@ -61,6 +64,7 @@
 		$('#emailResponse').remove();
 		$('#formEmail').removeClass('has-error');
 		$('#formEmail').addClass('has-success');
+		$('#ajax-loading').show();
 		
 		data["email"] = $("#email").val();
 		$.ajax({
@@ -70,8 +74,10 @@
 			data : data,
 			dataType : 'text',
 			success : function(data) {
+				$('#ajax-loading').hide();
 			},
 			complete : function(r) {
+				console.log(r.responseText);
 				if (r.responseText == "true") {
 					$("#success").hide();
 					$("#success").show();

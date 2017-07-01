@@ -16,8 +16,14 @@
 		<div class="col-xs-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Information</h3>
-
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="box-title">Information</h3>
+						</div>
+						<div class="col-sm-6 text-right">
+							<a href='<c:url value="/category/${category.id }/edit" />' class="btn btn-primary btn-sm">Edit</a>
+						</div>
+					</div>
 				</div>
 
 				<div class="box-body">
@@ -31,10 +37,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="name-label">${category.name }
-								<a href='<c:url value="/category/${category.id }/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="name-label">${category.name }</p>
 
 						</div>
 
@@ -66,10 +69,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="description-label">${category.description}
-								<a href='<c:url value="/category/${category.id }/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="description-label">${category.description}</p>
 						</div>
 					</div>
 				</div>

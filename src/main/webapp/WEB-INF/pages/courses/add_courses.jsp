@@ -25,13 +25,15 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<c:url value="/courses/add" var="post_courses" />
-					<form role="form" method="post" action="${post_courses}">
+					<form role="form" method="post" action="${post_courses}"
+						onsubmit="return checkForm()">
 						<input class="hidden" value="${courses.id }" name="coursesId">
 
 						<!-- select -->
 						<div class="form-group">
-							<label>Select</label> <select class="form-control"
-								name="category">
+							<label>Select (*)</label> <select class="form-control"
+								name="category" id="category">
+								<option value="0" />
 								<c:if test="${courses.id != null}">
 									<option value="${courses.category.id }">${courses.category.name }</option>
 								</c:if>
@@ -40,25 +42,30 @@
 									<option value="${category.id }">${category.name }</option>
 								</c:forEach>
 							</select>
+							<p class="error" hidden id="view-err-category"></p>
 						</div>
 
 						<!-- text input -->
 						<div class="form-group">
-							<label>Name</label> <input type="text" class="form-control"
-								placeholder="Name" name="name" value="${courses.name }" id="name">
-							<p hidden id="view-err-name"></p>
+							<label>Name (*)</label> <input type="text" class="form-control"
+								placeholder="Name" name="name" value="${courses.name }"
+								id="name">
+							<p class="error" hidden id="view-err-name"></p>
 						</div>
 
 						<!-- textarea -->
 						<div class="form-group">
-							<label>Description</label>
+							<label>Description (*)</label>
 							<textarea class="form-control" rows="5" placeholder="Description"
-								name="description">${courses.description }</textarea>
+								name="description" id="description">${courses.description }</textarea>
+							<p class="error" hidden id="view-err-description"></p>
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
 
 						</div>
+						
+						<div class="text-right"><i class="text-right">(*) Field required</i></div>
 
 
 					</form>
@@ -109,4 +116,33 @@
 			}
 		});
 	});
+
+	function checkForm() {
+		var check = true;
+		if ($("#name").val() == '') {
+			$("#view-err-name").text("Value is require!");
+			$("#view-err-name").show();
+			check = false;
+		} else {
+			$("#view-err-name").hide();
+		}
+		
+		if ($("#category").val()==0){
+			$("#view-err-category").text("Value is require!");
+			$("#view-err-category").show();
+			check = false;
+		} else {
+			$("#view-err-category").hide();
+		}
+
+		if ($("#description").val() == '') {
+			$("#view-err-description").text("Value is require!");
+			$("#view-err-description").show();
+			check = false;
+		} else {
+			$("#view-err-description").hide();
+		}
+		
+		return check;
+	}
 </script>

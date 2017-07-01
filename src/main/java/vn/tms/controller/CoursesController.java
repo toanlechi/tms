@@ -67,7 +67,6 @@ public class CoursesController {
 		String email = principal.getName();
 		TrainingStaff trainingStaff = trainingStaffService.findByEmail(email);
 		Category category = categoryServices.findOne(categoryId);
-
 		Courses courses = new Courses(name, description, new Date(), category, trainingStaff);
 		if (coursesId != 0) {
 			courses.setId(coursesId);
@@ -78,31 +77,30 @@ public class CoursesController {
 	}
 
 	@GetMapping("/courses/{coursesId}")
-	public ModelAndView coursesDetail(@PathVariable("coursesId") int coursesId) {
-		ModelAndView mv = new ModelAndView("courses_detail");
-
+	public String coursesDetail(@PathVariable("coursesId") int coursesId, Model model) {
 		Courses courses = coursesServices.findOne(coursesId);
+		if (courses == null) {
+			return "404";
+		}
 		List<Topic> topics = topicServices.findByCourses(courses);
-
-		System.out.println("-------------");
 		List<Trainee> trainees = traineeServices.findByCoursesId(coursesId);
-		System.out.println("-------------: " + trainees.size());
+		model.addAttribute("courses", courses);
+		model.addAttribute("listTopic", topics);
+		model.addAttribute("listTrainee", trainees);
 
-		mv.addObject("courses", courses);
-		mv.addObject("listTopic", topics);
-		mv.addObject("listTrainee", trainees);
-
-		return mv;
+		return "courses_detail";
 	}
 
 	@GetMapping("/courses/{coursesId}/edit")
-	public ModelAndView coursesEdit(@PathVariable("coursesId") int coursesId, Model model) {
-		ModelAndView mv = new ModelAndView("courses_add");
+	public String coursesEdit(@PathVariable("coursesId") int coursesId, Model model) {
 		Courses courses = coursesServices.findOne(coursesId);
+		if (courses == null) {
+			return "404";
+		}
 		List<Category> categories = categoryServices.findAll();
-		mv.addObject("courses", courses);
-		mv.addObject("categories", categories);
-		return mv;
+		model.addAttribute("courses", courses);
+		model.addAttribute("categories", categories);
+		return "courses_add";
 	}
 
 	@GetMapping("/courses/{coursesId}/remove")

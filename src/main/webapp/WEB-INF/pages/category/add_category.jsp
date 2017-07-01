@@ -24,27 +24,32 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<c:url value="/category/add" var="post_category" />
-					<form role="form" method="post" action="${post_category}">
+					 
+					<form role="form" method="post" action="${post_category}" onsubmit="return check()">
 						<input class="hidden" value="${category.id }" name="categoryId">
 						<!-- text input -->
 						<div class="form-group">
-							<label>Name</label> <input type="text" class="form-control"
+							<label>Name (*)</label> <input type="text" class="form-control"
 								name="name" id="name" placeholder="Category name ..."
 								value="${category.name }">
-							<p hidden id="view-err-name"></p>
+							<p class="error" hidden id="view-err-name"></p>
 						</div>
 
 						<!-- textarea -->
 						<div class="form-group">
-							<label>Description</label>
+							<label>Description  (*)</label>
 							<textarea class="form-control" rows="5" placeholder="Description"
-								name="description">${category.description }</textarea>
+								name="description" id="description">${category.description }</textarea>
+							
+							<p class="error" hidden id="view-err-description"></p>
 						</div>
 
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
 
 						</div>
+						
+						<div class="text-right"><i class="text-right">(*) Field required</i></div>
 
 					</form>
 				</div>
@@ -93,4 +98,24 @@
 			}
 		});
 	});
+	
+	function check(){
+		var check = true;
+		if ($("#name").val()==''){
+			$("#view-err-name").text("Value is require!");
+			$("#view-err-name").show();
+			check =false;
+		} else {
+			$("#view-err-name").hide();
+		}
+		
+		if ($("#description").val()==''){
+			$("#view-err-description").text("Value is require!");
+			$("#view-err-description").show();
+			check = false;
+		} else {
+			$("#view-err-description").hide();
+		}
+		return check;
+	}
 </script>

@@ -16,8 +16,14 @@
 		<div class="col-xs-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Information</h3>
-
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="box-title">Information</h3>
+						</div>
+						<div class="col-sm-6 text-right">
+							<a href='<c:url value="/topic/${topic.id}/edit" />' class="btn btn-primary btn-sm">Edit</a>
+						</div>
+					</div>
 				</div>
 
 				<div class="box-body">
@@ -27,10 +33,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="name-label">${topic.name }
-								<a href='<c:url value="/topic/${topic.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="name-label">${topic.name }</p>
 						</div>
 
 					</div>
@@ -41,10 +44,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="name-label">${topic.trainer.name }
-								<a href='<c:url value="/topic/${topic.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="name-label">${topic.trainer.name }</p>
 						</div>
 
 					</div>
@@ -55,10 +55,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="category-label">${topic.courses.name}
-								<a href='<c:url value="/topic/${topic.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="category-label">${topic.courses.name}</p>
 
 						</div>
 					</div>
@@ -90,10 +87,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="description-label">${topic.description}
-								<a href='<c:url value="/topic/${topic.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="description-label">${topic.description}</p>
 
 						</div>
 					</div>

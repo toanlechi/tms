@@ -24,7 +24,8 @@
 			<add-attribute value="/static/js/app.min.js" />
 			<add-attribute value="/static/js/custom.js" />
 			<add-attribute value="/static/vendor/iCheck/icheck.min.js" />
-			<add-attribute value="/static/vendor/timepicker.min.js" />
+			<add-attribute value="/static/vendor/moment.min.js" />
+			<add-attribute value="/static/vendor/bootstrap-datetimepicker.min.js" />
 		</put-list-attribute>
 
 		<put-list-attribute name="stylesheets">
@@ -35,7 +36,7 @@
 				value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 			<add-attribute value="/static/css/AdminLTE.min.css" />
 			<add-attribute value="/static/css/style.css" />
-			<add-attribute value="/static/css/timepicker.min.css" />
+			<add-attribute value="/static/css/bootstrap-datetimepicker.min.css" />
 			<add-attribute value="/static/css/skins/_all-skins.min.css" />
 			<add-attribute value="/static/vendor/datatables/dataTables.bootstrap.css" />
 		</put-list-attribute>
@@ -65,55 +66,63 @@
 
 
 	<!-- =================================Admin Pages================================== -->
-	
+
 	<!-- List Trainer -->
 	<definition name="trainerList" extends="app-definition">
 		<put-attribute name="title" value="Admin-Trainer Manager | List" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/list.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/admin/trainerManager/list.jsp" />
 	</definition>
-	
+
 	<!-- Add Trainer -->
 	<definition name="trainerAdd" extends="app-definition">
 		<put-attribute name="title" value="Admin-Trainer Manager | Add" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/add.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/admin/trainerManager/add.jsp" />
 	</definition>
-	
+
 	<!-- Edit Trainer -->
 	<definition name="trainerEdit" extends="app-definition">
 		<put-attribute name="title" value="Admin-Trainer Manager | Add" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/trainerManager/edit.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/admin/trainerManager/edit.jsp" />
 	</definition>
-	
+
 	<!-- List Training Staff -->
 	<definition name="trainingStaffList" extends="app-definition">
-		<put-attribute name="title" value="Admin-Training Staff Manager | List" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/trainingstaffManager/list.jsp" />
+		<put-attribute name="title"
+			value="Admin-Training Staff Manager | List" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/admin/trainingstaffManager/list.jsp" />
 	</definition>
-	
+
 	<!-- Add Training Staff -->
 	<definition name="trainingStaffAdd" extends="app-definition">
 		<put-attribute name="title" value="Admin-Training Staff Manager | Add" />
-		<put-attribute name="main" value="/WEB-INF/pages/admin/trainingstaffManager/add.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/admin/trainingstaffManager/add.jsp" />
 	</definition>
-	
+
 	<!-- =================================End Admin Pages================================== -->
-	
+
 	<!-- Login -->
 	<definition name="login" extends="security-definition">
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="main" value="/WEB-INF/pages/main/login.jsp" />
 	</definition>
-	
+
 	<!-- Forgot Pass -->
 	<definition name="forgotPass" extends="security-definition">
 		<put-attribute name="title" value="Forgot Password" />
-		<put-attribute name="main" value="/WEB-INF/pages/main/forgotPassword.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/main/forgotPassword.jsp" />
 	</definition>
-	
+
 	<!-- Reset Pass -->
 	<definition name="resetPass" extends="security-definition">
 		<put-attribute name="title" value="Forgot Password" />
-		<put-attribute name="main" value="/WEB-INF/pages/main/resetPassword.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/main/resetPassword.jsp" />
 	</definition>
 
 	<!-- Category home -->
@@ -165,20 +174,42 @@
 		<put-attribute name="title" value="Topic" />
 		<put-attribute name="main" value="/WEB-INF/pages/topic/topic.jsp" />
 	</definition>
-	
+
 	<!-- Topic detail -->
 	<definition name="topic_detail" extends="app-definition">
 		<put-attribute name="title" value="Topic" />
-		<put-attribute name="main" value="/WEB-INF/pages/topic/detail_topic.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/topic/detail_topic.jsp" />
 	</definition>
-	
+
 	<!-- Topic add -->
 	<definition name="topic_add" extends="app-definition">
 		<put-attribute name="title" value="Add Topic" />
 		<put-attribute name="main" value="/WEB-INF/pages/topic/add_topic.jsp" />
 	</definition>
-	
+
 	<!-- Table excel trainee -->
 	<definition name="table_excel" template="/WEB-INF/pages/plus/tableExcel.jsp"></definition>
+
+
+	<!-- =================================Error Pages================================== -->
+	<!-- 404 page -->
+	<definition name="404" extends="security-definition">
+		<put-attribute name="title" value="404 Error Page" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/404.jsp" />
+	</definition>
+	
+	<!-- 403 page -->
+	<definition name="404" extends="security-definition">
+		<put-attribute name="title" value="403 Error Page" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/403.jsp" />
+	</definition>
+
+	<!-- 500 page -->
+	<definition name="500" extends="security-definition">
+		<put-attribute name="title" value="500 Error Page" />
+		<put-attribute name="main" value="/WEB-INF/pages/main/500.jsp" />
+	</definition>
+
 
 </tiles-definitions>

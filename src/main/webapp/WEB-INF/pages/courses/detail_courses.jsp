@@ -17,7 +17,14 @@
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Information</h3>
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="box-title">Information</h3>
+						</div>
+						<div class="col-sm-6 text-right">
+							<a href='<c:url value="/courses/${courses.id}/edit" />' class="btn btn-primary btn-sm">Edit</a>
+						</div>
+					</div>
 
 				</div>
 
@@ -31,10 +38,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="name-label">${courses.name }
-								<a href='<c:url value="/courses/${courses.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="name-label">${courses.name }</p>
 						</div>
 
 					</div>
@@ -45,10 +49,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="category-label">${courses.category.name}
-								<a href='<c:url value="/courses/${courses.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="category-label">${courses.category.name}</p>
 
 						</div>
 					</div>
@@ -80,10 +81,7 @@
 						</div>
 
 						<div class="col-sm-10">
-							<p id="description-label">${courses.description}
-								<a href='<c:url value="/courses/${courses.id}/edit" />'><span
-									class="fa fa-pencil" style="cursor: pointer"></span></a>
-							</p>
+							<p id="description-label">${courses.description}</p>
 
 						</div>
 					</div>

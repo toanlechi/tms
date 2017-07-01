@@ -35,7 +35,7 @@ public class TopicController {
 
 	@Autowired
 	private TrainingStaffServices trainingStaffService;
-	
+
 	@Autowired
 	private TrainerServices trainerServices;
 
@@ -49,12 +49,14 @@ public class TopicController {
 	}
 
 	@GetMapping("/topic/{topicId}")
-	public ModelAndView topicDetail(@PathVariable("topicId") int topicId) {
-		ModelAndView mv = new ModelAndView("topic_detail");
+	public String topicDetail(@PathVariable("topicId") int topicId, Model model) {
 		Topic topic = topicServices.findOne(topicId);
-		mv.addObject("topic", topic);
+		if (topic == null) {
+			return "404";
+		}
+		model.addAttribute("topic", topic);
 
-		return mv;
+		return "topic_detail";
 	}
 
 	@GetMapping("/topic/add")
@@ -70,10 +72,13 @@ public class TopicController {
 	public String topicAddPost(@RequestParam(value = "topicId", defaultValue = "0") int topicId,
 			@RequestParam("coursesId") int coursesId, @RequestParam("name") String name,
 			@RequestParam("timeStart") String timeStart, @RequestParam("timeEnd") String timeEnd,
-			@RequestParam(value="mo", defaultValue="off") String mo, @RequestParam(value="tu", defaultValue="off") String tu,@RequestParam(value="we", defaultValue="off") String we,
-			@RequestParam(value="th", defaultValue="off") String th, @RequestParam(value="fr", defaultValue="off") String fr,@RequestParam(value="sa", defaultValue="off") String sa,
-			@RequestParam(value="su", defaultValue="off") String su,
-			@RequestParam("trainerId") int trainerId,
+			@RequestParam(value = "mo", defaultValue = "off") String mo,
+			@RequestParam(value = "tu", defaultValue = "off") String tu,
+			@RequestParam(value = "we", defaultValue = "off") String we,
+			@RequestParam(value = "th", defaultValue = "off") String th,
+			@RequestParam(value = "fr", defaultValue = "off") String fr,
+			@RequestParam(value = "sa", defaultValue = "off") String sa,
+			@RequestParam(value = "su", defaultValue = "off") String su, @RequestParam("trainerId") int trainerId,
 			@RequestParam("description") String description, Principal principal) {
 		String email = principal.getName();
 		TrainingStaff trainingStaff = trainingStaffService.findByEmail(email);
@@ -81,14 +86,15 @@ public class TopicController {
 		Courses courses = coursesServices.findOne(coursesId);
 		int dayOfWeek = Utils.convertToDec(Utils.format(mo, tu, we, th, fr, sa, su));
 
-		Topic topic = new Topic(name, description, Utils.getDateByTime(timeStart), Utils.getDateByTime(timeEnd), dayOfWeek, new Date(), courses, trainingStaff, trainer);
+		Topic topic = new Topic(name, description, Utils.getDateByTime(timeStart), Utils.getDateByTime(timeEnd),
+				dayOfWeek, new Date(), courses, trainingStaff, trainer);
 		if (topicId != 0) {
 			topic.setId(topicId);
 		}
-		  
+
 		topicServices.save(topic);
-		
-		//send email notify assigned trainer into topic
+
+		// send email notify assigned trainer into topic
 		MailContent mailContent = new MailContent(trainer.getEmail(), "Assigned", "");
 		Utils.sendMail(mailContent);
 
@@ -96,27 +102,28 @@ public class TopicController {
 	}
 
 	@GetMapping("/topic/{topicId}/edit")
-	public ModelAndView topicEdit(@PathVariable("topicId") int topicId) {
-		ModelAndView mv = new ModelAndView("topic_add");
+	public String topicEdit(@PathVariable("topicId") int topicId, Model model) {
 		Topic topic = topicServices.findOne(topicId);
+		if (topic == null) {
+			return "404";
+		}
 		List<Courses> listCourses = coursesServices.findAll();
 		List<Trainer> listTrainer = trainerServices.findAll();
-		
-		for (String tr : Utils.getDayOfWeek(topic.getDay())){
-			System.out.println(tr);
-			mv.addObject("day"+tr, "checked");
+
+		for (String tr : Utils.getDayOfWeek(topic.getDay())) {
+			model.addAttribute("day" + tr, "checked");
 		}
 
-		mv.addObject("topic", topic);
-		mv.addObject("listCourses", listCourses);
-		mv.addObject("listTrainer", listTrainer);
+		model.addAttribute("topic", topic);
+		model.addAttribute("listCourses", listCourses);
+		model.addAttribute("listTrainer", listTrainer);
 
-		return mv;
+		return "topic_add";
 	}
-	
+
 	@GetMapping("/topic/{topicId}/remove")
 	@ResponseBody
-	public String topicRemove(@PathVariable("topicId") int topicId){
+	public String topicRemove(@PathVariable("topicId") int topicId) {
 		topicServices.delete(topicId);
 		return "success";
 	}

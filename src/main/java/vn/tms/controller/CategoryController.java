@@ -61,22 +61,24 @@ public class CategoryController {
 	}
 
 	@GetMapping("/category/{categoryId}")
-	public ModelAndView categoryDetail(@PathVariable("categoryId") int categoryId) {
-		ModelAndView mv = new ModelAndView("category_detail");
-
-		System.out.println(categoryId);
-
+	public String categoryDetail(@PathVariable("categoryId") int categoryId, Model model) {
+		
 		Category category = categoryServices.findOne(categoryId);
+		if (category==null){
+			return "404";
+		}
 		List<Courses> listCourses = coursesService.findByCategory(category);
-		mv.addObject("category", category);
-		mv.addObject("listCourses", listCourses);
-
-		return mv;
+		model.addAttribute("category", category);
+		model.addAttribute("listCourses", listCourses);
+		return "category_detail";
 	}
 
 	@GetMapping("/category/{categoryId}/edit")
 	public String categoryEdit(@PathVariable("categoryId") int categoryId, Model model) {
 		Category category = categoryServices.findOne(categoryId);
+		if (category==null){
+			return "404";
+		}
 		model.addAttribute("category", category);
 		return "category_add";
 	}
@@ -85,7 +87,6 @@ public class CategoryController {
 	@ResponseBody
 	public String categoryRemove(@PathVariable("categoryId") int categoryId) {
 		categoryServices.delete(categoryId);
-
 		return "success";
 	}
 

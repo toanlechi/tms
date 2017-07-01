@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().withUser("abc@abc").password("123123").roles("1");
+		// auth.inMemoryAuthentication().withUser("abc@abc").password("123123").roles("1");
 
 		auth.userDetailsService(myDBAuthenticationServices);
 		auth.authenticationProvider(authenticationProvider());
@@ -51,9 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Trang user-info, chuyá»ƒn vá»� login náº¿u chÆ°a Ä‘Äƒng nháº­p
 		http.authorizeRequests().antMatchers("/category", "/courses", "/topic").access("hasAnyRole('ROLE_2')");
-		
+
 		http.authorizeRequests().antMatchers("/admin/trainerManager").access("hasAnyRole('ROLE_1')");
 
+		http.authorizeRequests().antMatchers("/user/resetPassword*", "/user/savePassword*", "/updatePassword*")
+				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE");
 		// Ngoáº¡i lá»‡ khi truy cáº­p sai permision
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 

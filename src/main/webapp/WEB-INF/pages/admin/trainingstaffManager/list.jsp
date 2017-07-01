@@ -31,7 +31,7 @@
 			<i class="icon fa fa-exclamation-triangle"></i> ${error}
 		</div>
 	</c:if>
-	<a href="<c:url value="/admin/trainerManager/add" />"
+	<a href="<c:url value="/admin/trainingStaffManager/add" />"
 		class="btn btn-primary"> <i class="fa fa-plus"></i> Add new
 		training staff
 	</a>

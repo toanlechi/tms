@@ -14,4 +14,6 @@ public interface UserServices {
 	
 	User findByToken(String token);
 	
+	String validatePasswordResetToken(long id, String token);
+	
 }

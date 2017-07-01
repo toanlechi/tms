@@ -7,7 +7,7 @@
 <section class="content-header">
 	<h4>Training Staff Manager</h4>
 	<ol class="breadcrumb">
-		<li><a href="<c:url value="/admin/trainerManager" />"><i
+		<li><a href="<c:url value="/admin/trainingStaffManager" />"><i
 				class="fa fa-folder-open-o"></i> Training Staff Manager</a></li>
 		<li class="active">Add new training staff</li>
 	</ol>

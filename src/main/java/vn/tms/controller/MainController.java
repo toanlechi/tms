@@ -70,70 +70,31 @@ public class MainController {
 	@PostMapping(value = "/user/savePassword")
 	public String savePassWord(@RequestParam(name = "password", required = false) String password,
 			RedirectAttributes redirect) {
-		User user = (User) SecurityContextHolder
-				.getContext()
-				.getAuthentication()
-				.getPrincipal();
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(user.getEmail());
 		System.out.println(password);
-		
+
 		userServices.update(user, password);
 		redirect.addFlashAttribute("success", "Reset password success!");
 		return "redirect:/login";
 	}
 
-	
-<<<<<<< .mine
-	private boolean validatePasswordResetToken(int id, String token) {
-		User user = userServices.findByToken(token);
-		long timeStart = Long.parseLong(token.substring(0, 13));
-		long timeEnd = System.currentTimeMillis();
-
-		if (user == null || user.getId() != id) {
-			return false;
-		} else if (timeEnd - timeStart > 86400000) {
-			return false;
-		} else
-			return true;
-	}
-	
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
 	@GetMapping("/404")
-	public String page404(){
+	public String page404() {
 		return "404";
-		
+
 	}
-	
+
 	@GetMapping("/500")
-	public String page500(){
+	public String page500() {
 		return "500";
-		
+
 	}
-	
+
 	@GetMapping("/403")
-	public String page403(){
+	public String page403() {
 		return "403";
-		
+
 	}
-<<<<<<< .mine
-	
 
-=======
-
-
->>>>>>> .theirs
 }

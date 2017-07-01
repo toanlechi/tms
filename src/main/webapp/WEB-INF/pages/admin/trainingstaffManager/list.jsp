@@ -83,8 +83,9 @@
 												href="<c:url value="/admin/trainingStaffManager/${trainingStaff.id}/edit" />"
 												title="Edit Category"> <i class="fa fa-pencil"></i>
 											</a></td>
-											<td align="center"><a href="#myModal_${trainingStaff.id}"
-												data-toggle="modal"> <i class="fa fa-trash"></i>
+											<td align="center"><a
+												href="#myModal_${trainingStaff.id}" data-toggle="modal">
+													<i class="fa fa-trash"></i>
 											</a></td>
 										</tr>
 										<div id="myModal_${trainingStaff.id}" class="modal fade">
@@ -97,8 +98,8 @@
 													</div>
 
 													<div class="modal-body">
-														<p>Are you sure you want to delete this training staff:
-															${trainingStaff.name} ?</p>
+														<p>Are you sure you want to delete this training
+															staff: ${trainingStaff.name} ?</p>
 													</div>
 													<div class="modal-footer">
 
@@ -126,3 +127,8 @@
 	</div>
 </section>
 <!-- /.content -->
+<script>
+	$(function() {
+		$("#myTable").DataTable();
+	});
+</script>

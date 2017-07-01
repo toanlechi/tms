@@ -76,8 +76,7 @@
 													<c:otherwise>
 														<span class="label bg-red">Block</span>
 													</c:otherwise>
-												</c:choose>
-											</td>
+												</c:choose></td>
 											<td>${trainer.createdAt}</td>
 											<td>${trainer.updatedAt}</td>
 											<td align="center"><a
@@ -127,3 +126,8 @@
 	</div>
 </section>
 <!-- /.content -->
+<script>
+	$(function() {
+		$("#myTable").DataTable();
+	});
+</script>

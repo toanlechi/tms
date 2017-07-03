@@ -9,7 +9,7 @@
 		List Courses <small>Data Infomation</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="<c:url value="/admin/trainerManager" />"> <i
+		<li><a href="<c:url value="/trainee/courses" />"> <i
 				class="fa fa-folder-open-o"></i> Trainer Courses
 		</a></li>
 	</ol>
@@ -42,16 +42,18 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="coursesItem" items="${listCourses}"
-										varStatus="loop">
-										<td align="center"><c:out value="${loop.index + 1}" /></td>
-										<td>${coursesItem.name }</td>
-										<td>${coursesItem.description }</td>
-										<td>${coursesItem.createdAt }</td>
-										<td align="center"><a
-											href="<c:url value="/trainee/courses/${coursesItem.id}/show" />"
-											title="Show Courses"> <i class="fa fa-search"></i>
-										</a></td>
+									<c:forEach items="${listCourses}"
+										var="coursesItem" varStatus="loop">
+										<tr>
+											<td align="center"><c:out value="${loop.index + 1}" /></td>
+											<td>${coursesItem.name }</td>
+											<td>${coursesItem.description }</td>
+											<td>${coursesItem.createdAt }</td>
+											<td align="center"><a
+												href="<c:url value="/trainee/courses/${coursesItem.id}/show" />"
+												title="Show Courses"> <i class="fa fa-search"></i>
+											</a></td>
+										<tr>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -65,3 +67,9 @@
 		<!-- /.col -->
 	</div>
 </section>
+
+<script>
+	$(function() {
+		$("#myTable").DataTable();
+	});
+</script>

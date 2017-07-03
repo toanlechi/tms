@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,12 +34,14 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
 import vn.tms.entity.MailContent;
+import vn.tms.entity.ReviewCourses;
 import vn.tms.entity.Trainee;
 import vn.tms.entity.Trainer;
 import vn.tms.entity.TrainingStaff;
 import vn.tms.entity.User;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
+import vn.tms.services.ReviewCoursesServices;
 import vn.tms.services.TraineeServices;
 import vn.tms.services.TrainerServices;
 import vn.tms.services.TrainingStaffServices;
@@ -65,6 +68,9 @@ public class AjaxController {
 
 	@Autowired
 	UserServices userServices;
+	
+	@Autowired
+	ReviewCoursesServices reviewCoursesServices;
 
 	@Autowired
 	private TraineeServices traineeServices;
@@ -277,6 +283,33 @@ public class AjaxController {
 		List<Courses> courses = coursesServices.search(text, searchBy, dateFrom, dateTo, categoryId);
 		mv.addObject("listCourses", courses);
 		return mv;
+	}
+	
+	@PostMapping(value = "/reviewCourses")
+	public @ResponseBody String reviewCourses(HttpServletRequest request,
+			@RequestParam("rate") int rate,
+			@RequestParam("coursesId") int coursesId,
+			@RequestParam("content") String content ,Principal principal) {
+		
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
+		Courses courses = coursesServices.findOne(coursesId);
+		
+		ReviewCourses reviewCourses = new ReviewCourses();
+		reviewCourses.setCourses(courses);
+		reviewCourses.setReview(content);
+		reviewCourses.setStar(rate);
+		reviewCourses.setTrainee(trainee);
+		
+		ReviewCourses dbReviewCourses = reviewCoursesServices
+				.findReviewByCoursesAndTrainee(courses.getId(), trainee.getId());
+		if(dbReviewCourses == null){
+			reviewCoursesServices.create(reviewCourses);
+		}else {
+			reviewCourses.setId(dbReviewCourses.getId());
+			reviewCoursesServices.update(reviewCourses);
+		}
+		
+		return "";
 	}
 
 }

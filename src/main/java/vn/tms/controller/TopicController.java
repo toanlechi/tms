@@ -43,7 +43,9 @@ public class TopicController {
 	public ModelAndView topic() {
 		ModelAndView mv = new ModelAndView("topic");
 		List<Topic> topics = topicServices.findAll();
+		List<Courses> courses = coursesServices.findAll();
 		mv.addObject("topics", topics);
+		mv.addObject("listCourses", courses);
 
 		return mv;
 	}

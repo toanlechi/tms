@@ -125,6 +125,8 @@
 			value="/WEB-INF/pages/main/resetPassword.jsp" />
 	</definition>
 
+
+	<!-- =================================TrainingStaff Pages================================== -->
 	<!-- Category home -->
 	<definition name="category" extends="app-definition">
 		<put-attribute name="title" value="Category" />
@@ -187,18 +189,29 @@
 		<put-attribute name="title" value="Add Topic" />
 		<put-attribute name="main" value="/WEB-INF/pages/topic/add_topic.jsp" />
 	</definition>
+	
+	<!-- Topic add -->
+	<definition name="training_staff_profile" extends="app-definition">
+		<put-attribute name="title" value="TrainingStaff | Profile" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainingStaff/profile.jsp" />
+	</definition>
+
+	<!-- =================================End TrainingStaff Pages================================== -->
 
 
 
 	<!-- =================================Pages Plus================================== -->
 	<!-- Table excel trainee -->
 	<definition name="table_excel" template="/WEB-INF/pages/plus/tableExcel.jsp"></definition>
-	
+
 	<!-- Table excel trainee -->
 	<definition name="table_category" template="/WEB-INF/pages/plus/tableCategory.jsp"></definition>
-	
+
 	<!-- Table excel trainee -->
 	<definition name="table_courses" template="/WEB-INF/pages/plus/tableCourses.jsp"></definition>
+
+	<!-- Table excel trainee -->
+	<definition name="table_topic" template="/WEB-INF/pages/plus/tableTopic.jsp"></definition>
 	<!-- =================================End Pages Plus================================== -->
 
 
@@ -221,24 +234,40 @@
 		<put-attribute name="main" value="/WEB-INF/pages/main/500.jsp" />
 	</definition>
 	
-	<!-- =================================Trainee Pages================================== -->
+	<!-- =================================Trainer Pages================================== -->
+	<!-- Trainer home -->
+	<definition name="trainer_page" extends="app-definition">
+		<put-attribute name="title" value="Trainer Page" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/trainer/trainer.jsp" />
+	</definition>
+	<!-- =================================End Trainer Pages================================== -->
 	
+
+	<!-- =================================Trainee Pages================================== -->
+
 	<!-- Trainee list courses -->
 	<definition name="traineeCourses" extends="app-definition">
 		<put-attribute name="title" value="Trainee Courses" />
-		<put-attribute name="main" value="/WEB-INF/pages/trainee/courses/list.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/trainee/courses/list.jsp" />
 	</definition>
-	
+
 	<!-- Trainee courses details -->
 	<definition name="traineeCoursesDetails" extends="app-definition">
 		<put-attribute name="title" value="Trainee Courses Details" />
-		<put-attribute name="main" value="/WEB-INF/pages/trainee/courses/show.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/trainee/courses/show.jsp" />
 	</definition>
-	
+
 	<!-- Trainee show topic -->
 	<definition name="traineeTopic" extends="app-definition">
 		<put-attribute name="title" value="Trainee Show Topic" />
-		<put-attribute name="main" value="/WEB-INF/pages/trainee/topic/show.jsp" />
+		<put-attribute name="main"
+			value="/WEB-INF/pages/trainee/topic/show.jsp" />
 	</definition>
+
+
+
 
 </tiles-definitions>

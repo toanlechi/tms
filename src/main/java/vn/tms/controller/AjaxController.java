@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,12 +34,14 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
 import vn.tms.entity.MailContent;
+import vn.tms.entity.Topic;
 import vn.tms.entity.Trainee;
 import vn.tms.entity.Trainer;
 import vn.tms.entity.TrainingStaff;
 import vn.tms.entity.User;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
+import vn.tms.services.TopicServices;
 import vn.tms.services.TraineeServices;
 import vn.tms.services.TrainerServices;
 import vn.tms.services.TrainingStaffServices;
@@ -71,6 +74,9 @@ public class AjaxController {
 
 	@Autowired
 	private PasswordEncoder passwordEncode;
+
+	@Autowired
+	private TopicServices topicServices;
 
 	@PostMapping("/check_category_name")
 	@ResponseBody
@@ -272,11 +278,51 @@ public class AjaxController {
 			@RequestParam("searchBy") String searchBy,
 			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
 			@RequestParam(value = "dateTo", defaultValue = "") String dateTo,
-			@RequestParam(value = "categoryId",defaultValue="0") int categoryId) {
+			@RequestParam(value = "categoryId", defaultValue = "0") int categoryId) {
 		ModelAndView mv = new ModelAndView("table_courses");
 		List<Courses> courses = coursesServices.search(text, searchBy, dateFrom, dateTo, categoryId);
 		mv.addObject("listCourses", courses);
 		return mv;
+	}
+
+	@PostMapping("/searchTopic")
+	@ResponseBody
+	public ModelAndView findTopic(@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam("searchBy") String searchBy,
+			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
+			@RequestParam(value = "dateTo", defaultValue = "") String dateTo,
+			@RequestParam(value = "coursesId", defaultValue = "0") int coursesId) {
+		ModelAndView mv = new ModelAndView("table_topic");
+		List<Topic> listTopic = topicServices.search(text, searchBy, dateFrom, dateTo, coursesId);
+		mv.addObject("topics", listTopic);
+		return mv;
+	}
+
+	@PostMapping("/trainingStaff/update")
+	@ResponseBody
+	public String trainingStaffUpdate(@RequestParam("name") String name, @RequestParam("password") String password,
+			@RequestParam(value = "newPassword", defaultValue = "") String newPassword,
+			@RequestParam(value = "reNewPassword", defaultValue = "") String reNewPassword, Principal principal) {
+		TrainingStaff trainingStaff = trainingStaffServices.findByEmail(principal.getName());
+		if (!passwordEncode.matches(password, trainingStaff.getPassword())) {
+			return "Wrong password!";
+		}
+		if (name == null || name.equals("")) {
+			return "Name value not null!";
+		}
+		trainingStaff.setName(name);
+		if (newPassword.equals(reNewPassword) && newPassword.length() > 8) {
+			trainingStaff.setPassword(passwordEncode.encode(newPassword));
+		} else {
+			if (newPassword != null && !newPassword.equals(reNewPassword)) {
+				return "Confirm password not matching!";
+			} else if (newPassword != null && newPassword.length() < 8) {
+				return "Password length must be greater than 8 characters!";
+			}
+		}
+		trainingStaffServices.update(trainingStaff);
+
+		return "Update complete!";
 	}
 
 }

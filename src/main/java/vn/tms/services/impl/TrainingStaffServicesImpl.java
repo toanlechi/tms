@@ -49,7 +49,7 @@ public class TrainingStaffServicesImpl implements TrainingStaffServices{
 
 	@Override
 	public void update(TrainingStaff trainingStaff) {
-
+		trainingStaffDAO.save(trainingStaff);
 	}
 
 	@Override

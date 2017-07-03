@@ -33,7 +33,7 @@
 
 <script>
 	$(function() {
-		$("#courses-table").DataTable({
+		$("#topic-table").DataTable({
 			 "searching": false
 		});
 

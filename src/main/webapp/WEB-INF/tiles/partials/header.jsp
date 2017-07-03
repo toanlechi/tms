@@ -31,49 +31,69 @@
 			access="hasAnyRole('ROLE_2', 'ROLE_1', 'ROLE_3', 'ROLE_4') and isAuthenticated()">
 			<ul class="nav navbar-nav">
 				<!-- User Account: style can be found in dropdown.less -->
-				<li class="dropdown user user-menu">
-					<sec:authorize access="hasRole('ROLE_1')">
-						<a href='' class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<c:url value="/static/images/avatar04.png" />" class="user-image" alt="User avatar"> <span
-								class="hidden-xs">${user.username }</span>
-						</a>	
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_2')">
-						<a href='' class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<c:url value="/static/images/avatar5.png" />" class="user-image" alt="User avatar"> <span
-								class="hidden-xs">${user.username }</span>
-						</a>	
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_3')">
-						<a href='' class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<c:url value="/static/images/avatar3.png" />" class="user-image" alt="User avatar"> <span
-								class="hidden-xs">${user.username }</span>
-						</a>	
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_4')">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img src='<c:url value="/static/images/avatar.png" />' class="user-image" alt="User avatar"> <span
-								class="hidden-xs">${user.username }</span>
-						</a>	
-					</sec:authorize>
-					
-					<ul class="dropdown-menu">
-						<li><a href="<c:url value="/home" />"><i
-								class="fa fa-globe fa-fw"></i> Back website</a></li>
+				<li class="dropdown user user-menu"><sec:authorize
+						access="hasRole('ROLE_1')">
+						<a href='' class="dropdown-toggle" data-toggle="dropdown"> <img
+							src="<c:url value="/static/images/avatar04.png" />"
+							class="user-image" alt="User avatar"> <span
+							class="hidden-xs">${user.username }</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="<c:url value="/home" />"><i
+									class="fa fa-user fa-fw"></i> Profile</a></li>
 
-						<li><a href="<c:url value="/logout" />"><i
-								class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-					</ul>
-				</li>
+							<li><a href="<c:url value="/logout" />"><i
+									class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						</ul>
+					</sec:authorize> <sec:authorize access="hasRole('ROLE_2')">
+						<a href='' class="dropdown-toggle" data-toggle="dropdown"> <img
+							src="<c:url value="/static/images/avatar5.png" />"
+							class="user-image" alt="User avatar"> <span
+							class="hidden-xs">${user.username }</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="<c:url value="/trainingStaff/profile" />"><i
+									class="fa fa-user fa-fw"></i> Profile</a></li>
+
+							<li><a href="<c:url value="/logout" />"><i
+									class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						</ul>
+					</sec:authorize> <sec:authorize access="hasRole('ROLE_3')">
+						<a href='' class="dropdown-toggle" data-toggle="dropdown"> <img
+							src="<c:url value="/static/images/avatar3.png" />"
+							class="user-image" alt="User avatar"> <span
+							class="hidden-xs">${user.username }</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="<c:url value="/home" />"><i
+									class="fa fa-user fa-fw"></i> Profile</a></li>
+
+							<li><a href="<c:url value="/logout" />"><i
+									class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						</ul>
+					</sec:authorize> <sec:authorize access="hasRole('ROLE_4')">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img
+							src='<c:url value="/static/images/avatar.png" />'
+							class="user-image" alt="User avatar"> <span
+							class="hidden-xs">${user.username }</span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="<c:url value="/home" />"><i
+									class="fa fa-user fa-fw"></i> Profile</a></li>
+
+							<li><a href="<c:url value="/logout" />"><i
+									class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						</ul>
+					</sec:authorize></li>
 			</ul>
 		</sec:authorize>
 
 		<sec:authorize access="!isAuthenticated()">
 			<ul class="nav navbar-nav">
 				<!-- User Account: style can be found in dropdown.less -->
-				<li class="dropdown user user-menu"><a href='<c:url value="/login" />'
-					class="dropdown-toggle" data-toggle="dropdown"> <span
-						class="hidden-xs">Login</span>
+				<li class="dropdown user user-menu"><a
+					href='<c:url value="/login" />' class="dropdown-toggle"
+					data-toggle="dropdown"> <span class="hidden-xs">Login</span>
 				</a>
 			</ul>
 		</sec:authorize>

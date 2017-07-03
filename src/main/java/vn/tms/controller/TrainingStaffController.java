@@ -1,20 +1,29 @@
 package vn.tms.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.tms.entity.TrainingStaff;
+import vn.tms.services.CategoryServices;
+import vn.tms.services.CoursesServices;
+import vn.tms.services.TopicServices;
 import vn.tms.services.TrainingStaffServices;
+import vn.tms.validator.TrainingStaffProfileValidator;
 import vn.tms.validator.TrainingStaffValidator;
 
 @Controller
@@ -24,6 +33,21 @@ public class TrainingStaffController {
 
 	@Autowired
 	TrainingStaffValidator trainingStaffValidator;
+
+	@Autowired
+	TrainingStaffProfileValidator trainingStaffProfileValidator;
+
+	@Autowired
+	CategoryServices categoryServices;
+
+	@Autowired
+	CoursesServices coursesServices;
+
+	@Autowired
+	TopicServices topicServices;
+
+	@Autowired
+	private PasswordEncoder passwordEncode;
 
 	@GetMapping(value = "/admin/trainingStaffManager")
 	public String index(Model model) {
@@ -91,4 +115,17 @@ public class TrainingStaffController {
 			return "redirect:/admin/trainingStaffManager";
 		}
 	}
+
+	@GetMapping("/trainingStaff/profile")
+	public String profile(Principal principal, Model model) {
+		TrainingStaff trainingStaff = trainingStaffServices.findByEmail(principal.getName());
+		trainingStaff.setPassword("");
+		model.addAttribute("trainingStaff", trainingStaff);
+		model.addAttribute("categoryCreated", categoryServices.coutByTrainingStaff(trainingStaff.getId()));
+		model.addAttribute("coursesCreated", coursesServices.countByTrainingStaff(trainingStaff.getId()));
+		model.addAttribute("topicCreated", topicServices.coutByTrainingStaff(trainingStaff.getId()));
+
+		return "training_staff_profile";
+	}
+
 }

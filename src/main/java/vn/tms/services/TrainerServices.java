@@ -18,4 +18,6 @@ public interface TrainerServices {
 	void update(Trainer trainer, String status);
 
 	void delete(Trainer trainer);
+	
+	
 }

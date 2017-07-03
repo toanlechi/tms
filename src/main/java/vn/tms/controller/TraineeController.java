@@ -20,7 +20,6 @@ public class TraineeController {
 
 	@GetMapping(value = "/trainee/courses")
 	public String index(Model model) {
-		model.addAttribute("listCourses", coursesServices.findByTraineeId(1));
 		return "traineeCourses";
 	}
 
@@ -36,6 +35,5 @@ public class TraineeController {
 			return "traineeCoursesDetails";
 		}
 	}
-	
 
 }

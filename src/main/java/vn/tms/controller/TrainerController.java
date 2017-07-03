@@ -1,5 +1,8 @@
 package vn.tms.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import vn.tms.entity.Topic;
 import vn.tms.entity.Trainer;
+import vn.tms.services.TopicServices;
 import vn.tms.services.TrainerServices;
 import vn.tms.validator.TrainerEditValidator;
 import vn.tms.validator.TrainerValidator;
@@ -28,6 +33,9 @@ public class TrainerController {
 
 	@Autowired
 	TrainerEditValidator trainerEditValidator;
+	
+	@Autowired
+	TopicServices topicServices;
 
 	@GetMapping(value = "/admin/trainerManager")
 	public String index(Model model) {
@@ -92,6 +100,17 @@ public class TrainerController {
 			redirect.addFlashAttribute("success", "Delete trainer " + trainer.getName() + " successfully!");
 			return "redirect:/admin/trainerManager";
 		}
+	}
+
+	@GetMapping("/trainer/info")
+	public String trainer(Principal principal, Model model) {
+		Trainer trainer = trainerService.findByEmail(principal.getName());
+		List<Topic> topics = topicServices.findByTrainer(trainer.getId());
+
+		model.addAttribute("trainer", trainer);
+		model.addAttribute("topics", topics);
+
+		return "trainer_page";
 	}
 
 }

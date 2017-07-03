@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Account")
@@ -18,6 +19,9 @@ public class TrainingStaff extends Account implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Transient
+	protected String newPassword;
 
 	@OneToMany(mappedBy = "trainingStaff", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Category> listCategory = new HashSet<>();
@@ -59,6 +63,16 @@ public class TrainingStaff extends Account implements Serializable {
 	public void setListTopic(Set<Topic> listTopic) {
 		this.listTopic = listTopic;
 	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	
+	
 	
 	
 

@@ -63,4 +63,9 @@ public class CategoryServicesImpl implements CategoryServices {
 		}
 	}
 
+	@Override
+	public int coutByTrainingStaff(int trainingStaffId) {
+		return categoryDAO.countByTrainingStaff_id(trainingStaffId);
+	}
+
 }

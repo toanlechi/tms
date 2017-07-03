@@ -26,6 +26,6 @@ public interface CategoryDAO extends CrudRepository<Category, Integer> {
 	@Query("select c from Category c where c.createdAt>:dateStart and c.createdAt>:dateEnd and c.name like %:name%")
 	List<Category> findByNameAndDate(@Param("name") String name, @Param("dateStart") Date dateStart,  @Param("dateEnd") Date dateEnd);
 
-
+	int countByTrainingStaff_id(int id);
 
 }

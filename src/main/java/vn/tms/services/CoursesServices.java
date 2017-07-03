@@ -7,18 +7,19 @@ import vn.tms.entity.Courses;
 
 public interface CoursesServices {
 	List<Courses> findAll();
-	
+
 	List<Courses> findByCategory(Category category);
-	
+
 	Courses findOne(int id);
-	
+
 	void save(Courses courses);
-	
+
 	void delete(int id);
-	
+
 	List<Courses> findByName(String name);
-	
+
 	List<Courses> search(String text, String searchBy, String dateFrom, String dateTo, int categoryId);
-	
+
+	int countByTrainingStaff(int id);
 
 }

@@ -65,7 +65,7 @@
 
 								<div class="form-group" style="text-align: left;">
 									<label for="exampleCategory">Courses</label> <select
-										class="form-control" id="list-category" name="locationTo">
+										class="form-control" id="list-courses" name="locationTo">
 										<option value="0">All</option>
 										<c:forEach items="${listCourses }" var="courses">
 											<option value="${courses.id }">${courses.name }</option>
@@ -117,7 +117,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<div class="table-topic">
+					<div id="table-topic">
 						<table id="topic-table" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -241,7 +241,7 @@
 		} else  {
 			data["searchBy"] = "people";
 		} 
-		data["categoryId"] = $("#list-category").val();
+		data["coursesId"] = $("#list-courses").val();
 		data["dateFrom"] = $("#date-from").val();
 		data["dateTo"] = $("#date-to").val();
 		
@@ -253,7 +253,7 @@
 		$.ajax({
 			type : "POST",
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			url : "/tms/ajax/searchCourses",
+			url : "/tms/ajax/searchTopic",
 			data : data,
 			dataType : 'text',
 			timeout : 600000,

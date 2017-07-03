@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Topic implements Serializable {
@@ -170,6 +171,93 @@ public class Topic implements Serializable {
 	public void setDay(int day) {
 		this.day = day;
 	}
+	
+	@Transient
+	public String mo, tu, we, th, fr, sa, su;
+
+	public String getMo() {
+		return mo;
+	}
+
+
+
+	public void setMo(String mo) {
+		this.mo = mo;
+	}
+
+
+
+	public String getTu() {
+		return tu;
+	}
+
+
+
+	public void setTu(String tu) {
+		this.tu = tu;
+	}
+
+
+
+	public String getWe() {
+		return we;
+	}
+
+
+
+	public void setWe(String we) {
+		this.we = we;
+	}
+
+
+
+	public String getTh() {
+		return th;
+	}
+
+
+
+	public void setTh(String th) {
+		this.th = th;
+	}
+
+
+
+	public String getFr() {
+		return fr;
+	}
+
+
+
+	public void setFr(String fr) {
+		this.fr = fr;
+	}
+
+
+
+	public String getSa() {
+		return sa;
+	}
+
+
+
+	public void setSa(String sa) {
+		this.sa = sa;
+	}
+
+
+
+	public String getSu() {
+		return su;
+	}
+
+
+
+	public void setSu(String su) {
+		this.su = su;
+	}
+	
+	
 	
 
 }

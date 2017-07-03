@@ -98,4 +98,9 @@ public class CoursesServicesImpl implements CoursesServices {
 
 	}
 
+	@Override
+	public int countByTrainingStaff(int id) {
+		return coursesDAO.countByTrainingStaff_id(id);
+	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import vn.tms.dao.CategoryDAO;
 import vn.tms.entity.Category;
 import vn.tms.services.CategoryServices;
+import vn.tms.utils.Utils;
 
 @Service
 public class CategoryServicesImpl implements CategoryServices {
@@ -28,7 +29,7 @@ public class CategoryServicesImpl implements CategoryServices {
 	@Override
 	public void save(Category category) {
 		categoryDAO.save(category);
-		
+
 	}
 
 	@Override
@@ -39,6 +40,27 @@ public class CategoryServicesImpl implements CategoryServices {
 	@Override
 	public List<Category> findByName(String name) {
 		return categoryDAO.findByName(name);
+	}
+
+	@Override
+	public List<Category> search(String text, String searchBy, String dateFrom, String dateTo) {
+		System.out.println("date From: " + dateFrom);
+		System.out.println("date To: " + dateTo);
+		if (searchBy.equals("name")) {
+			if (text == null || text.equals("")) {
+				return categoryDAO.findByCreatedAtBetween(Utils.getDate(dateFrom), Utils.getDate(dateTo));
+			} else {
+				if (dateFrom == null || dateFrom.equals("")) {
+					System.out.println("name");
+					return categoryDAO.findByNameContaining(text);
+				} else {
+					System.out.println("name-date");
+					return categoryDAO.findByNameAndDate(text, Utils.getDate(dateFrom), Utils.getDate(dateTo));
+				}
+			}
+		} else {
+			return categoryDAO.findByTrainingStaff_nameStartingWith(text);
+		}
 	}
 
 }

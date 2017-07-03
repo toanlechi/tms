@@ -18,5 +18,7 @@ public interface CoursesServices {
 	
 	List<Courses> findByName(String name);
 	
+	List<Courses> search(String text, String searchBy, String dateFrom, String dateTo, int categoryId);
+	
 
 }

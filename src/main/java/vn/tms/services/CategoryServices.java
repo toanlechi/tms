@@ -15,5 +15,7 @@ public interface CategoryServices {
 	void delete(int id);
 	
 	List<Category> findByName(String name);
+	
+	List<Category> search(String text, String searchBy, String dateFrom, String dateTo);
 
 }

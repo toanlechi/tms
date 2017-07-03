@@ -102,10 +102,13 @@ public class TopicController {
 	}
 
 	@GetMapping("/topic/{topicId}/edit")
-	public String topicEdit(@PathVariable("topicId") int topicId, Model model) {
+	public String topicEdit(@PathVariable("topicId") int topicId, Model model,  Principal principal) {
 		Topic topic = topicServices.findOne(topicId);
 		if (topic == null) {
 			return "404";
+		}
+		if (!principal.getName().equals(topic.getTrainingStaff().getEmail())){
+			return "403";
 		}
 		List<Courses> listCourses = coursesServices.findAll();
 		List<Trainer> listTrainer = trainerServices.findAll();

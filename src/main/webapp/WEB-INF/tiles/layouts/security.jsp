@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <tiles:importAttribute name="stylesheets" />
 <tiles:importAttribute name="javascripts" />
@@ -29,10 +31,10 @@
 </c:forEach>
 
 <!-- scripts -->
-	<c:forEach var="script" items="${javascripts}">
-		<script src="<c:url value="${script}"/>"></script>
-	</c:forEach>
-	<!-- end scripts -->
+<c:forEach var="script" items="${javascripts}">
+	<script src="<c:url value="${script}"/>"></script>
+</c:forEach>
+<!-- end scripts -->
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +50,13 @@
 			<nav class="navbar navbar-static-top">
 				<div class="container">
 					<div class="navbar-header">
-						<a href="#" class="navbar-brand"><b>TMS</b></a>
+						<sec:authorize access="hasRole('ROLE_1')">
+							<c:url value="/admin/trainerManager" var="link"></c:url>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_2')">
+							<c:url value="/category" var="link"></c:url>
+						</sec:authorize>
+						<a href="${link }" class="navbar-brand"><b>TMS</b></a>
 						<button type="button" class="navbar-toggle collapsed"
 							data-toggle="collapse" data-target="#navbar-collapse">
 							<i class="fa fa-bars"></i>

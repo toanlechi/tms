@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="content-header">
+	<%@ taglib uri="http://www.springframework.org/security/tags"
+		prefix="sec"%>
 	<h1>
 		Dashboard <small><c:out value="${demo}" /></small>
 	</h1>
@@ -9,7 +11,7 @@
 		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 	</ol>
 </section>
-
+<sec:authentication property="principal" var="user" />
 <!-- Main content -->
 <section class="content">
 	<div class="row" style="margin-top: 30px;">
@@ -22,7 +24,13 @@
 							<h3 class="box-title">Information</h3>
 						</div>
 						<div class="col-sm-6 text-right">
-							<a href='<c:url value="/courses/${courses.id}/edit" />' class="btn btn-primary btn-sm">Edit</a>
+							<c:set value="${user.username }" var="emailUser" />
+							<c:set value="${courses.trainingStaff.email}" var="emailOwn" />
+							<c:if test="${emailUser==emailOwn }">
+								<a href='<c:url value="/courses/${courses.id}/edit" />'
+									class="btn btn-primary btn-sm">Edit</a>
+							</c:if>
+
 						</div>
 					</div>
 
@@ -171,7 +179,9 @@
 											<th style="width: 15px;">STT</th>
 											<th>Name</th>
 											<th>Email</th>
-											<th style="width: 20px;">###</th>
+											<th>Birthday</th>
+											<th>Address</th>
+											<th style="width: 20px;">Delete</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -181,19 +191,14 @@
 												<td>${stt.index+1 }</td>
 												<td>${trainee.name}</td>
 												<td>${trainee.email}</td>
+												<th>${trainee.birthday}</th>
+												<th>${trainee.address}</th>
 												<td style="text-align: center;"><a
 													style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
-									<tfoot>
-										<tr>
-											<th style="width: 10px;">STT</th>
-											<th>Name</th>
-											<th>Email</th>
-											<th style="width: 20px;">###</th>
-										</tr>
-									</tfoot>
+
 								</table>
 							</div>
 						</div>

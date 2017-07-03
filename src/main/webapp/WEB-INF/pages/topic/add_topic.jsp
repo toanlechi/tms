@@ -49,8 +49,8 @@
 								<div class="form-group">
 									<label>Time start *</label>
 									<div class='input-group date' id='datetimepicker3'>
-										<input type='text' class="form-control" name="timeStart" /> <span
-											class="input-group-addon"> <span
+										<input type='text' class="form-control" name="timeStart"
+											id="timeStart" /> <span class="input-group-addon"> <span
 											class="glyphicon glyphicon-time"></span>
 										</span>
 									</div>
@@ -79,41 +79,42 @@
 							<div class="row text-center">
 								<div class="checkbox icheck inline">
 
-									<label> <input type="checkbox" name="mo" ${day2 }>
+									<label> <input type="checkbox" name="mo" ${day2 } id="input-mo">
 										Mo
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="tu" ${day3 }>
+									<label> <input type="checkbox" name="tu" ${day3 } id="input-tu">
 										Tu
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="we" ${day4 }>
+									<label> <input type="checkbox" name="we" ${day4 } id="input-we">
 										We
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="th" ${day5 }>
+									<label> <input type="checkbox" name="th" ${day5 } id="input-th">
 										Th
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="fr" ${day6 }>
+									<label> <input type="checkbox" name="fr" ${day6 } id="input-fr">
 										Fr
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="sa" ${day7 }>
+									<label> <input type="checkbox" name="sa" ${day7 } id="input-sa">
 										Sa
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 30px;">
-									<label> <input type="checkbox" name="su" ${dayCN }>
+									<label> <input type="checkbox" name="su" ${dayCN } id="input-su">
 										Su
 									</label>
 								</div>
 							</div>
+							<p class="error" hidden id="view-err-day"></p>
 						</div>
 
 						<!-- text input -->
@@ -169,7 +170,7 @@
 </section>
 <!-- /.content -->
 
-<script  type="text/javascript">
+<script type="text/javascript">
 	$(function() {
 		$("#category-table").DataTable();
 
@@ -185,26 +186,32 @@
 
 	$(function() {
 		$('#datetimepicker3').datetimepicker({
-			format : 'h:m'
+			format : 'HH:m'
 		});
 		
 		$('#datetimepickerEnd').datetimepicker({
-			format : 'h:m'
+			format : 'HH:m',
+			
+			disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: 23 })]]
 		});
 	});
 	
 	$("#datetimepicker3").on('dp.change', function(e) {
-		var dateGo = $('#date-go').val();
+		var timeStart = $('#timeStart').val();
+		var hour = parseInt(timeStart.substring(0, 2)) +1;
+		console.log(hour);
+		
 		$('#datetimepickerEnd').data("DateTimePicker").destroy();
 		$('#datetimepickerEnd').datetimepicker({
-			format : 'h:m',
-			disabledTimeIntervals: [[moment({ h: 4 }), moment({ h: 0 })], [moment({ h: 5 }), moment({ h: 6 })]]
+			format : 'HH:m',
+			disabledHours: [0, 1, 2, 3, 4, 5],
+			disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: hour })]]
 		});
 
 	});
 
 	
-
+	
 	function checkSubmit() {
 		var check = true;
 		if ($("#time").val() == '') {
@@ -256,7 +263,18 @@
 		} else {
 			$("#view-err-trainer").hide();
 		}
-
+		
+		if (!$("#input-mo").is(":checked") && !$("#input-tu").is(":checked") && !$("#input-we").is(":checked")
+				&&!$("#input-th").is(":checked") &&!$("#input-fr").is(":checked") && !$("#input-sa").is(":checked")
+				&& !$("#input-su").is(":checked")){
+			$("#view-err-day").text("Value is require!");
+			$("#view-err-day").show();
+			check = false;
+		} else {
+			$("#view-err-day").hide();
+		}
+		
+		
 		return check;
 
 	}

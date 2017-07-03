@@ -193,6 +193,20 @@ public class Utils {
 		return date;
 		
 	}
+	
+	public static Date getDate(String dateDay){
+		dateDay = dateDay.replaceAll("-", "/");
+		dateDay  = dateDay + " 00:00:00";
+		
+		Date date = new Date();
+		try {
+			date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateDay);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+		
+	}
 
 	public static void main(String[] args) {
 		System.out.println(getDateByTime("12:00"));

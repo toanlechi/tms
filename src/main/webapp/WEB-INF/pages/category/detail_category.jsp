@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <section class="content-header">
 	<h1>
 		Dashboard <small>Data Infomation</small>
@@ -10,6 +12,7 @@
 	</ol>
 </section>
 
+<sec:authentication property="principal" var="user" />
 <!-- Main content -->
 <section class="content">
 	<div class="row" style="margin-top: 30px;">
@@ -21,7 +24,12 @@
 							<h3 class="box-title">Information</h3>
 						</div>
 						<div class="col-sm-6 text-right">
-							<a href='<c:url value="/category/${category.id }/edit" />' class="btn btn-primary btn-sm">Edit</a>
+							<c:set value="${user.username }" var="emailUser" />
+							<c:set value="${category.trainingStaff.email}" var="emailOwn" />
+							<c:if test="${emailUser==emailOwn }">
+								<a href='<c:url value="/category/${category.id }/edit" />'
+									class="btn btn-primary btn-sm">Edit</a>
+							</c:if>
 						</div>
 					</div>
 				</div>

@@ -48,8 +48,10 @@ public class CoursesController {
 		ModelAndView mv = new ModelAndView("courses");
 
 		List<Courses> listCourses = coursesServices.findAll();
+		List<Category> categories = categoryServices.findAll();
 		mv.addObject("listCourses", listCourses);
-
+		mv.addObject("listCategory", categories);
+		
 		return mv;
 	}
 
@@ -92,11 +94,16 @@ public class CoursesController {
 	}
 
 	@GetMapping("/courses/{coursesId}/edit")
-	public String coursesEdit(@PathVariable("coursesId") int coursesId, Model model) {
+	public String coursesEdit(@PathVariable("coursesId") int coursesId, Model model, Principal principal) {
 		Courses courses = coursesServices.findOne(coursesId);
 		if (courses == null) {
 			return "404";
 		}
+		if (!principal.getName().equals(courses.getTrainingStaff().getEmail())){
+			return "403";
+		}
+		
+		
 		List<Category> categories = categoryServices.findAll();
 		model.addAttribute("courses", courses);
 		model.addAttribute("categories", categories);

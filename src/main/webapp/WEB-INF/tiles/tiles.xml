@@ -188,8 +188,18 @@
 		<put-attribute name="main" value="/WEB-INF/pages/topic/add_topic.jsp" />
 	</definition>
 
+
+
+	<!-- =================================Pages Plus================================== -->
 	<!-- Table excel trainee -->
 	<definition name="table_excel" template="/WEB-INF/pages/plus/tableExcel.jsp"></definition>
+	
+	<!-- Table excel trainee -->
+	<definition name="table_category" template="/WEB-INF/pages/plus/tableCategory.jsp"></definition>
+	
+	<!-- Table excel trainee -->
+	<definition name="table_courses" template="/WEB-INF/pages/plus/tableCourses.jsp"></definition>
+	<!-- =================================End Pages Plus================================== -->
 
 
 	<!-- =================================Error Pages================================== -->
@@ -198,9 +208,9 @@
 		<put-attribute name="title" value="404 Error Page" />
 		<put-attribute name="main" value="/WEB-INF/pages/main/404.jsp" />
 	</definition>
-	
+
 	<!-- 403 page -->
-	<definition name="404" extends="security-definition">
+	<definition name="403" extends="security-definition">
 		<put-attribute name="title" value="403 Error Page" />
 		<put-attribute name="main" value="/WEB-INF/pages/main/403.jsp" />
 	</definition>

@@ -56,22 +56,22 @@ public class AjaxController {
 
 	@Autowired
 	private CoursesServices coursesServices;
-	
+
 	@Autowired
 	TrainerServices trainerServices;
-	
+
 	@Autowired
 	TrainingStaffServices trainingStaffServices;
-	
+
 	@Autowired
 	UserServices userServices;
 
 	@Autowired
 	private TraineeServices traineeServices;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncode;
-	
+
 	@PostMapping("/check_category_name")
 	@ResponseBody
 	public String checkCategoryName(@RequestParam("name") String categoryName) {
@@ -91,7 +91,7 @@ public class AjaxController {
 		}
 		return "true";
 	}
-	
+
 	/*
 	 * Trainer Ajax
 	 */
@@ -127,7 +127,7 @@ public class AjaxController {
 		} else
 			return "";
 	}
-	
+
 	/*
 	 * forgot Password
 	 */
@@ -142,18 +142,17 @@ public class AjaxController {
 			user.setToken(token);
 			userServices.update(user);
 
-			String link = Utils.getBaseUrl(request) 
-					+ "/user/changePassword?id="
-					+ user.getId() + "&token=" + token;
+			String link = Utils.getBaseUrl(request) + "/user/changePassword?id=" + user.getId() + "&token=" + token;
 			String body = Utils.contentEmail(Utils.contentSendMailForgotPass(user.getName(), link));
 			Utils.sendMail1(new MailContent("asd@gmail.com", email, "Reset password", body));
 
 			return "true";
 		}
 	}
-	
+
 	@PostMapping("/uploadExcel")
-	public ModelAndView uploadFileExcel(@RequestParam("file") MultipartFile file,@RequestParam("coursesId") int coursesId , HttpServletRequest request) {
+	public ModelAndView uploadFileExcel(@RequestParam("file") MultipartFile file,
+			@RequestParam("coursesId") int coursesId, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("table_excel");
 
 		String fileName = UUID.randomUUID().toString();
@@ -176,7 +175,7 @@ public class AjaxController {
 		}
 
 		try {
-			
+
 			FileInputStream file2 = new FileInputStream(new File(url));
 			// Get the workbook instance for XLS file
 			XSSFWorkbook workbook = new XSSFWorkbook(file2);
@@ -186,19 +185,19 @@ public class AjaxController {
 
 			// Iterate through each rows from first sheet
 			Iterator<Row> rowIterator = sheet.iterator();
-			
+
 			List<Trainee> listTrainee = new ArrayList<>();
 			Trainee trainee;
-			if (rowIterator.hasNext()){
+			if (rowIterator.hasNext()) {
 				rowIterator.next();
 			}
 			while (rowIterator.hasNext()) {
 				trainee = new Trainee();
 				Row row = rowIterator.next();
-					
+
 				// For each row, iterate through each columns
 				Iterator<Cell> cellIterator = row.cellIterator();
-				int i=0;
+				int i = 0;
 				while (cellIterator.hasNext()) {
 					System.out.print(i + "\t\t");
 					Cell cell = cellIterator.next();
@@ -209,15 +208,15 @@ public class AjaxController {
 						break;
 					case Cell.CELL_TYPE_NUMERIC:
 						System.out.print(cell.getNumericCellValue() + "\t\t");
-						
+
 						break;
 					case Cell.CELL_TYPE_STRING:
 						System.out.print(cell.getStringCellValue() + "\t\t");
-						String value= cell.getStringCellValue();
-					
-						if (i==1){
+						String value = cell.getStringCellValue();
+
+						if (i == 1) {
 							trainee.setName(value);
-						} else if (i==2){
+						} else if (i == 2) {
 							trainee.setEmail(value);
 							trainee.setPassword(passwordEncode.encode(value));
 						}
@@ -225,9 +224,9 @@ public class AjaxController {
 					}
 					i++;
 				}
-				if (trainee.getEmail()!=null && trainee.getEmail()!=""){
+				if (trainee.getEmail() != null && trainee.getEmail() != "") {
 					Trainee tmp = traineeServices.findByEmail(trainee.getEmail());
-					if (tmp==null){
+					if (tmp == null) {
 						trainee.setRole(Constant.ROLE.TRAINEE);
 						traineeServices.save(trainee);
 						tmp = traineeServices.findByEmail(trainee.getEmail());
@@ -237,12 +236,12 @@ public class AjaxController {
 				System.out.println("");
 			}
 			file2.close();
-			
+
 			mv.addObject("trainees", listTrainee);
-			
+
 			Courses courses = coursesServices.findOne(coursesId);
 			courses.setListTrainee(new HashSet<>(listTrainee));
-			
+
 			System.out.println("---");
 			coursesServices.save(courses);
 
@@ -253,6 +252,31 @@ public class AjaxController {
 		}
 		return mv;
 	}
-	
-	
+
+	@PostMapping("/searchCategory")
+	@ResponseBody
+	public ModelAndView findCategory(@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam("searchBy") String searchBy,
+			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
+			@RequestParam(value = "dateTo", defaultValue = "") String dateTo) {
+		ModelAndView mv = new ModelAndView("table_category");
+		List<Category> categories = categoryServices.search(text, searchBy, dateFrom, dateTo);
+		mv.addObject("categorys", categories);
+		return mv;
+
+	}
+
+	@PostMapping("/searchCourses")
+	@ResponseBody
+	public ModelAndView findCourses(@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam("searchBy") String searchBy,
+			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
+			@RequestParam(value = "dateTo", defaultValue = "") String dateTo,
+			@RequestParam(value = "categoryId",defaultValue="0") int categoryId) {
+		ModelAndView mv = new ModelAndView("table_courses");
+		List<Courses> courses = coursesServices.search(text, searchBy, dateFrom, dateTo, categoryId);
+		mv.addObject("listCourses", courses);
+		return mv;
+	}
+
 }

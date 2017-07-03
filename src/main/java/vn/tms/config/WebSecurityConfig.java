@@ -49,10 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Trang khÃ´ng yÃªu cáº§u login
 		http.authorizeRequests().antMatchers("/", "/login", "/register", "/logout").permitAll();
 
-		// Trang user-info, chuyá»ƒn vá»� login náº¿u chÆ°a Ä‘Äƒng nháº­p
-		http.authorizeRequests().antMatchers("/category", "/courses", "/topic").access("hasAnyRole('ROLE_2')");
+		// Trang user-info, chuyá»ƒn vá»� login náº¿u chÆ°a
+		// Ä‘Äƒng nháº­p
+		http.authorizeRequests().antMatchers("/category*", "/courses*", "/topic*").access("hasAnyRole('ROLE_2')");
 
-		http.authorizeRequests().antMatchers("/admin/trainerManager").access("hasAnyRole('ROLE_1')");
+		http.authorizeRequests().antMatchers("/admin/trainingStaffManager*", "/admin/trainerManager*")
+				.access("hasAnyRole('ROLE_1')");
 
 		http.authorizeRequests().antMatchers("/user/resetPassword*", "/user/savePassword*", "/updatePassword*")
 				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE");

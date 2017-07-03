@@ -5,9 +5,17 @@
 	prefix="sec"%>
 
 <!-- Logo -->
-<a href="<c:url value="/admin" />" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-	<span class="logo-mini"><b>Mi</b>T</span> <!-- logo for regular state and mobile devices -->
-	<span class="logo-lg"><b>Mi</b>Times</span>
+
+<sec:authorize access="hasRole('ROLE_1')">
+	<c:url value="/admin/trainerManager" var="link"></c:url>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_2')">
+	<c:url value="/category" var="link"></c:url>
+</sec:authorize>
+
+<a href="${link }" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+	<span class="logo-mini"><b>TMS</b></span> <!-- logo for regular state and mobile devices -->
+	<span class="logo-lg"><b>TMS</b></span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top">
@@ -63,7 +71,7 @@
 		<sec:authorize access="!isAuthenticated()">
 			<ul class="nav navbar-nav">
 				<!-- User Account: style can be found in dropdown.less -->
-				<li class="dropdown user user-menu"><a href="#"
+				<li class="dropdown user user-menu"><a href='<c:url value="/login" />'
 					class="dropdown-toggle" data-toggle="dropdown"> <span
 						class="hidden-xs">Login</span>
 				</a>

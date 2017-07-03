@@ -74,10 +74,13 @@ public class CategoryController {
 	}
 
 	@GetMapping("/category/{categoryId}/edit")
-	public String categoryEdit(@PathVariable("categoryId") int categoryId, Model model) {
+	public String categoryEdit(@PathVariable("categoryId") int categoryId, Model model, Principal principal) {
 		Category category = categoryServices.findOne(categoryId);
 		if (category==null){
 			return "404";
+		}
+		if (!principal.getName().equals(category.getTrainingStaff().getEmail())){
+			return "403";
 		}
 		model.addAttribute("category", category);
 		return "category_add";

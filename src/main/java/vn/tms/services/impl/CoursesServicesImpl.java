@@ -66,7 +66,7 @@ public class CoursesServicesImpl implements CoursesServices {
 				}
 			} else {
 				if (dateTo.equals("")) {
-					if (text.equals("")){
+					if (text.equals("")) {
 						System.out.println("category");
 						return coursesDAO.findByCategory_id(categoryId);
 					} else {
@@ -101,5 +101,11 @@ public class CoursesServicesImpl implements CoursesServices {
 	@Override
 	public int countByTrainingStaff(int id) {
 		return coursesDAO.countByTrainingStaff_id(id);
+	}
+
+	@Override
+	public List<Courses> findByTraineeId(int id) {
+
+		return coursesDAO.findByListTrainee_id(id);
 	}
 }

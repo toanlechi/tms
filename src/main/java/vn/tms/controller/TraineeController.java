@@ -31,9 +31,9 @@ public class TraineeController {
 	ReviewCoursesServices reviewCoursesServices;
 
 	@GetMapping(value = "/trainee/courses")
-	public String index(Model model, , Principal principal) {
-		
-	Trainee trainee = traineeServices.findByEmail(principal.getName());
+	public String index(Model model, Principal principal) {
+
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		model.addAttribute("listCourses", coursesServices.findByTraineeId(trainee.getId()));
 		return "traineeCourses";
 	}
@@ -44,8 +44,7 @@ public class TraineeController {
 
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		Courses courses = coursesServices.findOne(id);
-		ReviewCourses reviewCourses = reviewCoursesServices
-				.findReviewByCoursesAndTrainee(courses.getId(),
+		ReviewCourses reviewCourses = reviewCoursesServices.findReviewByCoursesAndTrainee(courses.getId(),
 				trainee.getId());
 
 		if (courses == null) {

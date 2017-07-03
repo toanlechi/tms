@@ -210,6 +210,25 @@
 		<put-attribute name="title" value="500 Error Page" />
 		<put-attribute name="main" value="/WEB-INF/pages/main/500.jsp" />
 	</definition>
-
+	
+	<!-- =================================Trainee Pages================================== -->
+	
+	<!-- Trainee list courses -->
+	<definition name="traineeCourses" extends="app-definition">
+		<put-attribute name="title" value="Trainee Courses" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainee/courses/list.jsp" />
+	</definition>
+	
+	<!-- Trainee courses details -->
+	<definition name="traineeCoursesDetails" extends="app-definition">
+		<put-attribute name="title" value="Trainee Courses Details" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainee/courses/show.jsp" />
+	</definition>
+	
+	<!-- Trainee show topic -->
+	<definition name="traineeTopic" extends="app-definition">
+		<put-attribute name="title" value="Trainee Show Topic" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainee/topic/show.jsp" />
+	</definition>
 
 </tiles-definitions>

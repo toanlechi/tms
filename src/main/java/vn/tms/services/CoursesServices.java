@@ -18,5 +18,5 @@ public interface CoursesServices {
 	
 	List<Courses> findByName(String name);
 	
-
+	List<Courses> findByTraineeId(int id);
 }

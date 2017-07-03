@@ -64,8 +64,6 @@ public class Trainee extends Account implements Serializable {
 		this.toeicScore = toeicScore;
 		this.address = address;
 	}
-	
-	
 
 	public Trainee(String name, String password, int role, int age, Date birthday, String education,
 			String programmingLanguage, int toeicScore, String address, Set<Courses> listCourses,
@@ -82,8 +80,6 @@ public class Trainee extends Account implements Serializable {
 		this.listReviewCourses = listReviewCourses;
 	}
 
-
-
 	public Trainee() {
 
 	}
@@ -91,7 +87,6 @@ public class Trainee extends Account implements Serializable {
 	public Trainee(String name, String password, String email) {
 		super(name, password, email);
 	}
-
 
 	public int getAge() {
 		return age;

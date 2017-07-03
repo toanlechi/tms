@@ -47,5 +47,10 @@ public class CoursesServicesImpl implements CoursesServices{
 		return coursesDAO.findByName(name);
 	}
 
+	@Override
+	public List<Courses> findByTraineeId(int id) {
+		return coursesDAO.findByListTrainee_id(id);
+	}
+
 	
 }

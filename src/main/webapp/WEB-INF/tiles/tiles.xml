@@ -23,6 +23,7 @@
 			<add-attribute value="/static/vendor/fastclick/fastclick.js" />
 			<add-attribute value="/static/js/app.min.js" />
 			<add-attribute value="/static/js/custom.js" />
+			<add-attribute value="/static/js/star-rating.js" />
 			<add-attribute value="/static/vendor/iCheck/icheck.min.js" />
 			<add-attribute value="/static/vendor/moment.min.js" />
 			<add-attribute value="/static/vendor/bootstrap-datetimepicker.min.js" />
@@ -36,6 +37,7 @@
 				value="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 			<add-attribute value="/static/css/AdminLTE.min.css" />
 			<add-attribute value="/static/css/style.css" />
+			<add-attribute value="/static/css/star-rating.css" />
 			<add-attribute value="/static/css/bootstrap-datetimepicker.min.css" />
 			<add-attribute value="/static/css/skins/_all-skins.min.css" />
 			<add-attribute value="/static/vendor/datatables/dataTables.bootstrap.css" />

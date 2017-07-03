@@ -59,6 +59,24 @@
 			</a></li>
 		</ul>
 	</sec:authorize>
+	
+	<sec:authorize access="hasRole('ROLE_4')">
+		<!-- Sidebar user panel -->
+		<div class="user-panel">
+			<div class="pull-left image">
+				<img src="<c:url value="/static/images/avatar.png" />" class="img-circle" alt="User Image">
+			</div>
+			<div class="pull-left info">
+				<p>${user.username }</p>
+				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+			</div>
+		</div>
+
+		<!-- sidebar menu: : style can be found in sidebar.less -->
+		<ul class="sidebar-menu">
+			<li class="header">NAVIGATION</li>
+		</ul>
+	</sec:authorize>
 
 
 </section>

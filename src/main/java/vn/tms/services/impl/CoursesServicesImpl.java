@@ -102,5 +102,4 @@ public class CoursesServicesImpl implements CoursesServices {
 	public int countByTrainingStaff(int id) {
 		return coursesDAO.countByTrainingStaff_id(id);
 	}
-
 }

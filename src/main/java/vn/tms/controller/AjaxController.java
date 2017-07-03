@@ -68,6 +68,9 @@ public class AjaxController {
 
 	@Autowired
 	UserServices userServices;
+	
+	@Autowired
+	ReviewCoursesServices reviewCoursesServices;
 
 	@Autowired
 	private TraineeServices traineeServices;
@@ -283,6 +286,33 @@ public class AjaxController {
 		List<Courses> courses = coursesServices.search(text, searchBy, dateFrom, dateTo, categoryId);
 		mv.addObject("listCourses", courses);
 		return mv;
+	}
+	
+	@PostMapping(value = "/reviewCourses")
+	public @ResponseBody String reviewCourses(HttpServletRequest request,
+			@RequestParam("rate") int rate,
+			@RequestParam("coursesId") int coursesId,
+			@RequestParam("content") String content ,Principal principal) {
+		
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
+		Courses courses = coursesServices.findOne(coursesId);
+		
+		ReviewCourses reviewCourses = new ReviewCourses();
+		reviewCourses.setCourses(courses);
+		reviewCourses.setReview(content);
+		reviewCourses.setStar(rate);
+		reviewCourses.setTrainee(trainee);
+		
+		ReviewCourses dbReviewCourses = reviewCoursesServices
+				.findReviewByCoursesAndTrainee(courses.getId(), trainee.getId());
+		if(dbReviewCourses == null){
+			reviewCoursesServices.create(reviewCourses);
+		}else {
+			reviewCourses.setId(dbReviewCourses.getId());
+			reviewCoursesServices.update(reviewCourses);
+		}
+		
+		return "";
 	}
 
 	@PostMapping("/searchTopic")

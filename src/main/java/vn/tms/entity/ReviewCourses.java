@@ -23,10 +23,10 @@ public class ReviewCourses implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Trainee trainee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Courses courses;
 
 	@Column(name = "review")
@@ -36,15 +36,6 @@ public class ReviewCourses implements Serializable {
 	private int star;
 
 	public ReviewCourses() {
-		super();
-	}
-
-	public ReviewCourses(Trainee trainee, Courses courses, String review, int star) {
-		super();
-		this.trainee = trainee;
-		this.courses = courses;
-		this.review = review;
-		this.star = star;
 	}
 
 	public int getId() {

@@ -1,0 +1,12 @@
+.description {
+	width: 250px;
+	white-space: nowrap;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.error{
+	color: #008000;
+	font-style: italic;
+}

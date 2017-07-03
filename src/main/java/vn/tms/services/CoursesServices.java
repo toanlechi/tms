@@ -20,5 +20,5 @@ public interface CoursesServices {
 	
 	List<Courses> search(String text, String searchBy, String dateFrom, String dateTo, int categoryId);
 	
-
+	List<Courses> findByTraineeId(int id);
 }

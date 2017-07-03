@@ -98,4 +98,9 @@ public class CoursesServicesImpl implements CoursesServices {
 
 	}
 
+	@Override
+	public List<Courses> findByTraineeId(int id) {
+		return coursesDAO.findByListTrainee_id(id);
+	}
+
 }

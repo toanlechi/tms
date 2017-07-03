@@ -56,6 +56,9 @@
 						<sec:authorize access="hasRole('ROLE_2')">
 							<c:url value="/category" var="link"></c:url>
 						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_4')">
+							<c:url value="/trainee/courses" var="link"></c:url>
+						</sec:authorize>
 						<a href="${link }" class="navbar-brand"><b>TMS</b></a>
 						<button type="button" class="navbar-toggle collapsed"
 							data-toggle="collapse" data-target="#navbar-collapse">

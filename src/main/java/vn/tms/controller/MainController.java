@@ -40,6 +40,8 @@ public class MainController {
 			return "redirect:/admin/trainerManager";
 		} else if (account.getRole() == Constant.ROLE.TRAININGSTAFF) {
 			return "redirect:/category";
+		}else if(account.getRole() == Constant.ROLE.TRAINEE){
+			return "redirect:/trainee/courses";
 		}
 
 		return "";

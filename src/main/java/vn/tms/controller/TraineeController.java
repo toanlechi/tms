@@ -1,5 +1,7 @@
 package vn.tms.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import vn.tms.entity.Courses;
+import vn.tms.entity.Trainee;
 import vn.tms.services.CoursesServices;
 import vn.tms.services.TopicServices;
+import vn.tms.services.TraineeServices;
 
 @Controller
 public class TraineeController {
@@ -18,9 +22,13 @@ public class TraineeController {
 	@Autowired
 	TopicServices topicServices;
 
+	@Autowired
+	TraineeServices traineeServices;
+
 	@GetMapping(value = "/trainee/courses")
-	public String index(Model model) {
-		model.addAttribute("listCourses", coursesServices.findByTraineeId(1));
+	public String index(Model model, Principal principal) {
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
+		model.addAttribute("listCourses", coursesServices.findByTraineeId(trainee.getId()));
 		return "traineeCourses";
 	}
 
@@ -36,6 +44,5 @@ public class TraineeController {
 			return "traineeCoursesDetails";
 		}
 	}
-	
 
 }

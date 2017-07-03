@@ -39,6 +39,7 @@ public class TrainerServicesImpl implements TrainerServices{
 	@Override
 	public void update(Trainer trainer) {
 		trainer.setUpdatedAt(new Date());
+		trainerDAO.save(trainer);
 	}
 
 	@Override

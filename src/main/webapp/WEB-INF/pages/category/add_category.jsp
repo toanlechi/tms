@@ -5,10 +5,13 @@
 
 <section class="content-header">
 	<h1>
-		Dashboard <small>Data Infomation</small>
+		Category <small>Edit</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/category" />"> <i
+				class="fa fa-cube"></i> Category
+		</a></li>
+		<li class="active">Edit</li>
 	</ol>
 </section>
 
@@ -24,8 +27,9 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<c:url value="/category/add" var="post_category" />
-					 
-					<form role="form" method="post" action="${post_category}" onsubmit="return check()">
+
+					<form role="form" method="post" action="${post_category}"
+						onsubmit="return check()">
 						<input class="hidden" value="${category.id }" name="categoryId">
 						<!-- text input -->
 						<div class="form-group">
@@ -37,10 +41,10 @@
 
 						<!-- textarea -->
 						<div class="form-group">
-							<label>Description  (*)</label>
+							<label>Description (*)</label>
 							<textarea class="form-control" rows="5" placeholder="Description"
 								name="description" id="description">${category.description }</textarea>
-							
+
 							<p class="error" hidden id="view-err-description"></p>
 						</div>
 
@@ -48,8 +52,10 @@
 							<button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
 
 						</div>
-						
-						<div class="text-right"><i class="text-right">(*) Field required</i></div>
+
+						<div class="text-right">
+							<i class="text-right">(*) Field required</i>
+						</div>
 
 					</form>
 				</div>
@@ -98,18 +104,18 @@
 			}
 		});
 	});
-	
-	function check(){
+
+	function check() {
 		var check = true;
-		if ($("#name").val()==''){
+		if ($("#name").val() == '') {
 			$("#view-err-name").text("Value is require!");
 			$("#view-err-name").show();
-			check =false;
+			check = false;
 		} else {
 			$("#view-err-name").hide();
 		}
-		
-		if ($("#description").val()==''){
+
+		if ($("#description").val() == '') {
 			$("#view-err-description").text("Value is require!");
 			$("#view-err-description").show();
 			check = false;

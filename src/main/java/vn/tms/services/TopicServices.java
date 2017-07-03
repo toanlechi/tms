@@ -21,4 +21,6 @@ public interface TopicServices {
 	int coutByTrainingStaff(int id);
 
 	List<Topic> findByTrainer(int trainerId);
+	
+	int countByTrainer(int trainerId);
 }

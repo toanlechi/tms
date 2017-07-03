@@ -109,4 +109,10 @@ public class TopicServicesImpl implements TopicServices {
 		return topics;
 	}
 
+	@Override
+	public int countByTrainer(int trainerId) {
+		topicDAO.countByTrainer_id(trainerId);
+		return 0;
+	}
+
 }

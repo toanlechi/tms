@@ -42,6 +42,8 @@ public class MainController {
 			return "redirect:/category";
 		}else if(account.getRole() == Constant.ROLE.TRAINEE){
 			return "redirect:/trainee/courses";
+		} else if (account.getRole()==Constant.ROLE.TRAINER){
+			return "redirect:/trainer/info";
 		}
 
 		return "";

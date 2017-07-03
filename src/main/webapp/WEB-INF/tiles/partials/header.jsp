@@ -39,7 +39,7 @@
 							class="hidden-xs">${user.username }</span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/home" />"><i
+							<li><a href="<c:url value="/admin/trainerManager" />"><i
 									class="fa fa-user fa-fw"></i> Profile</a></li>
 
 							<li><a href="<c:url value="/logout" />"><i
@@ -65,7 +65,7 @@
 							class="hidden-xs">${user.username }</span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/home" />"><i
+							<li><a href="<c:url value="/trainer/info" />"><i
 									class="fa fa-user fa-fw"></i> Profile</a></li>
 
 							<li><a href="<c:url value="/logout" />"><i
@@ -78,7 +78,7 @@
 							class="hidden-xs">${user.username }</span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/home" />"><i
+							<li><a href="<c:url value="/trainee/courses" />"><i
 									class="fa fa-user fa-fw"></i> Profile</a></li>
 
 							<li><a href="<c:url value="/logout" />"><i

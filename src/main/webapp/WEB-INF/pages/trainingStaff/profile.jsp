@@ -185,7 +185,7 @@
 		data["name"] = $("#inputName").val();
 		data["password"] = $("#inputPassword").val();
 		data["newPassword"] = $("#inputNewPassword").val();
-		data["inputReNewPassword"] = $("#inputReNewPassword").val();
+		data["reNewPassword"] = $("#inputReNewPassword").val();
 
 		$.ajax({
 			type : "POST",

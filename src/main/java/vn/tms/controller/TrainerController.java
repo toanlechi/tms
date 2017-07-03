@@ -33,7 +33,7 @@ public class TrainerController {
 
 	@Autowired
 	TrainerEditValidator trainerEditValidator;
-	
+
 	@Autowired
 	TopicServices topicServices;
 
@@ -64,7 +64,7 @@ public class TrainerController {
 		return "redirect:/admin/trainerManager";
 	}
 
-	@GetMapping(value = "admin/trainerManager/{id}/edit")
+	@GetMapping(value = "/admin/trainerManager/{id}/edit")
 	public String edit(@PathVariable int id, Model model) {
 		Trainer trainer = trainerService.findOne(id);
 		if (trainer == null) {
@@ -75,7 +75,7 @@ public class TrainerController {
 		}
 	}
 
-	@PostMapping(value = "admin/trainerManager/update")
+	@PostMapping(value = "/admin/trainerManager/update")
 	public String update(@ModelAttribute("trainer") @Valid Trainer trainer, BindingResult result,
 			@RequestParam(name = "st", required = false) String status, Model model, RedirectAttributes redirect) {
 		trainerEditValidator.validate(trainer, result);
@@ -102,6 +102,20 @@ public class TrainerController {
 		}
 	}
 
+	@GetMapping("/trainingStaff/trainer")
+	public String trainingStaffTrainer(Model model) {
+		model.addAttribute("listTrainer", trainerService.findAll());
+		return "trainingStaffTrainer";
+	}
+
+	@GetMapping("/trainingStaff/trainer/{trainerId}/edit")
+	public String trainingStaffTrainerEdit(Model model, @PathVariable("trainerId") int trainerId) {
+		Trainer trainer = trainerService.findOne(trainerId);
+		model.addAttribute("trainer", trainer);
+		model.addAttribute("countTopic", topicServices.countByTrainer(trainerId));
+		return "trainingStaffTrainerEdit";
+	}
+
 	@GetMapping("/trainer/info")
 	public String trainer(Principal principal, Model model) {
 		Trainer trainer = trainerService.findByEmail(principal.getName());
@@ -109,6 +123,7 @@ public class TrainerController {
 
 		model.addAttribute("trainer", trainer);
 		model.addAttribute("topics", topics);
+		model.addAttribute("countTopic", topicServices.countByTrainer(trainer.getId()));
 
 		return "trainer_page";
 	}

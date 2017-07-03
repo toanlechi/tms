@@ -5,10 +5,13 @@
 
 <section class="content-header">
 	<h1>
-		Dashboard <small>Data Infomation</small>
+		Courses <small>Edit</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/courses" />"> <i
+				class="fa fa-book"></i> Courses
+		</a></li>
+		<li class="active">Detail</li>
 	</ol>
 </section>
 
@@ -64,8 +67,10 @@
 							<button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
 
 						</div>
-						
-						<div class="text-right"><i class="text-right">(*) Field required</i></div>
+
+						<div class="text-right">
+							<i class="text-right">(*) Field required</i>
+						</div>
 
 
 					</form>
@@ -126,8 +131,8 @@
 		} else {
 			$("#view-err-name").hide();
 		}
-		
-		if ($("#category").val()==0){
+
+		if ($("#category").val() == 0) {
 			$("#view-err-category").text("Value is require!");
 			$("#view-err-category").show();
 			check = false;
@@ -142,7 +147,7 @@
 		} else {
 			$("#view-err-description").hide();
 		}
-		
+
 		return check;
 	}
 </script>

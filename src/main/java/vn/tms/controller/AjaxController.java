@@ -70,7 +70,7 @@ public class AjaxController {
 
 	@Autowired
 	UserServices userServices;
-	
+
 	@Autowired
 	ReviewCoursesServices reviewCoursesServices;
 
@@ -289,31 +289,29 @@ public class AjaxController {
 		mv.addObject("listCourses", courses);
 		return mv;
 	}
-	
+
 	@PostMapping(value = "/reviewCourses")
-	public @ResponseBody String reviewCourses(HttpServletRequest request,
-			@RequestParam("rate") int rate,
-			@RequestParam("coursesId") int coursesId,
-			@RequestParam("content") String content ,Principal principal) {
-		
+	public @ResponseBody String reviewCourses(HttpServletRequest request, @RequestParam("rate") int rate,
+			@RequestParam("coursesId") int coursesId, @RequestParam("content") String content, Principal principal) {
+
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		Courses courses = coursesServices.findOne(coursesId);
-		
+
 		ReviewCourses reviewCourses = new ReviewCourses();
 		reviewCourses.setCourses(courses);
 		reviewCourses.setReview(content);
 		reviewCourses.setStar(rate);
 		reviewCourses.setTrainee(trainee);
-		
-		ReviewCourses dbReviewCourses = reviewCoursesServices
-				.findReviewByCoursesAndTrainee(courses.getId(), trainee.getId());
-		if(dbReviewCourses == null){
+
+		ReviewCourses dbReviewCourses = reviewCoursesServices.findReviewByCoursesAndTrainee(courses.getId(),
+				trainee.getId());
+		if (dbReviewCourses == null) {
 			reviewCoursesServices.create(reviewCourses);
-		}else {
+		} else {
 			reviewCourses.setId(dbReviewCourses.getId());
 			reviewCoursesServices.update(reviewCourses);
 		}
-		
+
 		return "";
 	}
 
@@ -353,6 +351,44 @@ public class AjaxController {
 			}
 		}
 		trainingStaffServices.update(trainingStaff);
+
+		return "Update complete!";
+	}
+
+	@PostMapping("/trainer/update")
+	@ResponseBody
+	public String trainerUpdate(@RequestParam("name") String name, @RequestParam("password") String password,
+			@RequestParam(value = "newPassword", defaultValue = "") String newPassword,
+			@RequestParam(value = "reNewPassword", defaultValue = "") String reNewPassword,
+			@RequestParam("education") String education, @RequestParam("phone") int phone,
+			@RequestParam("workingPlace") String workingPlace, Principal principal) {
+		Trainer trainer = trainerServices.findByEmail(principal.getName());
+
+		if (!passwordEncode.matches(password, trainer.getPassword())) {
+			return "Wrong password!";
+		}
+
+		if (name != null && !name.equals("")) {
+			trainer.setName(name);
+		} else {
+			return "Name value not null!";
+		}
+
+		trainer.setEducation(education);
+		trainer.setPhone(phone);
+		trainer.setWorkingPlace(workingPlace);
+		
+		if (newPassword.equals(reNewPassword) && newPassword.length() > 8) {
+			trainer.setPassword(passwordEncode.encode(newPassword));
+		} else {
+			if (newPassword != null && !newPassword.equals(reNewPassword)) {
+				return "Confirm password not matching!";
+			} else if (!newPassword.equals("") && newPassword.length() < 8) {
+				return "Password length must be greater than 8 characters!";
+			}
+		}
+		
+		trainerServices.update(trainer);
 
 		return "Update complete!";
 	}

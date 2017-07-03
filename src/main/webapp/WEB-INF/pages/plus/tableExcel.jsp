@@ -6,24 +6,24 @@
 <table id="table" class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th style="width: 15px;">STT</th>
+			<th>ID</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Birthday</th>
 			<th>Address</th>
-			<th style="width: 20px;">Delete</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="trainee" items="${trainees}" varStatus="stt">
 			<tr>
-				<td>${stt.index+1 }</td>
-				<td>${trainee.name}</td>
-				<td>${trainee.email}</td>
-				<th>${trainee.birthday}</th>
+				<td style="text-align: center; width: 5%">${stt.index+1 }</td>
+				<td style="width: 15%">${trainee.name}</td>
+				<td style="width: 20%">${trainee.email}</td>
+				<th style="width: 20%">${trainee.birthday}</th>
 				<th>${trainee.address}</th>
-				<td style="text-align: center;"><a style="cursor: pointer;"><span
-						class="fa fa-trash-o"></span></a></td>
+				<td style="text-align: center; width: 5%"><a
+					style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>

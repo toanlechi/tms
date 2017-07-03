@@ -5,10 +5,12 @@
 
 <section class="content-header">
 	<h1>
-		Dashboard <small>Data Infomation</small>
+		Topic <small>Edit</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/topic" />"><i class="fa fa-file"></i>
+				Topic</a></li>
+		<li>Edit</li>
 	</ol>
 </section>
 
@@ -17,9 +19,9 @@
 
 	<div class="row" style="margin-top: 30px;">
 		<div class="col-sm-12 col-md-6 col-md-offset-3">
-			<div class="box box-warning">
+			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">General Elements</h3>
+					<h3 class="box-title">Topic info</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -32,10 +34,8 @@
 						<div class="form-group">
 							<label>Courses *</label> <select class="form-control"
 								name="coursesId" id="coursesId">
-								<option value="0" />
-								<c:if test="${topic.id != null}">
-									<option value="${topic.courses.id }">${topic.courses.name }</option>
-								</c:if>
+
+								<option value="${topic.courses.id }">${topic.courses.name }</option>
 
 								<c:forEach items="${listCourses }" var="courses">
 									<option value="${courses.id }">${courses.name }</option>
@@ -50,7 +50,7 @@
 									<label>Time start *</label>
 									<div class='input-group date' id='datetimepicker3'>
 										<input type='text' class="form-control" name="timeStart"
-											id="timeStart" /> <span class="input-group-addon"> <span
+											id="timeStart" value="${topic.timeStart }" /> <span class="input-group-addon"> <span
 											class="glyphicon glyphicon-time"></span>
 										</span>
 									</div>
@@ -62,8 +62,8 @@
 								<div class="form-group">
 									<label>Time end *</label>
 									<div class='input-group date' id='datetimepickerEnd'>
-										<input type='text' class="form-control" name="timeEnd" /> <span
-											class="input-group-addon"> <span
+										<input type='text' class="form-control" name="timeEnd"
+											id="timeEnd"  value="${topic.timeEnd }" /> <span class="input-group-addon"> <span
 											class="glyphicon glyphicon-time"></span>
 										</span>
 									</div>
@@ -79,38 +79,38 @@
 							<div class="row text-center">
 								<div class="checkbox icheck inline">
 
-									<label> <input type="checkbox" name="mo" ${day2 } id="input-mo">
-										Mo
+									<label> <input type="checkbox" name="mo" ${day2 }
+										id="input-mo"> Mo
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="tu" ${day3 } id="input-tu">
-										Tu
+									<label> <input type="checkbox" name="tu" ${day3 }
+										id="input-tu"> Tu
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="we" ${day4 } id="input-we">
-										We
+									<label> <input type="checkbox" name="we" ${day4 }
+										id="input-we"> We
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="th" ${day5 } id="input-th">
-										Th
+									<label> <input type="checkbox" name="th" ${day5 }
+										id="input-th"> Th
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="fr" ${day6 } id="input-fr">
-										Fr
+									<label> <input type="checkbox" name="fr" ${day6 }
+										id="input-fr"> Fr
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 20px;">
-									<label> <input type="checkbox" name="sa" ${day7 } id="input-sa">
-										Sa
+									<label> <input type="checkbox" name="sa" ${day7 }
+										id="input-sa"> Sa
 									</label>
 								</div>
 								<div class="checkbox icheck inline" style="margin-left: 30px;">
-									<label> <input type="checkbox" name="su" ${dayCN } id="input-su">
-										Su
+									<label> <input type="checkbox" name="su" ${dayCN }
+										id="input-su"> Su
 									</label>
 								</div>
 							</div>
@@ -127,10 +127,7 @@
 						<div class="form-group">
 							<label>Trainer *</label> <select class="form-control"
 								name="trainerId" id="trainerId">
-								<option value="0" />
-								<c:if test="${topic.id != null}">
-									<option value="${topic.trainer.id }">${topic.trainer.name }</option>
-								</c:if>
+								<option value="${topic.trainer.id }">${topic.trainer.name }</option>
 
 								<c:forEach items="${listTrainer }" var="trainer">
 									<option value="${trainer.id }">${trainer.name }</option>
@@ -188,33 +185,39 @@
 		$('#datetimepicker3').datetimepicker({
 			format : 'HH:m'
 		});
-		
+
 		$('#datetimepickerEnd').datetimepicker({
 			format : 'HH:m',
-			
-			disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: 23 })]]
+
+			disabledTimeIntervals : [ [ moment({
+				h : 0
+			}), moment({
+				h : 23
+			}) ] ]
 		});
 	});
-	
+
 	$("#datetimepicker3").on('dp.change', function(e) {
 		var timeStart = $('#timeStart').val();
-		var hour = parseInt(timeStart.substring(0, 2)) +1;
+		var hour = parseInt(timeStart.substring(0, 2)) + 1;
 		console.log(hour);
-		
+
 		$('#datetimepickerEnd').data("DateTimePicker").destroy();
 		$('#datetimepickerEnd').datetimepicker({
 			format : 'HH:m',
-			disabledHours: [0, 1, 2, 3, 4, 5],
-			disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: hour })]]
+			disabledHours : [ 0, 1, 2, 3, 4, 5 ],
+			disabledTimeIntervals : [ [ moment({
+				h : 0
+			}), moment({
+				h : hour
+			}) ] ]
 		});
 
 	});
 
-	
-	
 	function checkSubmit() {
 		var check = true;
-		if ($("#time").val() == '') {
+		if ($("#timeStart").val() == '') {
 			$("#view-err-time-start").text("Value is require!");
 			$("#view-err-time-start").show();
 			check = false;
@@ -223,7 +226,7 @@
 			$("#view-err-time-start").hide();
 		}
 
-		if ($("#time2").val() == '') {
+		if ($("#timeEnd").val() == '') {
 			$("#view-err-time-end").text("Value is require!");
 			$("#view-err-time-end").show();
 			check = false;
@@ -263,18 +266,20 @@
 		} else {
 			$("#view-err-trainer").hide();
 		}
-		
-		if (!$("#input-mo").is(":checked") && !$("#input-tu").is(":checked") && !$("#input-we").is(":checked")
-				&&!$("#input-th").is(":checked") &&!$("#input-fr").is(":checked") && !$("#input-sa").is(":checked")
-				&& !$("#input-su").is(":checked")){
+
+		if (!$("#input-mo").is(":checked") && !$("#input-tu").is(":checked")
+				&& !$("#input-we").is(":checked")
+				&& !$("#input-th").is(":checked")
+				&& !$("#input-fr").is(":checked")
+				&& !$("#input-sa").is(":checked")
+				&& !$("#input-su").is(":checked")) {
 			$("#view-err-day").text("Value is require!");
 			$("#view-err-day").show();
 			check = false;
 		} else {
 			$("#view-err-day").hide();
 		}
-		
-		
+
 		return check;
 
 	}

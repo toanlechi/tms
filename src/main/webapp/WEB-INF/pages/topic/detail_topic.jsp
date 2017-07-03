@@ -4,11 +4,10 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <section class="content-header">
-	<h1>
-		Dashboard <small><c:out value="${demo}" /></small>
-	</h1>
+	<h1>Topic</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/topic" />"><i class="fa fa-file"></i> Topic</a></li>
+		<li>Detail</li>
 	</ol>
 </section>
 

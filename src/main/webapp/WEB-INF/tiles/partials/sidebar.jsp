@@ -33,6 +33,10 @@
 			<li class="treeview"><a href="<c:url value="/topic" />"> <i
 					class="fa fa-file-o"></i><span>Topic</span>
 			</a></li>
+			<li class="treeview"><a href="<c:url value="/trainingStaff/trainer" />"> <i
+					class="fa fa-user"></i><span>Trainer</span>
+			</a></li>
+			
 		</ul>
 	</sec:authorize>
 	

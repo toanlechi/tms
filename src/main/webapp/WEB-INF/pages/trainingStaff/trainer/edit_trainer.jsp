@@ -46,91 +46,9 @@
 		<!-- /.col -->
 		<div class="col-md-9">
 			<div class="nav-tabs-custom">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#timeline" data-toggle="tab">Schedule
-					</a></li>
-					<li><a href="#settings" data-toggle="tab">Profile</a></li>
-				</ul>
-				<div class="tab-content">
-
-					<!-- /.tab-pane -->
-					<div class="active tab-pane" id="timeline">
-						<c:forEach items="${topics }" var="topic">
+				<div class="box">
 
 
-							<div class="callout callout-default">
-								<h4>${topic.name }</h4>
-								<div class="row ">
-									<div class="col-md-6">
-										<div class="col-sm-5 text-right">
-											<label>Time start: </label>
-										</div>
-										<div class="col-sm-7">
-											<p>${topic.timeStart }</p>
-										</div>
-									</div>
-
-									<div class="col-md-6">
-										<div class="col-sm-5 text-right">
-											<label>Time end: </label>
-										</div>
-										<div class="col-sm-7">
-											<p>${topic.timeEnd }</p>
-										</div>
-									</div>
-
-
-								</div>
-
-								<div class="row">
-
-									<div class="col-md-2  text-right">
-										<label>Day: </label>
-									</div>
-									<div class="col-md-10">
-										<div class="checkbox icheck inline">
-
-											<label> <input type="checkbox" disabled name="mo"
-												${topic.mo } id="input-mo"> Mo
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 20px;">
-											<label> <input type="checkbox" disabled name="tu"
-												${topic.tu } id="input-tu"> Tu
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 20px;">
-											<label> <input type="checkbox" disabled name="we"
-												${topic.we } id="input-we"> We
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 20px;">
-											<label> <input type="checkbox" disabled name="th"
-												${topic.th } id="input-th"> Th
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 20px;">
-											<label> <input type="checkbox" disabled name="fr"
-												${topic.fr } id="input-fr"> Fr
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 20px;">
-											<label> <input type="checkbox" disabled name="sa"
-												${topic.sa } id="input-sa"> Sa
-											</label>
-										</div>
-										<div class="checkbox icheck inline" style="margin-left: 30px;">
-											<label> <input type="checkbox" disabled name="su"
-												${topic.su } id="input-su"> Su
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-						</c:forEach>
-					</div>
-					<!-- /.tab-pane -->
 
 					<div class="tab-pane" id="settings">
 						<form class="form-horizontal" onsubmit="return validation()"
@@ -226,7 +144,6 @@
 					</div>
 					<!-- /.tab-pane -->
 				</div>
-				<!-- /.tab-content -->
 			</div>
 			<!-- /.nav-tabs-custom -->
 		</div>

@@ -41,5 +41,7 @@ public interface TopicDAO extends CrudRepository<Topic, Integer> {
 	int countByTrainingStaff_id(int id);
 	
 	List<Topic> findByTrainer_id(int trainerId);
+	
+	int countByTrainer_id(int id);
 
 }

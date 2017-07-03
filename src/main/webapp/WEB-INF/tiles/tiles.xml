@@ -197,6 +197,18 @@
 		<put-attribute name="title" value="TrainingStaff | Profile" />
 		<put-attribute name="main" value="/WEB-INF/pages/trainingStaff/profile.jsp" />
 	</definition>
+	
+	<!-- TrainingStaff trainer page -->
+	<definition name="trainingStaffTrainer" extends="app-definition">
+		<put-attribute name="title" value="TrainingStaff | Trainer" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainingStaff/trainer/trainer.jsp" />
+	</definition>
+	
+	<!-- TrainingStaff trainer edit -->
+	<definition name="trainingStaffTrainerEdit" extends="app-definition">
+		<put-attribute name="title" value="TrainingStaff | Trainer edit" />
+		<put-attribute name="main" value="/WEB-INF/pages/trainingStaff/trainer/edit_trainer.jsp" />
+	</definition>
 
 	<!-- =================================End TrainingStaff Pages================================== -->
 

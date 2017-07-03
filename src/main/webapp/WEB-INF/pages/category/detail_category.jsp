@@ -8,7 +8,10 @@
 		Dashboard <small>Data Infomation</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/category" />"> <i
+				class="fa fa-cube"></i> Category
+		</a></li>
+		<li class="active">Detail</li>
 	</ol>
 </section>
 
@@ -97,47 +100,29 @@
 					<table id="courses_list" class="table table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>STT</th>
+								<th style="text-align: center;">ID</th>
 								<th>Name</th>
 								<th>Description</th>
 								<th>Create by</th>
 								<th>Create At</th>
-								<th>###</th>
+								<th>Remove</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="courses" items="${listCourses}" varStatus="stt">
 								<tr>
-									<td>${stt.index +1}</td>
-									<td><a href="#">${courses.name}</a></td>
+									<td style="width: 5%; text-align: center;">${stt.index +1}</td>
+									<td style="width: 20%;"><a href="#">${courses.name}</a></td>
 									<td>${courses.description}</td>
-									<td>${courses.trainingStaff.name}</td>
-									<td>${courses.createdAt}</td>
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu" role="menu" style="width: 20px;">
-												<li><a href="#">Edit</a></li>
-												<li><a href="#">Delete</a></li>
-											</ul>
-										</div>
+									<td style="width: 15%;">${courses.trainingStaff.name}</td>
+									<td style="width: 15%;">${courses.createdAt}</td>
+									<td style="width: 5%; text-align: center;"><a
+										style="cursor: pointer;"><span class="fa fa-trash-o"></span></a>
 									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<tfoot>
-							<tr>
-								<th>STT</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Create by</th>
-								<th>Create At</th>
-								<th>###</th>
-							</tr>
-						</tfoot>
+
 					</table>
 
 				</div>
@@ -151,5 +136,12 @@
 	</div>
 	<!-- /.row -->
 </section>
+
+
+<script type="text/javascript">
+	$(function() {
+		$("#courses_list").DataTable({});
+	});
+</script>
 
 

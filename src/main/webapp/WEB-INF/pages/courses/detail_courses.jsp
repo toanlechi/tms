@@ -4,11 +4,12 @@
 <section class="content-header">
 	<%@ taglib uri="http://www.springframework.org/security/tags"
 		prefix="sec"%>
-	<h1>
-		Dashboard <small><c:out value="${demo}" /></small>
-	</h1>
+	<h1>Courses</h1>
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+		<li><a href="<c:url value="/courses" />"> <i
+				class="fa fa-book"></i> Courses
+		</a></li>
+		<li class="active">Detail</li>
 	</ol>
 </section>
 <sec:authentication property="principal" var="user" />
@@ -99,101 +100,49 @@
 
 			<br>
 
+			<div class="nav-tabs-custom">
+				<!-- Tab-->
+				<ul class="nav nav-tabs" role="tablist" id="myTab"
+					style="margin-bottom: 5px">
+					<li class="active"><a href="#list-topic" role="tab"
+						data-toggle="tab">List Topic Of Courses</a></li>
+					<li><a href="#list-trainee" role="tab" data-toggle="tab">List
+							Trainee Of Courses</a></li>
+				</ul>
 
-			<!-- Tab-->
-			<ul class="nav nav-tabs" role="tablist" id="myTab"
-				style="margin-bottom: 5px">
-				<li class="active"><a href="#list-topic" role="tab"
-					data-toggle="tab">List Topic Of Courses</a></li>
-				<li><a href="#list-trainee" role="tab" data-toggle="tab">List
-						Trainee Of Courses</a></li>
-			</ul>
-
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div class="tab-pane fade in active" id="list-topic">
-					<div class="box">
-						<div class="box-header">
-							<h3 class="box-title">List Topic of Courses</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<table id="example2" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th style="width: 15px;">STT</th>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Create by</th>
-										<th>Create At</th>
-										<th style="width: 20px">###</th>
-									</tr>
-								</thead>
-								<tbody>
-
-									<c:forEach var="topic" items="${listTopic}" varStatus="stt">
-										<tr>
-											<td>${stt.index+1}</td>
-											<td><a href='<c:url value="/topic/${topic.id }" />'>${topic.name}</a></td>
-											<td>${topic.description}</td>
-											<td>${topic.trainingStaff.name}</td>
-											<td>${topic.createdAt}</td>
-											<td><a data-toggle="modal"
-												data-target="#dialog-question"
-												onclick="set_id_topic(${topic.id }, '${topic.name }')"
-												style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th style="width: 15px;">STT</th>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Create by</th>
-										<th>Create At</th>
-										<th style="width: 20px">###</th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /.box -->
-
-				</div>
-				<div class="tab-pane fade" id="list-trainee">
-					<div class="box box-danger">
-						<div class="box-header">
-							<h3 class="box-title">List trainee of Courses</h3>
-						</div>
-						<div class="box-body">
-							<button style="margin-bottom: 10px" type="button"
-								class="btn btn-default" data-toggle="modal"
-								data-target="#dialog-import">Add Trainee</button>
-
-							<div id="table-trainee">
-								<table id="example1" class="table table-bordered table-striped">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="list-topic">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">List Topic of Courses</h3>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example2" class="table table-bordered table-hover">
 									<thead>
 										<tr>
-											<th style="width: 15px;">STT</th>
+											<th>STT</th>
 											<th>Name</th>
-											<th>Email</th>
-											<th>Birthday</th>
-											<th>Address</th>
-											<th style="width: 20px;">Delete</th>
+											<th>Description</th>
+											<th>Create by</th>
+											<th>Create At</th>
+											<th>Remove</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="trainee" items="${listTrainee}"
-											varStatus="stt">
+
+										<c:forEach var="topic" items="${listTopic}" varStatus="stt">
 											<tr>
-												<td>${stt.index+1 }</td>
-												<td>${trainee.name}</td>
-												<td>${trainee.email}</td>
-												<th>${trainee.birthday}</th>
-												<th>${trainee.address}</th>
-												<td style="text-align: center;"><a
+												<td style="width: 5%; text-align: center;">${stt.index+1}</td>
+												<td style="width: 15%;"><a
+													href='<c:url value="/topic/${topic.id }" />'>${topic.name}</a></td>
+												<td>${topic.description}</td>
+												<td style="width: 15%;">${topic.trainingStaff.name}</td>
+												<td style="width: 15%;">${topic.createdAt}</td>
+												<td style="width: 7%; text-align: center;"><a
+													data-toggle="modal" data-target="#dialog-question"
+													onclick="set_id_topic(${topic.id }, '${topic.name }')"
 													style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
 											</tr>
 										</c:forEach>
@@ -201,18 +150,63 @@
 
 								</table>
 							</div>
+							<!-- /.box-body -->
 						</div>
-						<!-- /.box-body -->
-						<!-- Loading (remove the following to stop the loading)-->
-						<div class="overlay hidden" id="loading">
-							<i class="fa fa-refresh fa-spin"></i>
-						</div>
-						<!-- end loading -->
+						<!-- /.box -->
+
 					</div>
+					<div class="tab-pane" id="list-trainee">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">List trainee of Courses</h3>
+							</div>
+							<div class="box-body">
+								<button style="margin-bottom: 10px" type="button"
+									class="btn btn-default" data-toggle="modal"
+									data-target="#dialog-import">Add Trainee</button>
+
+								<div id="table-trainee">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Email</th>
+												<th>Birthday</th>
+												<th>Address</th>
+												<th>Remove</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="trainee" items="${listTrainee}"
+												varStatus="stt">
+												<tr>
+													<td style="text-align: center; width: 5%">${stt.index+1 }</td>
+													<td style="width: 15%">${trainee.name}</td>
+													<td style="width: 20%">${trainee.email}</td>
+													<th style="width: 20%">${trainee.birthday}</th>
+													<th>${trainee.address}</th>
+													<td style="text-align: center; width: 5%"><a
+														style="cursor: pointer;"><span class="fa fa-trash-o"></span></a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+							<!-- /.box-body -->
+							<!-- Loading (remove the following to stop the loading)-->
+							<div class="overlay hidden" id="loading">
+								<i class="fa fa-refresh fa-spin"></i>
+							</div>
+							<!-- end loading -->
+						</div>
 
 
 
 
+					</div>
 				</div>
 			</div>
 		</div>

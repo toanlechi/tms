@@ -35,6 +35,7 @@ import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
 import vn.tms.entity.MailContent;
 import vn.tms.entity.ReviewCourses;
+import vn.tms.entity.ReviewTopic;
 import vn.tms.entity.Topic;
 import vn.tms.entity.Trainee;
 import vn.tms.entity.Trainer;
@@ -43,6 +44,7 @@ import vn.tms.entity.User;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
 import vn.tms.services.ReviewCoursesServices;
+import vn.tms.services.ReviewTopicServices;
 import vn.tms.services.TopicServices;
 import vn.tms.services.TraineeServices;
 import vn.tms.services.TrainerServices;
@@ -73,6 +75,9 @@ public class AjaxController {
 
 	@Autowired
 	ReviewCoursesServices reviewCoursesServices;
+	
+	@Autowired
+	ReviewTopicServices reviewsTopicServices;
 
 	@Autowired
 	private TraineeServices traineeServices;
@@ -291,28 +296,63 @@ public class AjaxController {
 	}
 
 	@PostMapping(value = "/reviewCourses")
-	public @ResponseBody String reviewCourses(HttpServletRequest request, @RequestParam("rate") int rate,
-			@RequestParam("coursesId") int coursesId, @RequestParam("content") String content, Principal principal) {
-
+	public @ResponseBody ModelAndView reviewCourses(HttpServletRequest request,
+			@RequestParam("rate") int rate,
+			@RequestParam("coursesId") int coursesId,
+			@RequestParam("content") String content ,Principal principal) {
+		
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		Courses courses = coursesServices.findOne(coursesId);
-
+		
 		ReviewCourses reviewCourses = new ReviewCourses();
 		reviewCourses.setCourses(courses);
 		reviewCourses.setReview(content);
 		reviewCourses.setStar(rate);
 		reviewCourses.setTrainee(trainee);
-
-		ReviewCourses dbReviewCourses = reviewCoursesServices.findReviewByCoursesAndTrainee(courses.getId(),
-				trainee.getId());
-		if (dbReviewCourses == null) {
+		
+		ReviewCourses dbReviewCourses = reviewCoursesServices
+				.findReviewByCoursesAndTrainee(courses.getId(), trainee.getId());
+		if(dbReviewCourses == null){
 			reviewCoursesServices.create(reviewCourses);
-		} else {
+		}else {
 			reviewCourses.setId(dbReviewCourses.getId());
 			reviewCoursesServices.update(reviewCourses);
 		}
-
-		return "";
+		
+		ModelAndView mv = new ModelAndView("reviewCourses");
+		mv.addObject("reviewCourses", reviewCourses);
+		
+		return mv;
+	}
+	
+	@PostMapping(value = "/reviewTopic")
+	public @ResponseBody ModelAndView reviewTopic(HttpServletRequest request,
+			@RequestParam("rate") int rate,
+			@RequestParam("topicId") int topicId,
+			@RequestParam("content") String content ,Principal principal) {
+		
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
+		Topic topic = topicServices.findOne(topicId);
+		
+		ReviewTopic reviewTopic = new ReviewTopic();
+		reviewTopic.setTopic(topic);
+		reviewTopic.setReview(content);
+		reviewTopic.setStar(rate);
+		reviewTopic.setTrainee(trainee);
+		
+		ReviewTopic dbReviewTopic = reviewsTopicServices
+				.findReviewByTopicAndTrainee(topic.getId(), trainee.getId());
+		if(dbReviewTopic == null){
+			reviewsTopicServices.create(reviewTopic);
+		}else {
+			reviewTopic.setId(dbReviewTopic.getId());
+			reviewsTopicServices.create(reviewTopic);
+		}
+		
+		ModelAndView mv = new ModelAndView("reviewTopic");
+		mv.addObject("reviewTopic", reviewTopic);
+		
+		return mv;
 	}
 
 	@PostMapping("/searchTopic")

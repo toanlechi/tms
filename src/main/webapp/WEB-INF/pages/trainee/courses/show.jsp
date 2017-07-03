@@ -85,7 +85,6 @@
 													<th>Time Start</th>
 													<th>Time End</th>
 													<th>View Details</th>
-
 												</tr>
 											</thead>
 											<tbody>
@@ -93,10 +92,10 @@
 													varStatus="loop">
 													<tr>
 														<td align="center"><c:out value="${loop.index + 1}" /></td>
-														<td>${topicItem.name }</td>
-														<td>${topicItem.description }</td>
-														<td>${coursesItem.timeStart }</td>
-														<td>${coursesItem.timeEnd }</td>
+														<td>${topicItem.name}</td>
+														<td>${topicItem.description}</td>
+														<td>${coursesItem.timeStart}</td>
+														<td>${coursesItem.timeEnd}</td>
 														<td align="center"><a
 															href="<c:url value="/trainee/topic/${topicItem.id}/show" />"
 															title="Show Topic"> <i class="fa fa-search"></i>
@@ -114,11 +113,11 @@
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="reviewcourses">
 
-						<div>
+						<div id="showData">
 							<c:if test="${not empty reviewCourses}">
-								<input id="showrate" type="text" class="rating-loading"
+								<input id="showrate" type="text" class="rating rating-loading"
 									data-size="xs" data-min="0" data-max="5" data-step="1"
-									data-show-caption="true" value="${reviewCourses.star}">
+									data-readonly="true" value="${reviewCourses.star}">
 								<div class="form-group" id="formContent">
 									<label>${reviewCourses.trainee.name}</label>
 									<p>${reviewCourses.review}</p>
@@ -134,7 +133,7 @@
 										class="control-label" id="rateResponse"></span>
 								</div>
 								<div class="form-group" id="formContent">
-									<label>ReviewContent</label>
+									<label>Review Content</label>
 									<textarea class="form-control" rows="3"
 										placeholder="Enter review ..." id="content"></textarea>
 									<span class="control-label" id="contentResponse"></span>
@@ -143,8 +142,8 @@
 							<div class="box-footer">
 								<button type="submit" onclick="sendReview()"
 									class="btn btn-primary">
-									<i class="fa fa-spin fa-refresh" id="ajax-loading"></i>&nbsp;Send
-									review
+									<i class="fa fa-spin fa-refresh" id="ajax-loading"></i>&nbsp;
+									Review courses
 								</button>
 							</div>
 						</div>
@@ -163,11 +162,6 @@
 	$(document).ready(function() {
 		$('#ajax-loading').hide();
 		$("#myTable").DataTable();
-
-		$('#showrate').rating({
-			displayOnly : true,
-			step : 0.5
-		});
 	});
 
 	function sendReview() {
@@ -205,8 +199,11 @@
 			},
 			complete : function(r) {
 				console.log(r.responseText);
-				if (r.responseText == "true") {
-				} else {
+				if(r.responseText != ''){
+					$('#showData').empty();
+					$('#showData').append(r.responseText);
+					$('#rate').rating('reset');
+					$("#content").val('');
 				}
 			},
 			error : function(e) {

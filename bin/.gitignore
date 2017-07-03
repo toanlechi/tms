@@ -1,0 +1,8 @@
+/target
+/.project
+/.classpath
+/.settings
+/.svn/entries
+/.svn
+/*datasource-cfg.properties
+/src/main/resources/datasource-cfg.properties

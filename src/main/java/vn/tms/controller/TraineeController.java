@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import vn.tms.entity.Courses;
 import vn.tms.entity.ReviewCourses;
+import vn.tms.entity.ReviewTopic;
+import vn.tms.entity.Topic;
 import vn.tms.entity.Trainee;
 import vn.tms.services.CoursesServices;
 import vn.tms.services.ReviewCoursesServices;
+import vn.tms.services.ReviewTopicServices;
 import vn.tms.services.TopicServices;
 import vn.tms.services.TraineeServices;
 
@@ -30,9 +33,11 @@ public class TraineeController {
 	@Autowired
 	ReviewCoursesServices reviewCoursesServices;
 
+	@Autowired
+	ReviewTopicServices reviewTopicServices;
+
 	@GetMapping(value = "/trainee/courses")
 	public String index(Model model, Principal principal) {
-
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		model.addAttribute("listCourses", coursesServices.findByTraineeId(trainee.getId()));
 		return "traineeCourses";
@@ -57,6 +62,27 @@ public class TraineeController {
 			}
 			return "traineeCoursesDetails";
 		}
+	}
+
+	@SuppressWarnings("unused")
+	@GetMapping(value = "/trainee/topic/{id}/show")
+	public String showTopic(@PathVariable int id, Model model, Principal principal) {
+		Trainee trainee = traineeServices.findByEmail(principal.getName());
+		Topic topic = topicServices.findOne(id);
+
+		ReviewTopic reviewTopic = reviewTopicServices
+				.findReviewByTopicAndTrainee(topic.getId(),
+						trainee.getId());
+		
+		if (topic == null) {
+			return "404";
+		} else {
+			model.addAttribute("topic", topic);
+			if(reviewTopic != null){
+				model.addAttribute("reviewTopic", reviewTopic);
+			}
+		}
+		return "traineeTopic";
 	}
 
 }

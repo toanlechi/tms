@@ -44,8 +44,7 @@ public class TraineeServicesImpl implements TraineeServices {
 
 	@Override
 	public Trainee findOne(int id) {
-		traineeDAO.findOne(id);
-		return null;
+		return traineeDAO.findOne(id);
 	}
 
 }

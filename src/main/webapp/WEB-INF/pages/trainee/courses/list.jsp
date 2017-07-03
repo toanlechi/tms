@@ -38,7 +38,6 @@
 										<th>Description</th>
 										<th>Create At</th>
 										<th>View Details</th>
-
 									</tr>
 								</thead>
 								<tbody>

@@ -357,36 +357,52 @@ public class AjaxController {
 
 	@PostMapping("/trainer/update")
 	@ResponseBody
-	public String trainerUpdate(@RequestParam("name") String name, @RequestParam("password") String password,
+	public String trainerUpdate(@RequestParam("name") String name, @RequestParam(value="password", defaultValue="") String password,
 			@RequestParam(value = "newPassword", defaultValue = "") String newPassword,
 			@RequestParam(value = "reNewPassword", defaultValue = "") String reNewPassword,
 			@RequestParam("education") String education, @RequestParam("phone") int phone,
-			@RequestParam("workingPlace") String workingPlace, Principal principal) {
-		Trainer trainer = trainerServices.findByEmail(principal.getName());
+			@RequestParam("workingPlace") String workingPlace, Principal principal, @RequestParam(value="trainingStaff", defaultValue="") String trainingStaff, @RequestParam(value="trainerId", defaultValue="0") int trainerId) {
+		Trainer trainer =null;
 
-		if (!passwordEncode.matches(password, trainer.getPassword())) {
-			return "Wrong password!";
+		
+		if (trainingStaff.equals("")){
+			trainer= trainerServices.findByEmail(principal.getName());
+			if (!passwordEncode.matches(password, trainer.getPassword())) {
+				return "Wrong password!";
+			}
+			
+			if (newPassword.equals(reNewPassword) && newPassword.length() > 8) {
+				trainer.setPassword(passwordEncode.encode(newPassword));
+			} else {
+				if (newPassword != null && !newPassword.equals(reNewPassword)) {
+					return "Confirm password not matching!";
+				} else if (!newPassword.equals("") && newPassword.length() < 8) {
+					return "Password length must be greater than 8 characters!";
+				}
+			}
+			
+		} else {
+			trainer = trainerServices.findOne(trainerId);
+			if (!newPassword.equals("")){
+				if (newPassword.length()>8){
+					trainer.setPassword(passwordEncode.encode(newPassword));
+				} else {
+					 return "Password length must be greater than 8 characters!";
+				}
+			}
 		}
+		
 
 		if (name != null && !name.equals("")) {
 			trainer.setName(name);
 		} else {
 			return "Name value not null!";
 		}
-
+		
 		trainer.setEducation(education);
 		trainer.setPhone(phone);
 		trainer.setWorkingPlace(workingPlace);
-		
-		if (newPassword.equals(reNewPassword) && newPassword.length() > 8) {
-			trainer.setPassword(passwordEncode.encode(newPassword));
-		} else {
-			if (newPassword != null && !newPassword.equals(reNewPassword)) {
-				return "Confirm password not matching!";
-			} else if (!newPassword.equals("") && newPassword.length() < 8) {
-				return "Password length must be greater than 8 characters!";
-			}
-		}
+
 		
 		trainerServices.update(trainer);
 

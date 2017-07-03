@@ -9,6 +9,7 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Trainer</a></li>
+		<li>Edit</li>
 	</ol>
 </section>
 
@@ -46,103 +47,90 @@
 		<!-- /.col -->
 		<div class="col-md-9">
 			<div class="nav-tabs-custom">
-				<div class="box">
-
-
-
-					<div class="tab-pane" id="settings">
-						<form class="form-horizontal" onsubmit="return validation()"
-							action="#" method="post">
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Name
-									*</label>
-
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputName"
-										value="${trainer.name }">
-									<p class="error" hidden id="view-err-name"></p>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputEmail" class="col-sm-3 control-label">Email</label>
-
-								<div class="col-sm-9">
-									<input type="email" class="form-control" id="inputEmail"
-										value="${trainer.email }">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Password
-									*</label>
-
-								<div class="col-sm-9">
-									<input type="password" class="form-control" id="inputPassword">
-									<p class="error" hidden id="view-err-password"></p>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">New
-									Password </label>
-
-								<div class="col-sm-9">
-									<input type="password" class="form-control"
-										id="inputNewPassword" placeholder="********">
-									<p class="error" hidden id="view-err-new-password"></p>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Re-New
-									Password </label>
-
-								<div class="col-sm-9">
-									<input type="password" class="form-control"
-										id="inputReNewPassword" placeholder="********">
-									<p class="error" hidden id="view-err-re-new-password"></p>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Education
-								</label>
-
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputEducation"
-										value="${trainer.education }">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Phone
-								</label>
-
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="inputPhone"
-										value="${trainer.phone }">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputName" class="col-sm-3 control-label">Wroking
-									Place </label>
-
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputWorkingPlace"
-										value="${trainer.workingPlace }">
-								</div>
-							</div>
-
-
-
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-9">
-									<button type="submit" class="btn btn-danger">Save</button>
-								</div>
-							</div>
-						</form>
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Profile</h3>
 					</div>
-					<!-- /.tab-pane -->
+
+
+					<div class="box-body">
+						<div class="tab-pane" id="settings">
+							<form class="form-horizontal" onsubmit="return validation()"
+								action="#" method="post">
+								<input type="text" class="hidden" value="${trainer.id }" name="trainerId">
+								
+								<div class="form-group">
+									<label for="inputName" class="col-sm-3 control-label">Name
+										*</label>
+
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputName"
+											value="${trainer.name }">
+										<p class="error" hidden id="view-err-name"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail" class="col-sm-3 control-label">Email</label>
+
+									<div class="col-sm-9">
+										<input type="email" disabled class="form-control" id="inputEmail"
+											value="${trainer.email }">
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-3 control-label">New
+										Password </label>
+
+									<div class="col-sm-9">
+										<input type="password" class="form-control"
+											id="inputNewPassword" placeholder="********">
+										<p class="error" hidden id="view-err-new-password"></p>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-3 control-label">Education
+									</label>
+
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputEducation"
+											value="${trainer.education }">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-3 control-label">Phone
+									</label>
+
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="inputPhone"
+											value="${trainer.phone }">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-3 control-label">Wroking
+										Place </label>
+
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="inputWorkingPlace"
+											value="${trainer.workingPlace }">
+									</div>
+								</div>
+
+
+
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="submit" class="btn btn-danger">Save</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.tab-pane -->
+					</div>
 				</div>
 			</div>
 			<!-- /.nav-tabs-custom -->
@@ -174,14 +162,6 @@
 			$("#view-err-name").hide();
 		}
 
-		if ($("#inputPassword").val() == '') {
-			$("#view-err-password").text("Filed is require!");
-			$("#view-err-password").show();
-			check = false;
-		} else {
-			$("#view-err-password").hide();
-		}
-
 		if ($("#inputNewPassword").val() != ''
 				&& $("#inputNewPassword").val().length < 8) {
 			$("#view-err-new-password").text(
@@ -190,17 +170,6 @@
 			check = false;
 		} else {
 			$("#view-err-new-password").hide();
-		}
-
-		if ($("#inputReNewPassword").val() != ''
-				&& $("#inputReNewPassword").val() != $("#inputNewPassword")
-						.val()) {
-			$("#view-err-re-new-password").text(
-					"Confirm password not matching!");
-			$("#view-err-re-new-password").show();
-			check = false;
-		} else {
-			$("#view-err-re-new-password").hide();
 		}
 
 		if (check) {
@@ -213,12 +182,11 @@
 	function update() {
 		var data = {}
 		data["name"] = $("#inputName").val();
-		data["password"] = $("#inputPassword").val();
 		data["newPassword"] = $("#inputNewPassword").val();
-		data["reNewPassword"] = $("#inputReNewPassword").val();
 		data["education"] = $("#inputEducation").val();
 		data["phone"] = $("#inputPhone").val();
 		data["workingPlace"] = $("#inputWorkingPlace").val();
+		data["trainingStaff"] = 'true';
 
 		$.ajax({
 			type : "POST",

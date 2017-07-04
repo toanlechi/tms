@@ -6,7 +6,8 @@
 <section class="content-header">
 	<h1>Topic</h1>
 	<ol class="breadcrumb">
-		<li><a href="<c:url value="/topic" />"><i class="fa fa-file"></i> Topic</a></li>
+		<li><a href="<c:url value="/topic" />"><i class="fa fa-file"></i>
+				Topic</a></li>
 		<li>Detail</li>
 	</ol>
 </section>
@@ -105,62 +106,27 @@
 
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Condensed Full Width Table</h3>
+					<h3 class="box-title">List review</h3>
 				</div>
 				<!-- /.box-header -->
-				<div class="box-body no-padding">
-					<table class="table table-condensed">
-						<tr>
-							<th style="width: 10px">#</th>
-							<th>Name</th>
-							<th>Time</th>
-							<th style="width: 40px">Label</th>
-						</tr>
-						<tr>
-							<td>1.</td>
-							<td>Update software</td>
-							<td>
-								<div class="progress progress-xs">
-									<div class="progress-bar progress-bar-danger"
-										style="width: 55%"></div>
+				<div class="box-body">
+					<c:choose>
+						<c:when test="${empty listReviewTopic}">
+							<p>No review</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${listReviewTopic}" var="reviewTopic"
+								varStatus="loop">
+								<input id="showrate" type="text" class="rating rating-loading"
+									data-size="xs" data-min="0" data-max="5" data-step="1"
+									data-readonly="true" value="${reviewTopic.star}">
+								<div class="form-group" id="formContent">
+									<label>${reviewTopic.trainee.name}</label>
+									<p>${reviewTopic.review}</p>
 								</div>
-							</td>
-							<td><span class="badge bg-red">55%</span></td>
-						</tr>
-						<tr>
-							<td>2.</td>
-							<td>Clean database</td>
-							<td>
-								<div class="progress progress-xs">
-									<div class="progress-bar progress-bar-yellow"
-										style="width: 70%"></div>
-								</div>
-							</td>
-							<td><span class="badge bg-yellow">70%</span></td>
-						</tr>
-						<tr>
-							<td>3.</td>
-							<td>Cron job running</td>
-							<td>
-								<div class="progress progress-xs progress-striped active">
-									<div class="progress-bar progress-bar-primary"
-										style="width: 30%"></div>
-								</div>
-							</td>
-							<td><span class="badge bg-light-blue">30%</span></td>
-						</tr>
-						<tr>
-							<td>4.</td>
-							<td>Fix and squish bugs</td>
-							<td>
-								<div class="progress progress-xs progress-striped active">
-									<div class="progress-bar progress-bar-success"
-										style="width: 90%"></div>
-								</div>
-							</td>
-							<td><span class="badge bg-green">90%</span></td>
-						</tr>
-					</table>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<!-- /.box-body -->
 			</div>

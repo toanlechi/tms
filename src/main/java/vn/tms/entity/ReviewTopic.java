@@ -23,10 +23,10 @@ public class ReviewTopic implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Topic topic;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Trainee trainee;
 
 	@Column(name = "review")

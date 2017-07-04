@@ -1,5 +1,7 @@
 package vn.tms.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class ReviewTopicServicesImpl implements ReviewTopicServices{
 	@Override
 	public ReviewTopic findReviewByTopicAndTrainee(int topic, int trainee) {
 		return reviewTopicDAO.findByTopic_idAndTrainee_id(topic, trainee);
+	}
+
+	@Override
+	public List<ReviewTopic> findByTopicId(int topic) {
+		return reviewTopicDAO.findByTopic_id(topic);
 	}
 
 }

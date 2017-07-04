@@ -20,6 +20,7 @@ import vn.tms.entity.Topic;
 import vn.tms.entity.Trainer;
 import vn.tms.entity.TrainingStaff;
 import vn.tms.services.CoursesServices;
+import vn.tms.services.ReviewTopicServices;
 import vn.tms.services.TopicServices;
 import vn.tms.services.TrainerServices;
 import vn.tms.services.TrainingStaffServices;
@@ -38,6 +39,9 @@ public class TopicController {
 
 	@Autowired
 	private TrainerServices trainerServices;
+	
+	@Autowired
+	ReviewTopicServices reviewTopicServices;
 
 	@GetMapping("/topic")
 	public ModelAndView topic() {
@@ -57,7 +61,8 @@ public class TopicController {
 			return "404";
 		}
 		model.addAttribute("topic", topic);
-
+		model.addAttribute("listReviewTopic", reviewTopicServices
+				.findByTopicId(topic.getId()));
 		return "topic_detail";
 	}
 

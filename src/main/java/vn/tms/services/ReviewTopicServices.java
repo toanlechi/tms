@@ -1,5 +1,7 @@
 package vn.tms.services;
 
+import java.util.List;
+
 import vn.tms.entity.ReviewTopic;
 
 public interface ReviewTopicServices {
@@ -8,4 +10,6 @@ public interface ReviewTopicServices {
 	void create(ReviewTopic reviewTopic);
 
 	ReviewTopic findReviewByTopicAndTrainee(int topic, int trainee);
+	
+	List<ReviewTopic> findByTopicId(int topic);
 }

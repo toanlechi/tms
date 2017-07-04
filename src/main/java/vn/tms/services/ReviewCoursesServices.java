@@ -1,5 +1,7 @@
 package vn.tms.services;
 
+import java.util.List;
+
 import vn.tms.entity.ReviewCourses;
 
 public interface ReviewCoursesServices {
@@ -9,4 +11,6 @@ public interface ReviewCoursesServices {
 	void create(ReviewCourses reviewCourses);
 	
 	ReviewCourses findReviewByCoursesAndTrainee(int courses, int trainee);
+	
+	List<ReviewCourses> findByCoursesId(int courses);
 }

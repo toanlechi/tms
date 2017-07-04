@@ -108,6 +108,8 @@
 						data-toggle="tab">List Topic Of Courses</a></li>
 					<li><a href="#list-trainee" role="tab" data-toggle="tab">List
 							Trainee Of Courses</a></li>
+					<li><a href="#list-review" role="tab" data-toggle="tab">List
+							Review Of Courses</a></li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -203,9 +205,21 @@
 							<!-- end loading -->
 						</div>
 
+					</div>
 
-
-
+					<div class="tab-pane" id="list-review">
+						<c:if test="${not empty listReviewCourses}">
+							<c:forEach items="${listReviewCourses}" var="reviewCourses"
+								varStatus="loop">
+								<input id="showrate" type="text" class="rating rating-loading"
+									data-size="xs" data-min="0" data-max="5" data-step="1"
+									data-readonly="true" value="${reviewCourses.star}">
+								<div class="form-group" id="formContent">
+									<label>${reviewCourses.trainee.name}</label>
+									<p>${reviewCourses.review}</p>
+								</div>
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 			</div>

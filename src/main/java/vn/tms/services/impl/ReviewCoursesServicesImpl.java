@@ -1,5 +1,7 @@
 package vn.tms.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class ReviewCoursesServicesImpl implements ReviewCoursesServices{
 	@Override
 	public void create(ReviewCourses reviewCourses) {
 		reviewCoursesDAO.save(reviewCourses);
+	}
+
+	@Override
+	public List<ReviewCourses> findByCoursesId(int courses) {
+		return reviewCoursesDAO.findByCourses_id(courses);
 	}
 
 }

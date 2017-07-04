@@ -23,7 +23,7 @@
 		<div class="col-sm-12  col-md-6 col-md-offset-3">
 			<div class="box box-warning">
 				<div class="box-header with-border">
-					<h3 class="box-title">Add Courses</h3>
+					<h3 class="box-title">Courses Info</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -36,10 +36,7 @@
 						<div class="form-group">
 							<label>Select (*)</label> <select class="form-control"
 								name="category" id="category">
-								<option value="0" />
-								<c:if test="${courses.id != null}">
-									<option value="${courses.category.id }">${courses.category.name }</option>
-								</c:if>
+								<option value="${courses.category.id }">${courses.category.name }</option>
 
 								<c:forEach items="${categories }" var="category">
 									<option value="${category.id }">${category.name }</option>

@@ -108,4 +108,14 @@ public class CoursesServicesImpl implements CoursesServices {
 
 		return coursesDAO.findByListTrainee_id(id);
 	}
+
+	@Override
+	public List<Courses> findByCategoryId(int id) {
+		return coursesDAO.findByCategory_id(id);
+	}
+
+	@Override
+	public boolean test(String a) {
+		return true;
+	}
 }

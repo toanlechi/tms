@@ -75,7 +75,7 @@ public class AjaxController {
 
 	@Autowired
 	ReviewCoursesServices reviewCoursesServices;
-	
+
 	@Autowired
 	ReviewTopicServices reviewsTopicServices;
 
@@ -296,62 +296,57 @@ public class AjaxController {
 	}
 
 	@PostMapping(value = "/reviewCourses")
-	public @ResponseBody ModelAndView reviewCourses(HttpServletRequest request,
-			@RequestParam("rate") int rate,
-			@RequestParam("coursesId") int coursesId,
-			@RequestParam("content") String content ,Principal principal) {
-		
+	public @ResponseBody ModelAndView reviewCourses(HttpServletRequest request, @RequestParam("rate") int rate,
+			@RequestParam("coursesId") int coursesId, @RequestParam("content") String content, Principal principal) {
+
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		Courses courses = coursesServices.findOne(coursesId);
-		
+
 		ReviewCourses reviewCourses = new ReviewCourses();
 		reviewCourses.setCourses(courses);
 		reviewCourses.setReview(content);
 		reviewCourses.setStar(rate);
 		reviewCourses.setTrainee(trainee);
-		
-		ReviewCourses dbReviewCourses = reviewCoursesServices
-				.findReviewByCoursesAndTrainee(courses.getId(), trainee.getId());
-		if(dbReviewCourses == null){
+
+		ReviewCourses dbReviewCourses = reviewCoursesServices.findReviewByCoursesAndTrainee(courses.getId(),
+				trainee.getId());
+		if (dbReviewCourses == null) {
 			reviewCoursesServices.create(reviewCourses);
-		}else {
+		} else {
 			reviewCourses.setId(dbReviewCourses.getId());
 			reviewCoursesServices.update(reviewCourses);
 		}
-		
+
 		ModelAndView mv = new ModelAndView("reviewCourses");
 		mv.addObject("reviewCourses", reviewCourses);
-		
+
 		return mv;
 	}
-	
+
 	@PostMapping(value = "/reviewTopic")
-	public @ResponseBody ModelAndView reviewTopic(HttpServletRequest request,
-			@RequestParam("rate") int rate,
-			@RequestParam("topicId") int topicId,
-			@RequestParam("content") String content ,Principal principal) {
-		
+	public @ResponseBody ModelAndView reviewTopic(HttpServletRequest request, @RequestParam("rate") int rate,
+			@RequestParam("topicId") int topicId, @RequestParam("content") String content, Principal principal) {
+
 		Trainee trainee = traineeServices.findByEmail(principal.getName());
 		Topic topic = topicServices.findOne(topicId);
-		
+
 		ReviewTopic reviewTopic = new ReviewTopic();
 		reviewTopic.setTopic(topic);
 		reviewTopic.setReview(content);
 		reviewTopic.setStar(rate);
 		reviewTopic.setTrainee(trainee);
-		
-		ReviewTopic dbReviewTopic = reviewsTopicServices
-				.findReviewByTopicAndTrainee(topic.getId(), trainee.getId());
-		if(dbReviewTopic == null){
+
+		ReviewTopic dbReviewTopic = reviewsTopicServices.findReviewByTopicAndTrainee(topic.getId(), trainee.getId());
+		if (dbReviewTopic == null) {
 			reviewsTopicServices.create(reviewTopic);
-		}else {
+		} else {
 			reviewTopic.setId(dbReviewTopic.getId());
 			reviewsTopicServices.create(reviewTopic);
 		}
-		
+
 		ModelAndView mv = new ModelAndView("reviewTopic");
 		mv.addObject("reviewTopic", reviewTopic);
-		
+
 		return mv;
 	}
 
@@ -365,6 +360,18 @@ public class AjaxController {
 		ModelAndView mv = new ModelAndView("table_topic");
 		List<Topic> listTopic = topicServices.search(text, searchBy, dateFrom, dateTo, coursesId);
 		mv.addObject("topics", listTopic);
+		return mv;
+	}
+
+	@PostMapping("/searchTrainer")
+	@ResponseBody
+	public ModelAndView findTrainer(@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam("searchBy") String searchBy,
+			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
+			@RequestParam(value = "dateTo", defaultValue = "") String dateTo) {
+		ModelAndView mv = new ModelAndView("table_trainer");
+		List<Trainer> trainers = trainerServices.search(dateFrom, dateTo, dateTo, searchBy);
+		mv.addObject("listTrainer", trainers);
 		return mv;
 	}
 
@@ -397,20 +404,22 @@ public class AjaxController {
 
 	@PostMapping("/trainer/update")
 	@ResponseBody
-	public String trainerUpdate(@RequestParam("name") String name, @RequestParam(value="password", defaultValue="") String password,
+	public String trainerUpdate(@RequestParam("name") String name,
+			@RequestParam(value = "password", defaultValue = "") String password,
 			@RequestParam(value = "newPassword", defaultValue = "") String newPassword,
 			@RequestParam(value = "reNewPassword", defaultValue = "") String reNewPassword,
 			@RequestParam("education") String education, @RequestParam("phone") int phone,
-			@RequestParam("workingPlace") String workingPlace, Principal principal, @RequestParam(value="trainingStaff", defaultValue="") String trainingStaff, @RequestParam(value="trainerId", defaultValue="0") int trainerId) {
-		Trainer trainer =null;
+			@RequestParam("workingPlace") String workingPlace, Principal principal,
+			@RequestParam(value = "trainingStaff", defaultValue = "") String trainingStaff,
+			@RequestParam(value = "trainerId", defaultValue = "0") int trainerId) {
+		Trainer trainer = null;
 
-		
-		if (trainingStaff.equals("")){
-			trainer= trainerServices.findByEmail(principal.getName());
+		if (trainingStaff.equals("")) {
+			trainer = trainerServices.findByEmail(principal.getName());
 			if (!passwordEncode.matches(password, trainer.getPassword())) {
 				return "Wrong password!";
 			}
-			
+
 			if (newPassword.equals(reNewPassword) && newPassword.length() > 8) {
 				trainer.setPassword(passwordEncode.encode(newPassword));
 			} else {
@@ -420,30 +429,28 @@ public class AjaxController {
 					return "Password length must be greater than 8 characters!";
 				}
 			}
-			
+
 		} else {
 			trainer = trainerServices.findOne(trainerId);
-			if (!newPassword.equals("")){
-				if (newPassword.length()>8){
+			if (!newPassword.equals("")) {
+				if (newPassword.length() > 8) {
 					trainer.setPassword(passwordEncode.encode(newPassword));
 				} else {
-					 return "Password length must be greater than 8 characters!";
+					return "Password length must be greater than 8 characters!";
 				}
 			}
 		}
-		
 
 		if (name != null && !name.equals("")) {
 			trainer.setName(name);
 		} else {
 			return "Name value not null!";
 		}
-		
+
 		trainer.setEducation(education);
 		trainer.setPhone(phone);
 		trainer.setWorkingPlace(workingPlace);
 
-		
 		trainerServices.update(trainer);
 
 		return "Update complete!";

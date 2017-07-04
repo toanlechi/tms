@@ -18,6 +18,7 @@ public interface TrainerServices {
 	void update(Trainer trainer, String status);
 
 	void delete(Trainer trainer);
-	
-	
+
+	List<Trainer> search(String text, String dateStart, String dateEnd, String searchBy);
+
 }

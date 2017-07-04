@@ -23,7 +23,7 @@ public interface CoursesDAO extends CrudRepository<Courses, Integer> {
 	List<Courses> findByTrainingStaff_nameStartingWith(String name);
 
 	List<Courses> findByCreatedAtBetween(Date dateStart, Date dateEnd);
-	
+
 	List<Courses> findByCategory_idAndCreatedAtBetween(int categoryId, Date dateStart, Date dateEnd);
 
 	List<Courses> findByCategory_id(int id);
@@ -39,7 +39,9 @@ public interface CoursesDAO extends CrudRepository<Courses, Integer> {
 	@Query("select c from Courses c where c.createdAt>:dateStart and c.createdAt<:dateEnd and c.name like %:name%")
 	List<Courses> findByNameDate(@Param("dateStart") Date dateStart, @Param("dateEnd") Date dateEnd,
 			@Param("name") String name);
+
 	List<Courses> findByListTrainee_id(int id);
+
 	int countByTrainingStaff_id(int id);
 
 }

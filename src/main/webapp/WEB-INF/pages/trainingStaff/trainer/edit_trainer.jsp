@@ -26,7 +26,7 @@
 						src="<c:url value="/static/images/avatar3.png" />"
 						alt="User profile picture">
 
-					<h3 class="profile-username text-center">${trainer.name }</h3>
+					<h3 class="profile-username text-center" id="view-text-name">${trainer.name }</h3>
 
 					<p class="text-muted text-center">Trainer</p>
 
@@ -57,8 +57,9 @@
 						<div class="tab-pane" id="settings">
 							<form class="form-horizontal" onsubmit="return validation()"
 								action="#" method="post">
-								<input type="text" class="hidden" value="${trainer.id }" name="trainerId">
-								
+								<input type="text" class="hidden" value="${trainer.id }"
+									id="trainerId">
+
 								<div class="form-group">
 									<label for="inputName" class="col-sm-3 control-label">Name
 										*</label>
@@ -73,8 +74,8 @@
 									<label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
 									<div class="col-sm-9">
-										<input type="email" disabled class="form-control" id="inputEmail"
-											value="${trainer.email }">
+										<input type="email" disabled class="form-control"
+											id="inputEmail" value="${trainer.email }">
 									</div>
 								</div>
 
@@ -187,6 +188,7 @@
 		data["phone"] = $("#inputPhone").val();
 		data["workingPlace"] = $("#inputWorkingPlace").val();
 		data["trainingStaff"] = 'true';
+		data["trainerId"] = $("#trainerId").val();
 
 		$.ajax({
 			type : "POST",
@@ -196,6 +198,9 @@
 			dataType : 'text',
 			timeout : 600000,
 			success : function(data) {
+				if (data == 'Update complete!') {
+					$("#view-text-name").text($("#inputName").val());
+				}
 				alert(data);
 			},
 			error : function(e) {

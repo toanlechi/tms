@@ -11,9 +11,10 @@ import vn.tms.dao.TrainerDAO;
 import vn.tms.entity.Trainer;
 import vn.tms.services.TrainerServices;
 import vn.tms.utils.Constant;
+import vn.tms.utils.Utils;
 
 @Service
-public class TrainerServicesImpl implements TrainerServices{
+public class TrainerServicesImpl implements TrainerServices {
 	@Autowired
 	TrainerDAO trainerDAO;
 
@@ -45,18 +46,18 @@ public class TrainerServicesImpl implements TrainerServices{
 	@Override
 	public void update(Trainer trainer, String status) {
 		trainer.setUpdatedAt(new Date());
-		
+
 		switch (status) {
-			case "active":
-				trainer.setStatus(true);
-				System.out.println("Active");
-				break;
-			case "block":
-				trainer.setStatus(false);
-				System.out.println("Block");
-				break;
+		case "active":
+			trainer.setStatus(true);
+			System.out.println("Active");
+			break;
+		case "block":
+			trainer.setStatus(false);
+			System.out.println("Block");
+			break;
 		}
-		
+
 		trainerDAO.save(trainer);
 	}
 
@@ -74,4 +75,38 @@ public class TrainerServicesImpl implements TrainerServices{
 	public Trainer findOne(Integer id) {
 		return trainerDAO.findOne(id);
 	}
+
+	@Override
+	public List<Trainer> search(String text, String dateStart, String dateEnd, String searchBy) {
+		if ((text == null || text.equals("")) && !dateEnd.isEmpty()) {
+			return trainerDAO.findByCreatedAtBetweenAndRole(Utils.getDate(dateStart), Utils.getDate(dateEnd),
+					Constant.ROLE.TRAINER);
+		}
+
+		System.out.println("-----------------");
+
+		if (searchBy.equals("name")) {
+			System.out.println("name");
+			if (dateStart.equals("")) {
+				System.out.println("name");
+				return trainerDAO.findByNameAndRole(Constant.ROLE.TRAINER, text);
+			} else {
+				System.out.println("name date");
+				return trainerDAO.findByNameContainingAndCreatedAtBetweenAndRole(text, Utils.getDate(dateStart),
+						Utils.getDate(dateEnd), Constant.ROLE.TRAINER);
+			}
+		} else if (searchBy.equals("email")) {
+			System.out.println("email");
+			if (dateStart.equals("")) {
+				System.out.println("email");
+				return trainerDAO.findByEmailContainingAndRole(text, Constant.ROLE.TRAINER);
+			} else {
+				System.out.println("email date");
+				return trainerDAO.findByEmailContainingAndCreatedAtBetweenAndRole(text, Utils.getDate(dateStart),
+						Utils.getDate(dateEnd), Constant.ROLE.TRAINER);
+			}
+		}
+		return null;
+	}
+
 }

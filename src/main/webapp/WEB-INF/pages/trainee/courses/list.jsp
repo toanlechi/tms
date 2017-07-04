@@ -41,10 +41,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${listCourses}"
-										var="coursesItem" varStatus="loop">
+									<c:forEach items="${listCourses}" var="coursesItem"
+										varStatus="loop">
 										<tr>
-											<td align="center"><c:out value="${loop.index + 1}" /></td>
+											<td align="center">${loop.index + 1}</td>
 											<td>${coursesItem.name }</td>
 											<td>${coursesItem.description }</td>
 											<td>${coursesItem.createdAt }</td>

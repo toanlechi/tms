@@ -226,6 +226,9 @@
 
 	<!-- Table excel trainee -->
 	<definition name="table_topic" template="/WEB-INF/pages/plus/tableTopic.jsp"></definition>
+	
+	<!-- Table excel trainee -->
+	<definition name="table_trainer" template="/WEB-INF/pages/plus/tableTrainer.jsp"></definition>
 	<!-- =================================End Pages Plus================================== -->
 
 

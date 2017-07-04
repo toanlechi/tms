@@ -79,6 +79,16 @@ public class Courses implements Serializable {
 		this.trainingStaff = trainingStaff;
 		this.listTrainee = listTrainee;
 	}
+	
+	
+
+
+
+	public Courses(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
 
 
 

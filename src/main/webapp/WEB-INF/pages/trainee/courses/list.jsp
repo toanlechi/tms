@@ -48,10 +48,11 @@
 											<td>${coursesItem.name }</td>
 											<td>${coursesItem.description }</td>
 											<td>${coursesItem.createdAt }</td>
-											<td align="center"><a
-												href="<c:url value="/trainee/courses/${coursesItem.id}/show" />"
+											<td align="center">
+												<a href="<c:url value="/trainee/courses/${coursesItem.id}/show" />"
 												title="Show Courses"> <i class="fa fa-search"></i>
-											</a></td>
+												</a>
+											</td>
 										<tr>
 									</c:forEach>
 								</tbody>

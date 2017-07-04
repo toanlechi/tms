@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.tms.entity.Category;
 import vn.tms.entity.Courses;
+import vn.tms.entity.ReviewCourses;
 import vn.tms.entity.Topic;
 import vn.tms.entity.Trainee;
 import vn.tms.entity.TrainingStaff;
 import vn.tms.services.CategoryServices;
 import vn.tms.services.CoursesServices;
+import vn.tms.services.ReviewCoursesServices;
 import vn.tms.services.TopicServices;
 import vn.tms.services.TraineeServices;
 import vn.tms.services.TrainingStaffServices;
@@ -42,6 +44,9 @@ public class CoursesController {
 
 	@Autowired
 	private TraineeServices traineeServices;
+	
+	@Autowired
+	ReviewCoursesServices reviewCoursesServices;
 
 	@GetMapping("/courses")
 	public ModelAndView courses() {
@@ -86,9 +91,11 @@ public class CoursesController {
 		}
 		List<Topic> topics = topicServices.findByCourses(courses);
 		List<Trainee> trainees = traineeServices.findByCoursesId(coursesId);
+		List<ReviewCourses> listReviewCourses = reviewCoursesServices.findByCoursesId(courses.getId());
 		model.addAttribute("courses", courses);
 		model.addAttribute("listTopic", topics);
 		model.addAttribute("listTrainee", trainees);
+		model.addAttribute("listReviewCourses", listReviewCourses);
 
 		return "courses_detail";
 	}

@@ -26,7 +26,7 @@ public class CoursesTest {
 	}
 	
 	@Test
-	public void testLoginUTC01() throws Exception{
+	public void testGetList() throws Exception{
 		
 	}
 }
